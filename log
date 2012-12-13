@@ -1,0 +1,18 @@
+
+						Individual Project Progess Log
+
+--------------------------------------------------------------------------------
+December 4th
+--------------------------------------------------------------------------------
+
+First meeting with my supervisor.
+We discussed the main things I should be doing over christmas to get started and end up with a clear idea of what my project will be.
+
+	1. What do I want to do?
+	   Help students to understand first order predicate logic sytax and semantics. Assume they are familiar with basic concepts.
+
+	2. How do I want to do it?
+	   Provide an attractive and easy to use graphical interface that will guide the student through learning semantics.
+	   Put the user into context with the shortest, most catchy introduction (e.g. Why do we need predicate logic).
+	   Allow user graphical and command line input so that they can play arround easily with variations of a formula
+
