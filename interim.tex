@@ -47,14 +47,45 @@ On the current market, there are a considerable number of tools designed to help
 
 The idea of a LOgic Semantics Tool might sound simple but it is not easy to implement in an attractive way. The risk of making yet another slightly interactive tutorial is quite high therefore my aproach was to make sure this tool engages the student fully, whilst somehow motivating them to try and practice with it as much as they would with any computer game. This shaped the main idea for tackling the problem into designing a computer game where the user is assigned an avatar of his choice which they then have to train into mastering first order logic semantics. Furthermore, their treinee can then complete small to complex logical missions like recognising the validity of a sentence and even interact with the computer in the form of a Hintikka game.
 
-The firt natural step was to think what the features of the minimum viable product would be.
+The firt natural step was to think what the features of the minimum viable product would be. When deciding I took into account the project specifications and available time. Here is an outline of what the product should be able to to:
+\begin{itemize}
+	\item Maintain a database of predifined and user defined signatures which can be restored to a default at any point
+	\item Verify the validity of a new signature.
+	\item Verify the validity and truth value of a sentence given a signature.
+	\item Accept command line as well as graphical input
+	\item A user should be able to download the application, login and create an avatar
+	\item Allow the user to login and create a new avatar if they haven't aready got one.
+	\item Allow multiple avatars per user.
+	\item Implement a tutorial to familiarize a new user with what their avatar can already do
+	\item Implement a training method for learning the meaning of quantifiers and relations and to assign truth values to sentences given a signature
+	\item IMplement a game that awards points for correcty assigned truth values for sentences given a signature.
+	\item Provide an attractive GUI.
+\end{itemize}
+
+You may realise this is already quite complex to implement, however it provides little functionality. Therefore, if time allowes, I am hoping to further implement the followinf features:
+\begin{itemize}
+	\item Implement a hitikka game for the avatar to play against the computer.
+	\item Allow multimple users
+	\item 
+
+
+\end{itemize}
 
 	% What is the problem?
 	% Why is it interesting?
 	% What’s your main idea for solving it?
 
 \section{Background}		% 10-20 pages
+	When trying to teach logic semantics one might guess that it mostly comes down to the student's own practice. 
 	% Describe as many approaches as possible
+
+	Previous attempts have been made to fill this gap in the market. The first one that came to mind was the solution one student provided for this same specification in 2007. They developed a Java application which meets the minimum requirements and provides a few extrafeatures like the Hintikka game and an attempt at Logic-English translation. This LOST tool allowes users to enter signatures, structures and sentences, then evaluate them.
+
+	Tarski's World
+	Hyperproof
+	Language, PRoof and Logic
+
+
 	% Desribe previous work and solutions
 	% Point out the ideas i'll use in my own work
 

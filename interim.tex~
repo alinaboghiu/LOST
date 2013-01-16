@@ -41,6 +41,23 @@ Ian \textsc{Hodkinson}
 %-------------------------------------------------------------------------------
 
 \section{Introduction}		% 1-3 pages
+First order logic is a powerful tool, of great importance in computing and mathematics. For students it is a way of practicing and developing important logical skills and it provides a formal way of studying and understanding common mathematical structures. However it is difficult for them to learn the semantics of first order logic and with this being the key to assigning a truth value to any first-order logical sentence, the issue is quite severe.\\
+
+On the current market, there are a considerable number of tools designed to help teach natural deduction or equivalances,but very few attempts have been made to design something that will acompany the student in learning the semantics of first order logic. Feedback is currently restricted to lectures and tutorials which means this kind of instant guidance from a piece of computer software would make a great impact in the way students learn, improving both their and the teacher's experience.\\
+
+The idea of a LOgic Semantics Tool might sound simple but it is not easy to implement in an attractive way. The risk of making yet another slightly interactive tutorial is quite high therefore my aproach was to make sure this tool engages the student fully, whilst somehow motivating them to try and practice with it as much as they would with any computer game. This shaped the main idea for tackling the problem into designing a computer game where the user is assigned an avatar of his choice which they then have to train into mastering first order logic semantics. Furthermore, their treinee can then complete small to complex logical missions like recognising the validity of a sentence and even interact with the computer in the form of a Hintikka game.
+
+The firt natural step was to think what the features of the minimum viable product would be. When deciding I took into account the project specifications and available time. Here is an outline of what the product should be able to to:\\
+\begin{enumerate]
+\begin{itemize}
+\item The system should provide an attractive GUI.
+\item A user should be able to download the application, login and create an avatar
+\item The user should be able to access a database of valid default or custom made signatures as well as add, delete or restore.
+\item The system should be able to verify the validity of a new signature.
+\item The system should allow the user to train it's avatar into establishing the truh value of a logic sentence given a signature
+\item A game of establishing the validity and truth value of a sentence should be implemented for the avatar to play. A score of correctly completed tasks should be kept.
+\end{itemize}
+\en{enumerate}
 	% What is the problem?
 	% Why is it interesting?
 	% What’s your main idea for solving it?
@@ -54,14 +71,9 @@ Ian \textsc{Hodkinson}
 	% what needs to be done
 	% timetable: key milestones and backup 
 
-\section{Conclusion and future developments}
-	% Say what you’ve concluded from doing the work and how you’d build on it
-
-\section{Project management}
-	%Planning, group organisation, breakdown + task allocation etc.
-
-\section{Bibliography}
-
-\section{Appendix}
+\section{Evaluation}		% 1-2 pages
+	% What makes it successful?
+	% What extestions has it brought?
+	% Quality?
 
 \end{document}
