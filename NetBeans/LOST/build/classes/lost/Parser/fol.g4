@@ -12,19 +12,19 @@ formula
 	| implication
 	| disjunction
 	| conjunction
-	| leftSide ;
+	| nonRecursiveFormula ;
 
 equivalence
-	: leftSide EQUIV formula ;
+	: nonRecursiveFormula EQUIV formula ;
 
 implication
-	: leftSide IMPLIES formula ;
+	: nonRecursiveFormula IMPLIES formula ;
 
 disjunction
-	: leftSide OR formula ;
+	: nonRecursiveFormula OR formula ;
 
 conjunction
-	: leftSide AND formula ;
+	: nonRecursiveFormula AND formula ;
 
 negation 
 	: NOT formula ;
@@ -44,7 +44,7 @@ term
 	: VARIABLE
 	| NAME ;
 
-leftSide
+nonRecursiveFormula
 	: negation
 	| term EQUALS term
 	| relation
