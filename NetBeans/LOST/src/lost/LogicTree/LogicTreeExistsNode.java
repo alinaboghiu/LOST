@@ -9,18 +9,19 @@ public class LogicTreeExistsNode extends LogicTreeNode{
     LogicTreeNode next;
     Variable var;
     
-    LogicTreeExistsNode(Variable var){
-        var.existsBound = true;
-        name = "∃"+var.name;
+    LogicTreeExistsNode(Variable var, LogicTreeNode next){
+        this.var.existsBound = true;
+        this.next = next;
+        this.name = "∃"+var.name;
     }
 
     @Override
-    boolean evaluate(Signature s) throws UnboundException {
+    boolean evaluate(Structure s) throws UnboundException {
         return next.evaluate(s);
     }
 
     @Override
-    SignatureBuilder generateElements(SignatureBuilder builder) {
+    Signature generateElements(Signature builder) {
         return builder;
     }
     

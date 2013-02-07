@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package lost;
+package lost.LogicTree;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,7 +21,7 @@ class UnaryRel {
         this.name = name;
     }
 
-    boolean trueIn(Signature s) throws UnboundException{
+    boolean trueIn(Structure s) throws UnboundException{
         if(arg instanceof Constant){
             for(UnaryRel currRel:s.unaryRelations){
                 if (currRel.sameName(this) && currRel.arg.equals(arg)){

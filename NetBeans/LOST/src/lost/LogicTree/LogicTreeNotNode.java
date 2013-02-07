@@ -13,12 +13,12 @@ public class LogicTreeNotNode extends LogicTreeNode {
     LogicTreeNode next;
 
     @Override
-    boolean evaluate(Signature s) throws UnboundException {
+    boolean evaluate(Structure s) throws UnboundException {
         return !next.evaluate(s);
     }
 
     @Override
-    SignatureBuilder generateElements(SignatureBuilder builder) {
+    Signature generateElements(Signature builder) {
         return builder;
     }
     

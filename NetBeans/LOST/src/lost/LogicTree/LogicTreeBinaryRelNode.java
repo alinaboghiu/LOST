@@ -8,16 +8,16 @@ package lost.LogicTree;
  *
  * @author alina
  */
-public class LogicTreeBinaryNode extends LogicTreeNode{
+public class LogicTreeBinaryRelNode extends LogicTreeNode{
     
     BinaryRel rel;
     
-    boolean evaluate(Signature s) throws UnboundException{
+    boolean evaluate(Structure s) throws UnboundException{
         return rel.trueIn(s);
     }
 
     @Override
-    SignatureBuilder generateElements(SignatureBuilder builder) {
+    Signature generateElements(Signature builder) {
         builder.binaryRelations.add(rel);
         if (rel.arg1 instanceof Constant) { 
             Constant c = (Constant) rel.arg1;

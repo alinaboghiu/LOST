@@ -16,7 +16,7 @@ class BinaryRel {
     Arguement arg1;
     Arguement arg2;
 
-    boolean trueIn(Signature s) throws UnboundException {
+    boolean trueIn(Structure s) throws UnboundException {
         if (arg1 instanceof Constant && arg2 instanceof Constant) {
             for (BinaryRel currRel : s.binaryRelations) {
                 if (currRel.sameName(this)

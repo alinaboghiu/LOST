@@ -8,17 +8,17 @@ package lost.LogicTree;
  *
  * @author alina
  */
-public class LogicTreeNullaryNode extends LogicTreeNode{    
+public class LogicTreeNullaryRelNode extends LogicTreeNode{    
 
     NullaryRel rel;
         
     @Override
-    boolean evaluate(Signature s) {
+    boolean evaluate(Structure s) {
         return rel.value;
     }
     
     @Override
-    SignatureBuilder generateElements(SignatureBuilder builder) {
+    Signature generateElements(Signature builder) {
         builder.nullaryRelations.add(rel);
         return builder;
     }

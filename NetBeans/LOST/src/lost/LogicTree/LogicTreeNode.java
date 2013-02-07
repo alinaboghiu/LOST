@@ -11,9 +11,9 @@ package lost.LogicTree;
 abstract class LogicTreeNode {
     
     String name;
-    SignatureBuilder builder;
+    Signature builder;
     
-    abstract SignatureBuilder generateElements(SignatureBuilder builder);      
-    abstract boolean evaluate(Signature s) throws UnboundException;
+    abstract Signature generateElements(Signature builder);      
+    abstract boolean evaluate(Structure s) throws UnboundException;
 
 }

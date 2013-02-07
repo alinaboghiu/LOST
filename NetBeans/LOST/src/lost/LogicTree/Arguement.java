@@ -9,8 +9,6 @@ package lost.LogicTree;
  * @author alina
  */
 
-enum ArgType {}
-
 abstract class Arguement {
     
     String name;

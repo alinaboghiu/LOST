@@ -13,18 +13,19 @@ public class LogicTreeForAllNode extends LogicTreeNode {
     LogicTreeNode next;
     Variable var;
     
-    LogicTreeForAllNode(Variable var){
-        var.forAllBound = true;
-        name = "∀"+var.name;
+    LogicTreeForAllNode(Variable var, LogicTreeNode next){
+        this.var.forAllBound = true;
+        this.name = "∀"+var.name;
+        this.next = next;
     }
 
     @Override
-    boolean evaluate(Signature s) throws UnboundException {
+    boolean evaluate(Structure s) throws UnboundException {
         return next.evaluate(s);
     }
 
     @Override
-    SignatureBuilder generateElements(SignatureBuilder builder) {
+    Signature generateElements(Signature builder) {
         return builder;
     }
     
