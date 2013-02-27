@@ -1,43 +1,34 @@
-//-----------------------------------------------------------------------------
-//     PARSER RULES
-//-----------------------------------------------------------------------------
 
 grammar FOL ;
 
 condition
-    : (LPAREN formula RPAREN | formula) EOF! ;
+  : formula EOF ;
 
 formula
-	: (LPAREN equivalence RPAREN | equivalence) ;
-//	: (LPAREN disjunction RPAREN | disjunction) ;
+  : TRUTH
+  | FALSITY
+  | term EQUALS term
+  | relation
+  | quantifier formula
+  | NOT formula
+  | formula AND formula
+  | formula OR formula 
+  | formula IMPLIES formula
+  | formula EQUIV formula 
+  | LPAREN formula RPAREN ;
 
-equivalence
-	: ((LPAREN implication RPAREN | implication) EQUIV)* 
-       (LPAREN implication RPAREN | implication) ;
+term
+  : VARIABLE
+  | NAME ;
 
-implication 
-	: ((LPAREN disjunction RPAREN | disjunction) IMPLIES)* 
-       (LPAREN disjunction RPAREN | disjunction) ;
+quantifier
+  : FORALL VARIABLE
+  | EXISTS VARIABLE ;
 
-disjunction
-	: ((LPAREN conjunction RPAREN | conjunction) OR)* 
-       (LPAREN conjunction RPAREN | conjunction) ;
-
-conjunction
-	: ((LPAREN negation RPAREN | negation) AND)* 
-       (LPAREN negation RPAREN | negation) ;
-
-negation
-	: NOT+ quantifier* (LPAREN nonRecursiveFormula RPAREN | nonRecursiveFormula)
-	| NOT+ quantifier* (LPAREN formula RPAREN | formula )
-	| quantifier+ NOT* (LPAREN nonRecursiveFormula RPAREN | nonRecursiveFormula)
-	| quantifier+ NOT* (LPAREN formula RPAREN | formula )
-	| (nonRecursiveFormula | LPAREN nonRecursiveFormula RPAREN);
-	
 relation
-    : RELNAME binaryarg
-    | RELNAME unaryarg
-    | RELNAME ;
+    : NAME binaryarg
+    | NAME unaryarg
+    | NAME ;
 
 binaryarg
     : LPAREN term ',' term RPAREN ;
@@ -45,25 +36,7 @@ binaryarg
 unaryarg
     : LPAREN term RPAREN ;
 
-quantifier
-    : (FORALL | EXISTS) VARIABLE ;
-
-term
-    : VARIABLE
-    | constant ;
-
-constant
-	: RELNAME ;
-
-nonRecursiveFormula
-    : relation
-    | term EQUALS term
-    | TRUTH
-    | FALSITY ;
-
-//-----------------------------------------------------------------------------
-// 	LEXER RULES
-//-----------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 
 LPAREN   : '('	;
 RPAREN   : ')'	; 
@@ -79,8 +52,19 @@ EQUALS	 : '='	;
 EQUIV	 : '↔'	;
 
 VARIABLE : [a-z] 's'? [0-9]* ;
-RELNAME	 : [a-zA-Z] [a-zA-Z0-9'_']* ;
+NAME	 : [A-Z] | [a-zA-Z] [a-zA-Z09'_']+ ;
 WS       : [ \t\r\n]+ -> skip ;
 
+// ∀x(R(Fred,x) →  ∀y(R(x,y) → P(y)))
 // ∃x∀y (A ∨ B) ∧ B ∧ ¬D ∧ E ∧ F ∨ G ∨ H
-
+// ∃x∀y (A ∨ B) ∧ B ∨ ¬D ∧ E ∧ F ∨ G ∨ H
+// ∃x∀y (A ∨ B) → B ∨ (¬D) ∧ E ∧ (F ∨ G) ∨ H
+// A ∨ ¬B ∧ C
+// B ∨ (¬D) ∧ E ∨ H ∧ E
+// Loves(fred,wilma) ↔ is_in_the_air(love)
+// ⊤
+// brian = rian
+// ∃x∀ys(happy(x) → ¬A)
+// ∀x(Red(Fred,x) ∧ E ∧ E ∧ E ∨ H → E →  ∀y(R(x,y) → P(y)))
+// A → B → C → D → E (Assumes A → B → C means (A → B) → C)
+// A → B → C → (D → E)

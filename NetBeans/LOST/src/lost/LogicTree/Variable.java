@@ -10,20 +10,13 @@ import java.util.ArrayList;
  *
  * @author alina
  */
-class Variable extends Arguement{
+public class Variable extends StructObject{
     
-    boolean existsBound = false;
-    boolean forAllBound = false;
+//    public boolean existsBound = false;
+//    public boolean forAllBound = false;
     
-    Variable(String name){
+    public Variable(String name){
         this.name = name;
     }
-    
-    public void setExistsBound(boolean b){
-        existsBound = b;
-    }
-    
-    public void setForAllBound(boolean b){
-        forAllBound = b;
-    }
+
 }

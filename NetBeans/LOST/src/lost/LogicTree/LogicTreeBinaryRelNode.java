@@ -11,6 +11,12 @@ package lost.LogicTree;
 public class LogicTreeBinaryRelNode extends LogicTreeNode{
     
     BinaryRel rel;
+
+    public LogicTreeBinaryRelNode(BinaryRel rel) {
+        this.rel = rel;
+    }
+    
+    
     
     boolean evaluate(Structure s) throws UnboundException{
         return rel.trueIn(s);

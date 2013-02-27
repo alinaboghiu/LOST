@@ -8,6 +8,6 @@ package lost.LogicTree;
  *
  * @author alina
  */
-class Constant extends Arguement{
-
+public class Constant extends StructObject{
+   
 }

@@ -4,54 +4,59 @@
  */
 package lost.LogicTree;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 /**
  *
  * @author alina
  */
-class UnaryRel {
+public class UnaryRel {
    
     String name;
-    Arguement arg;
+//    StructObject arg;
 
-    UnaryRel(String name, Arguement arg) {
-        this.arg = arg;
+    public UnaryRel(String name) {
+//        this.arg = arg;
         this.name = name;
     }
-
-    boolean trueIn(Structure s) throws UnboundException{
-        if(arg instanceof Constant){
-            for(UnaryRel currRel:s.unaryRelations){
-                if (currRel.sameName(this) && currRel.arg.equals(arg)){
-                    return true;
-                };
-            }
-            return false;
-        }else{
-            Variable var = (Variable) arg;
-            if(var.existsBound){
-                for(UnaryRel currRel:s.unaryRelations){
-                    return currRel.sameName(this);
-                }
-                return false;
-            }else if(var.forAllBound){
-                int count = 0;
-                for(UnaryRel currRel:s.unaryRelations){
-                    if (currRel.sameName(this)){
-                        count++;
-                    }
-                }
-                return count == s.objects.size();
-            }else{
-                throw new UnboundException(var);
-            }
-        }
+    
+    boolean evaluate(Structure s, StructObject assignedArg){
+        return assignedArg.unaryRel.contains(this);
+    }
+    
+    boolean evaluate(Structure s) throws UnboundException{
+        throw new UnboundException(null);
     }
 
-    private boolean sameName(UnaryRel rel) {
-        return this.name.equals(rel.name);
-    }
+//    boolean trueIn(Structure s) throws UnboundException{
+//        if(arg instanceof Constant){
+//            for(UnaryRel currRel:s.unaryRelations){
+//                if (currRel.sameName(this) && currRel.arg.equals(arg)){
+//                    return true;
+//                };
+//            }
+//            return false;
+//        }else{
+//            Variable var = (Variable) arg;
+//            if(var.existsBound){
+//                for(UnaryRel currRel:s.unaryRelations){
+//                    return currRel.sameName(this);
+//                }
+//                return false;
+//            }else if(var.forAllBound){
+//                int count = 0;
+//                for(UnaryRel currRel:s.unaryRelations){
+//                    if (currRel.sameName(this)){
+//                        count++;
+//                    }
+//                }
+//                return count == s.objects.size();
+//            }else{
+//                throw new UnboundException(var);
+//            }
+//        }
+//    }
+//
+//    private boolean sameName(UnaryRel rel) {
+//        return this.name.equals(rel.name);
+//    }
     
 }

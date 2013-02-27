@@ -12,50 +12,16 @@ import java.util.ArrayList;
  */
 public class Structure {
 
-    String name;
-    Signature builder;
-    ArrayList<NullaryRel> nullaryRelations;
-    ArrayList<UnaryRel> unaryRelations;
-    ArrayList<BinaryRel> binaryRelations;
-    ArrayList<Arguement> objects;
-    
-    void addObject(Arguement a){
-        objects.add(a);
-    }
+    public String name;
+    public Signature builder;
+    public ArrayList<NullaryRel> nullaryRelations = new ArrayList<NullaryRel>();
+    public ArrayList<UnaryRel> unaryRelations = new ArrayList<UnaryRel>();
+    public ArrayList<BinaryRel> binaryRelations = new ArrayList<BinaryRel>();
+    public ArrayList<StructObject> objects = new ArrayList<StructObject>();
+
+    public Structure(String name) {
+        this.name = name;
         
-    void addNularyRel(NullaryRel newNularyRel) {
-        nullaryRelations.add(newNularyRel);
-    }
-
-    void addUnaryRel(UnaryRel newUnaryRel) {
-        unaryRelations.add(newUnaryRel);
-    }
-
-    void addBinaryRel(BinaryRel newBinaryRel) {
-        binaryRelations.add(newBinaryRel);
-    }
-
-    void removeObject(Arguement a){
-        objects.remove(a);
     }
     
-    void removeNularyRel(NullaryRel oldNularyRel) {
-        nullaryRelations.remove(oldNularyRel);
-    }
-
-    void removeUnaryRel(UnaryRel oldUnaryRel) {
-        unaryRelations.remove(oldUnaryRel);
-    }
-
-    void removeBinaryRel(BinaryRel oldBinaryRel) {
-        binaryRelations.remove(oldBinaryRel);
-    }
-
-    String getName() {
-        return name;
-    }
-
-    void setName(String newName) {
-        name = newName;
-    }
 }

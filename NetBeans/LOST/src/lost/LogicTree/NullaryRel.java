@@ -8,16 +8,16 @@ package lost.LogicTree;
  *
  * @author alina
  */
-class NullaryRel {
+public class NullaryRel {
     
-    String name;
+    public String name;
     boolean value = true;
     
-    NullaryRel(String name){
+    public NullaryRel(String name){
         this.name = name;
     }
     
-    void changeValue(){
+    public void changeValue(){
         this.value = !value;
     }
 }

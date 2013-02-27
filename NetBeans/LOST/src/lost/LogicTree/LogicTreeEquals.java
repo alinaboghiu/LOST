@@ -10,10 +10,10 @@ package lost.LogicTree;
  */
 public class LogicTreeEquals extends LogicTreeNode{
 
-    Arguement left;
-    Arguement right;
+    StructObject left;
+    StructObject right;
 
-    public LogicTreeEquals(Arguement left, Arguement right) {
+    public LogicTreeEquals(StructObject left, StructObject right) {
         this.name = "=";
         this.left = left;
         this.right = right;

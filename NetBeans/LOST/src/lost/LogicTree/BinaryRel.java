@@ -10,12 +10,18 @@ import java.util.ArrayList;
  *
  * @author alina
  */
-class BinaryRel {
+public class BinaryRel {
 
     String name;
-    Arguement arg1;
-    Arguement arg2;
+    StructObject arg1;
+    StructObject arg2;
 
+    public BinaryRel(String name, StructObject arg1, StructObject arg2) {
+        this.name = name;
+        this.arg1 = arg1;
+        this.arg2 = arg2;
+    }
+    
     boolean trueIn(Structure s) throws UnboundException {
         if (arg1 instanceof Constant && arg2 instanceof Constant) {
             for (BinaryRel currRel : s.binaryRelations) {
@@ -41,6 +47,8 @@ class BinaryRel {
                 return false;
             } else if (var.forAllBound){
                 int count = 0;
+                System.out.print(count);
+                System.out.println(s.binaryRelations.size());
                 for(BinaryRel currRel:s.binaryRelations) {
                     if (currRel.sameName(this)
                         && currRel.arg1.equals(arg1)) {
@@ -55,7 +63,7 @@ class BinaryRel {
         } else if (arg1 instanceof Variable && arg2 instanceof Constant) {
             Variable var = (Variable) arg1;
             if (var.existsBound){
-                for (BinaryRel currRel : s.binaryRelations) {
+                    for (BinaryRel currRel : s.binaryRelations) {
                     if (currRel.sameName(this)
                         && currRel.arg2.equals(this.arg2)
                         && currRel.arg1.equals(var)) {
@@ -88,7 +96,7 @@ class BinaryRel {
                 return false;
                 
             } else if (var1.forAllBound && var2.existsBound) {
-                ArrayList<Arguement> tempObjects = s.objects;
+                ArrayList<StructObject> tempObjects = s.objects;
                 for(BinaryRel currRel : s.binaryRelations) {
                     if (currRel.sameName(this)) {
                         tempObjects.remove(currRel.arg1);
@@ -97,7 +105,7 @@ class BinaryRel {
                 return tempObjects.isEmpty();
                 
             } else if (var1.existsBound && var2.forAllBound){
-                ArrayList<Arguement> tempObjects = s.objects;
+                ArrayList<StructObject> tempObjects = s.objects;
                 for(BinaryRel currRel : s.binaryRelations) {
                     if (currRel.sameName(this)) {
                         tempObjects.remove(currRel.arg2);
@@ -105,8 +113,8 @@ class BinaryRel {
                 }
                 return tempObjects.isEmpty();
             } else if (var1.forAllBound && var2.forAllBound){
-                ArrayList<Arguement> tempObjects1 = s.objects;
-                ArrayList<Arguement> tempObjects2 = s.objects;
+                ArrayList<StructObject> tempObjects1 = s.objects;
+                ArrayList<StructObject> tempObjects2 = s.objects;
                 for(BinaryRel currRel : s.binaryRelations) {
                     if (currRel.sameName(this)) {
                         tempObjects1.remove(currRel.arg1);

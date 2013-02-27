@@ -1,5 +1,5 @@
 \documentclass{article}
-\usepackage{fullpage}
+\usepackage{graphicx}
 
 \begin{document}
 
@@ -15,7 +15,7 @@
 \textsc{\large Third Year Individual Project} \\[0.5cm]
 
 \HRule \\[0.6cm]
-{\huge \bfseries LOST: The LOgic Semantics Tutor} \\[0.3cm]
+{\huge \bfseries LOST: \\The LOgic Semantics Tutor} \\[0.3cm]
 \HRule \\[1.5cm]
 
 \begin{minipage}{0.4\textwidth}
@@ -33,7 +33,7 @@ Alina  \textsc{Boghiu}
 Ian \textsc{Hodkinson}
 \end{flushright}
 
-\begin{flushright} \large \emph{Second marker:}
+\begin{flushright} \large \emph{Second marker:} \\
 Fariba \textsc{Sadri}
 \end{flushright}
 
@@ -45,10 +45,11 @@ Fariba \textsc{Sadri}
 
 %-------------------------------------------------------------------------------
 
-	% What is the problem?
-	% Why is it interesting?
-	% What’s your main idea for solving it?
+% What is the problem?
+% Why is it interesting?
+% What’s your main idea for solving it?
 \section{Introduction}		% 1-3 pages
+
 First order logic is a powerful tool, of great importance in computing and mathematics. For students it is a way of practicing and developing important logical skills and it provides a formal mean for studying and understanding common mathematical structures. However it is difficult for most students to learn the semantics of first order logic and with this being the key to assigning a truth value to any first-order logical sentence, the issue is important.\\
 
 \noindent On the current market, there are a considerable number of tools designed to help teach natural deduction or equivalances, but very few attempts have been made to design something that will acompany the student in learning the semantics of first order logic. Feedback is currently restricted to lectures and tutorials which means this kind of instant guidance provided by computer software would make a great impact in the way students learn, improving both their and the teacher's experience. Designing such a tool raises interesting questions of what would make an interface intuitive and what does it need to provide the user with, such that they can learn and experiment with the semantics of first order predicate logic. From the actual content point of view it would be useful if the user could visualize structures in such a way that they could easily guess the meaning of a possible sentence within it. They should be able to use a toolbox-like signature to add and remove objects and relations as well as have a way of introducing and evaluating sentences. From the software development poit of view arise questions of platform compatibility, graphic interface packages, database handling, storing format etc. Overall it makes for an interesting task with numerous possible extensions.\\
@@ -57,16 +58,21 @@ First order logic is a powerful tool, of great importance in computing and mathe
 
 \noindent The main purpose of this tool remains the most important. A minimum viable program, which allows the user to write and play around with structures, would still be a great addition to any logic student's tools. In the following sections I will explain exactly what the software wants to achieve, what stage it is at and the plan and timetable I will follow towards my final implementation.
 
+%-------------------------------------------------------------------------------
+%		Background
+%-------------------------------------------------------------------------------
 \section{Background}
-	\subsection{First order predicate logic and its semantics}
+
+\subsection{First order predicate logic and its semantics}
+
 In order to understand the product I am aiming for we should first take a look at what first order predicate logic is and why its semantics can be tricky. As an extension of propositional logic, it expreses statements like \emph{Socrates is a man} in much more detail. While propositional logic would regard such a sentence as atomic and assign it a truth value, predicate logic provides a way of describing its internal structure and evaluating it inside a context. It does this by introducing:
 
 	\begin{itemize}
-	\item \emph{Constants} - which name the objects (or terms) inside a context (or structure) (e.g. Socrates)
+	\item \emph{Constants} - which name the objects (or terms) inside a context (e.g. Socrates)
 	\item \emph{Relations} - which describe properties of the objects they take as arguements or just general properties of the structure if they are nullary (i.e. take no arguements) (e.g \emph{man} is a unary relation)
 	\end{itemize}.
 
-\noindent These elements form the signature of a structure. With these concepts we can now rewrite the sentence as \emph{man(Socrates)} however we still need a context in order to interpret it and decide its truth value. This is called a structure. We must ask two questions: Which is the object that Socrates describes and what does it mean for something to be a man. If we take our structure to be an imaginary world of dwarfs and name one of them Socrates, our sentence would be false. However in the context of the real world where everyone is human and Socrates refers to the famous philosopher, the sentence is true.\\
+\noindent These elements form the signature of a structure (the technical term for the context we need in order to evaluate a logic formula and asign it a truth value). For a computer scientist it may be easier to understand that the structure contains instances of the signature's elements, as well as other objects, which one can iterate over with variables. With these concepts we can now rewrite the sentence as \emph{man(Socrates)}. We now must ask two questions: Which is the object that Socrates describes and what does it mean for something to be a man. If we take our structure to be an imaginary world of dwarfs and name one of them Socrates, our sentence would be false. However in the context of the real world where everyone is human and Socrates refers to the famous philosopher, the sentence is true.\\
 
 \noindent Next, if we want to express \emph{All men are mortal} we must introduce the two quantifiers:
 
@@ -75,14 +81,35 @@ In order to understand the product I am aiming for we should first take a look a
 	\item \emph{∀ (For all)} - which checks that all of the objects in the structure satisfy the sentence it refers to.
 	\end{itemize}.
 
-\noindent Now the sentence can now be written as \emph{$\forall$(men(x) $\rightarrow$ mortal(x))} and we refer to x as a variable which in this case is bound by the for all quantifier. Another aspect that the user must understand is that sentences that contain unbound variables are valid but cannot be evaluated to a truth value.
+\noindent Now the sentence can now be written as \emph{$\forall$(men(x) $\rightarrow$ mortal(x))} and we refer to x as a variable which in this case is bound by the for all quantifier. Another aspect that the user must understand is that sentences that contain unbound variables are valid but cannot be evaluated to a truth value.\\
 
-	\subsubsection{The LOST application}
-\textbf{General description}\\
+\noindent A good product would offer a way of visualising all of this and allow the user to play around with structures and senteces in order to better understand the semantics of first order predicate logic.
 
-\noindent The main purpose of LOST will be to model a visual representation of a structure that is intuitive to understand and easy to manipulate. Below is a picture of roughtly how the example discussed would look like. However this is only a prototype at this stage.\\
+%-------------------------------------------------------------------------------
+\subsection{Previous Work}
+Previous attempts have been made to fill this gap in the market. The first one that came to mind was the solution one student provided for this same project specification in 2007. They developed a Java application which meets the minimum requirements and provides a few extrafeatures like the Hintikka game and an attempt at Logic-English translation. This LOST tool allowes users to enter signatures, structures and sentences, then evaluate them. It is quit eintuitive to use but it requires a fair amount of patience to get used to. This derived my decision to pay particular attention to the user experience and aim for software that one can seeminglessly learn. One particular idea came from the step by step approach to requesting input from the user for a new signature. Although the dialog box makes input easy to interpret and is a good way of creating a new signature, it means the user must already know and understand signatures. The idea was there should be a way of automatically generating the signature from an inputed sentence such that the user is pointed in the right direction. This will be further explained in the implementation details section.\\
 
-% \includegraphics...
+\noindent Other application which was interesting to look at is Tarski's World. It alowes users to build three-dimentional wolrds and describe them using first order predicate logic. The chess board like environment gave me the idea of adding game like features to make the software more appealing and ejoyable. 
+
+%-------------------------------------------------------------------------------
+\subsection{The Hintikka game}
+There has always been a strong link between logic and games. Ever since Aristotle they have been widely used for teaching and testing logic. The hintikka game is one very good way of understanding both the structure of a sentence and the evaluation process. It involves two players, a logic sentence and a structure. One of the players represents $\exists$ and tries to make the sentence true whilst the other represents $\forall$ and tries to make it false. The game follows the sentence's tree and I will try and implement a good winning algorithm such that the user can play against the computer.  
+
+%-------------------------------------------------------------------------------
+%  Implementation details
+%-------------------------------------------------------------------------------
+\newpage
+\section{The LOST application: implementation details}
+
+\subsection{General description}
+
+\noindent The main purpose of LOST will be to model a visual representation of a structure that is intuitive to understand and easy to manipulate. Below is a picture of roughtly how the example discussed in the background section would look like. However this is only a prototype at this stage.\\
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{gui.png}
+\caption{A structure generated by the input sentence \emph{man(Socrates)} then modified by the user, and a possible structure}
+\end{figure}
 
 \noindent The main window (the top left area) contains the structure built with elements from the signature on the right handside. At the bottom the user can input sentences for evaluation. Finally, on the right of the avatar there is a summary of the users activity.\\
 
@@ -90,37 +117,40 @@ In order to understand the product I am aiming for we should first take a look a
 
 \noindent The User should be able to modify the structure as well as the signature. The \emph{Add New Object} button will add new circles, by default black to represent that they are not ground. The user should also be able to save the structure along with its signature as well as to load predefined ones. \\
 
-\noindent\textbf{Progress so far}\\
+\subsection{Progress so far}
 
-\noindent One of the first steps when starting the implementation was choosing the main programming language. I took into consideration several facts: I am aiming for quite a complex user interface, I want to develop a desktop application compatible with most platforms to satisfy the various preferences of computing studens and the limited amount of time suggests I should pick a language I am very comfortable with. For these reasons I decided to use Java on the Netbeans IDE which provides a helpful Swing GUI builder.
+One of the first steps when starting the implementation was choosing the main programming language. I took into consideration several facts: I am aiming for quite a complex user interface, I want to develop a desktop application compatible with most platforms to satisfy the various preferences of computing studens and the limited amount of time suggests I should pick a language I am very comfortable with. For these reasons I decided to use Java on the Netbeans IDE which provides a helpful Swing GUI builder.
 
 	\begin{enumerate}
 	\item The parser: \\
 This was the first tool I worked on. Having the experience of MAlice from the previous academic year, I decided to use Antlr to generate the parser for first order logic sentences. ANTLR (ANother Tool for Language Recognition) is a powerful parser generator for reading, processing, executing, or translating structured text or binary files. From a grammar, ANTLR generates a parser that can build and walk parse trees. At this point I decided the GUI should provide the user a means of easily entering these sentences which would then be passed through to the parser in the form of a string object. I then proceeded to writing the grammar. Another choice was to use the latest version of Antlr, version 4, for its new adaptive parsing strategy which allowes a more relaxed grammar (it accepts even left recursive grammars, except for indirectly left recursive grammars where x calls y which calls x). When writing the grammar I made sure the presidence of operators is taken into account when bulding the parse tree. The Parser also checks that brackets are correctly placed and overall leaves no room for ambiguity. 
 
 	\item The Logic Tree structure \\
-The parse tree is not a neat way of storing the input sentence. It is hard to read and evaluate. Therefore I decided to build my own structure, purposely built for logic trees, in order to make the evaluation process clear and also provide a way of displaying nice trees to the user at their request.\\
+The parse tree is not a neat way of storing the input sentence. It is hard to read and evaluate. Therefore I decided to build my own structure, purposely built for logic trees, in order to make the evaluation process clear and also provide a way of displaying nice trees to the user at their request.The main class is LogicTree. Here is a description of the most important elements inside it:\\
 
-\noindent The main class is LogicTree. Here is a description of the most important elements inside it:
 \begin{verbatim}
 public class LogicTree {
 
     LogicTreeNode head;					
-    Signature signatureBuilder;  \\Keeps track of all the objects and relations that
-                                   occur during the build of the logic tree and
-                                   stores them such that a relevant signature can be
-                                   automatically generated for the input sentence.
+    Signature signatureBuilder;
+        \\Keeps track of all the objects and relations that
+          occur during the build of the logic tree and
+          stores them such that a relevant signature can be
+          automatically generated for the input sentence.
 
-    public LogicTree(ParseTree c) {  \\Builds the logic tree from the parse tree
-                                       generated by the parser
+
+    public LogicTree(ParseTree c) {  
+        \\Builds the logic tree from the parse tree
+          generated by the parser
 	    ...
-	    }
+	}
 
-	    evaluate(Structure s) \\Evaluates the tree representing the input sentence, 
-                            from the top down, according to the evaluation rules 
-                            in each node and according to the given structure.
-			            throws UnboundException {
-        return head.evaluate(s);
+    evaluate(Structure s) throws UnboundException {
+        \\Evaluates the tree representing the input sentence, 
+          from the top down, according to the evaluation rules 
+          in each node and according to the given structure.
+
+          return head.evaluate(s);
     }
 ...
 }
@@ -131,10 +161,10 @@ public class LogicTree {
 
 	\begin{itemize}
 	\item LogicTreeNotNode: Representing the unary operation not, its evaluation function returns the negated value of it's subtree.
-	\item LogicTreeNullaryRelNode: Representing a nullary relation, it contains a relation field of type NullRel and its evaluate function returns whether that relation is true in the given structure
-	\item Unary relation: LogicTreeUnaryRelNode: Similarly, contains a relation field of type UnRel
-	\item Binary operation: LogicTreeBinOpNode: Similarly, contains a relation field of type BinRel
-	\item LogicTreeExistsNode: Representing the $\exists% quantifier, it contains a field of type Variable and sets that variable's \emph{existsBound} field to true, the returns the truth value of its subtree
+	\item LogicTreeNullaryRelNode: Representing a nullary relation, it contains a relation field of type NullaryRel and its evaluate function returns whether that relation is true in the given structure
+	\item Unary relation: LogicTreeUnaryRelNode: Similarly, contains a relation field of type Unaryl
+	\item Binary operation: LogicTreeBinOpNode: Similarly, contains a relation field of type BinaryRel
+	\item LogicTreeExistsNode: Representing the $\exists$ quantifier, it contains a field of type Variable and sets that variable's \emph{existsBound} field to true, the returns the truth value of its subtree
 	\item LogicTreeForallNode: Similarly, sets its variable's \emph{forallBound} field to true
 	\item LogicTreeEqualsNode: Represents the equals operator and has a field for each term it refers to
 	\item LogicTreeTruthNode: Represents Truth and evaluates to true. It is a leaf node
@@ -143,125 +173,63 @@ public class LogicTree {
 
 \noindent The quantifier and operator nodes also contain a field \emph{next} of type LogicTreeNode in order to keep track of their subtree. The rest are leaf nodes.\\
 
-\noindent 
+\noindent The data types mentioned above are represented by the following classes:
+	\begin{itemize}
+	\item Arguement: an abstract class to represent the terms that unary and binary relations refer to.
+	\item Constant and Variable: implementations of Arguement. Worth mentioning are the two boolean fields inside Variable \emph{forallBound} and \emph{existBound}, that will make it easy to keep track of quantifiers.
+	\item NullaryRel: with a boolean field \emph{value} that will be used to evaluate it
+	\item UnaryRel : keeps track of the arguement of that relation and provides an evaluation function.
+	\item BinaryRel : keeps track of both arguements and provides an evaluation function.
+	\item Structure : it contains all the relations and objects that occur in the the upper left area of the screen. This is empty at first and is modified by the user through the interface. It's fields are are array lists of each of the other types.
+	\item Signature : it contains all the relations and constants that occur in the user inputed sentence in the for of array lists. These are automatically generated and can be accessed through the Signature toolbox on the right side of the window and edited.
+	\item BinOp: an enum type representing the binary operators and the rules to evaluate them.
+	\end{itemize}
 
-	\item The signature %
-	\item The sentence %
-	\item Sentence evaluation %
+\noindent Finally, I implemented an UnbounException class that will be thrown when an unbound variable is detenced in a sentence and notifies the user of the undecidable nature of the input.
+
+	\item The inputed logic formula:
+The logic sentence is what generates the entire process of evaluation. It is inputed by the user from the keybord and with the help of the special symbols buttons provided by the interface. The standard notation is accepted. A sentence (or formula) will be composed of the following elements:
+
+		\begin{enumerate}
+		\item Atomic formulas: n-ary relations (e.g. man(Socrates) is an atomic formula), $\top$, $\bot$ or an equality (e.g. Socrates = Platon).
+		\item Logic operators: $\lnot$, $\land$, $\lor$, $\to$, $\leftrightarrow$, =
+		\item Quantifiers: $\forall$, $\exists$
+		\end{enumerate}
+
+Say A and B are formulas, then so are ($\lnot$ A), (A $\land$ B), (A $\lor$ B), (A $\to$ B), (A $\leftrightarrow$ B), ($\forall$ A) and ($\exists$ A). Nothing else is a formula.\\
+
+In order to better understand the evaluation process of these formulas we should walk through our simple example: man(Socrates).
 	\end{enumerate}
 
-
-
-
-
-The firt natural step was to think what the features of the minimum viable product would be. When deciding I took into account the project specifications and available time. Here is an outline of what a basic product should be able to to:
-\begin{itemize}
-	\item Provide an interface which allows the user to define signatures, build structures and input logic sentences:\\
-	
-	\item Evaluate sentences given a structure
-	\item Store structures, signatures and sentences
-	\item Provide a collection of predifined structures, signatures and sentences.
-\end{itemize}
-
-%These features would make up a usable tool,
-%	\item Maintain a database of predifined and user defined signatures which can be restored to a default at any point
-%	\item Verify the validity of a new signature.
-%	\item Verify the validity and truth value of a sentence given a signature.
-%	\item Accept command line as well as graphical input
-%	\item A user should be able to download the application, login and create an avatar
-%	\item Allow the user to login and create a new avatar if they haven't aready got one.
-%	\item Allow multiple avatars per user.
-%	\item Implement a tutorial to familiarize a new user with what their avatar can already do
-%	\item Implement a training method for learning the meaning of quantifiers and relations and to assign truth values to sentences given a signature
-%	\item IMplement a game that awards points for correcty assigned truth values for sentences given a signature.
-%	\item Provide an attractive GUI.
-%\end{itemize}
-
-You may realise this is already quite complex to implement, however it provides little functionality. Therefore, if time allowes, I am hoping to further implement the followinf features:
-\begin{itemize}
-	\item Implement a hitikka game for the avatar to play against the computer.
-	\item Allow multimple users
-	\item 
-
-
-\end{itemize}
-
-	\subsection{First Order Predicate Logic}
-	As a powerful extension of propositional logic, predicate logic is extremely important. Propositional logic is quite nice, but not very expressive. Some statements need something more than propositional logic to express.
-
-Phrases such as \emph{the computer is a Sun} and \emph{Frank bought grapes} are no longer regarded as atomic in predicate logic. Looking at their internal structure we could have:
-• A relation symbol (or predicate symbol) Sun.
-It takes 1 argument — we say it is unary or its ‘arity’ is 1.
-• We can also introduce a relation symbol bought.
-It takes 2 arguments — we say it is binary, or its arity is 2.
-• Constants, to name objects.
-Then Sun(Heron) and bought(Frank,grapes) are two new atomic
-formulas.
-
-
-	\subsection{Previous Work}
-	Previous attempts have been made to fill this gap in the market. The first one that came to mind was the solution one student provided for this same specification in 2007. They developed a Java application which meets the minimum requirements and provides a few extrafeatures like the Hintikka game and an attempt at Logic-English translation. This LOST tool allowes users to enter signatures, structures and sentences, then evaluate them.
-	Tarski's World
-	Hyperproof
-	Language, PRoof and Logic
-
-	\subsection{Hintikka}
-	One good way of understanding first order logic semantics is by playing the Hintikka game. It involves two players which are assigned one of the quantifiers. The then work on a sentence within a signature: $$\exists$$ tries to make the sentence true while $$\forall$$ tries to make it false. To better understand how the game works we must look at the tree for the given sentence. 
-
-At each point in the game, we look at
-the node in the tree where the game is currently at. If that node is of the form:
-$\forall$ x, then the $\forall$ player has to choose a value for x, i.e. an object in the structure
-$\exists$ x, then the $\exists$ player has to choose a value for x, i.e. an object in the structure
-∧, then the $\forall$ player chooses the next branch to follow down the tree
-∨, then the $\exists$ player chooses the next branch to follow down the tree
-↔, regard A↔B as (A∧B) ∨ (¬A∧¬B)
-→, regard A→B as (¬A∧B)
-¬, then swap labels “$\exists$” and “$\forall$”. The player who was $\exists$ becomes $\forall$ and vice versa.
-an atomic (or quantifier-free) formula, then evaluate the formula in the given structure
-with the current values for the variables:
-o If the formula is true, the $\exists$ player wins
-o If it is false, the $\forall$ player wins
-25
-LOST - Logic Semantics Tutor
-The game ends when a leaf (atomic formula) is reached. Therefore, during the game each
-player should try to lead the game towards a leaf that will make him/her win. This will be
-a leaf which evaluates to true if the player is $\exists$, and a leaf which evaluates to false if the
-player is $\forall$.
-
-
-
-
+%-------------------------------------------------------------------------------
+%     Plan and timetable
+%-------------------------------------------------------------------------------
+\newpage
 \section{Project Plan and Timetable}		% 1-2 pages
-So far I've described my final product in reasonable detail. In order to achieve this it is important to prioritise the implementation of some features and lay out a plan and timetable for the approach.
-
-	\subsection{Up to this point}
-	I have managed to wite a comprehensive grammar
+So far I have described what a minimally viable product should do and some of the extensions I want to implement. In order to achieve this it is important to prioritise the implementation of some features and lay out a plan and timetable for the approach. Having the parser and tree structure in place, below is my timetabled plan of the remaining 11 weeks of available time for this project and a more detailed description of the features I still have to implement.
 
 	\begin{itemize}
-	\item{write a first order predicate logic grammar for ANTLR and build a parser}
-	\item{create a tree structure that can evaluate to a boolean given a signature}
-	\item{generate tree nodes from the parsed input to fit the LogicTree structure}
-	\item{generate a signature builder from the parsed input}
-	\item{create a graphical interface to allow easy input of sentences}
-	\item{extend the interface to display the current signature}
-	\item{extend the interface to allow the user to modify the signature}
-	\item
+	\item \textbf{week 1}\\
+Test and finalize this stage of the project. LOST must be able to correctly parse a sentence, generate the LogicTree from the ParseTree and evaluate it. It must also generate the structure from the inputed sentence. At this stage the structure will be inputed manually for testing purposes.
+	\item \textbf{week 2}\\
+Implement the structure part of the interface.
+	\item \textbf{week 3}\\
+Enable the loading and storing in a database of the java objects created.
+	\item \textbf{week 4}\\
+Allow input of multiple sentences and dinamically generate the signature such that its elements will be automatically deleted if none of the remaining sentences use them.
+	\item \textbf{week 5}\\
+Implement the Hintikka game.
+	\item \textbf{week 6}\\
+Implement the evaluation game.
+	\item \textbf{week 7}\\
+Adapt the interface to include the two games.
+	\item \textbf{week 8}\\
+Setup a user database (logins, high scores, avatars etc.)
+	\item \textbf{week 9-10}\\
+Testing and fixing.
+	\item \textbf{week 11}\\
+Finalise report and archive.
 	\end{itemize}
-	% what needs to be done
-	% timetable: key milestones and backup 
 
-\section{Evaluation}		% 1-2 pages
-	% What makes it successful?
-	% What extestions has it brought?
-	% Quality?
 
 \end{document}
-
-The later would be graphically represented as follows in my implementation of LOST:\\
-
-%\includegraphics[width=\textwidth]{Socrates.png}\\
-
-
-\noindent The main window represents the structure built with elements from the signature on the right handside. At the bottom the user can input sentences for evaluation.\\
-
-\noindent In order to evaluate the sentence you should try and find the object described by Socrates (upper left) and verify whether the unary relation \emph{man} applies to it. If you look at the signature, the relation's name is blue. This means all the objects which it applies to will contain this colour. So it should now be easy to see that our sentence is true in this context.  

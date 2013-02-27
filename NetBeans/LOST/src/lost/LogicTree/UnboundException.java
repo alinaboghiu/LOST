@@ -8,13 +8,11 @@ package lost.LogicTree;
  *
  * @author alina
  */
-class UnboundException extends Exception{
-
-    public UnboundException() {
-    }
+public class UnboundException extends Exception{
 
     UnboundException(Variable var) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        System.out.println(var.name + " is not bound!");
+        System.exit(1);
     }
     
 }

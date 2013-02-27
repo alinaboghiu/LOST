@@ -15,5 +15,6 @@ abstract class LogicTreeNode {
     
     abstract Signature generateElements(Signature builder);      
     abstract boolean evaluate(Structure s) throws UnboundException;
+    abstract boolean evaluate(Structure s, StructObject assignment);
 
 }

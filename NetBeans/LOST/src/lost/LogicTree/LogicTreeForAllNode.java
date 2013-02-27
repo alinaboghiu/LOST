@@ -10,23 +10,35 @@ package lost.LogicTree;
  */
 public class LogicTreeForAllNode extends LogicTreeNode {
     
-    LogicTreeNode next;
-    Variable var;
+    static LogicTreeNode next ;
+    static Variable var;
     
-    LogicTreeForAllNode(Variable var, LogicTreeNode next){
-        this.var.forAllBound = true;
-        this.name = "∀"+var.name;
+    public LogicTreeForAllNode(Variable var, LogicTreeNode next){
+//        var.forAllBound = true;
+//        this.name = "∀"+var.name;
         this.next = next;
+        this.var = var;
     }
 
     @Override
-    boolean evaluate(Structure s) throws UnboundException {
-        return next.evaluate(s);
+    boolean evaluate(Structure s, StructObject assignment) {
+        return this.evaluate(s);
+    }
+    
+    @Override   
+    boolean evaluate(Structure s){
+        for(StructObject currObj:s.objects){
+            boolean outcome = next.evaluate(s, currObj);
+            if(!outcome){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     Signature generateElements(Signature builder) {
-        return builder;
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }
