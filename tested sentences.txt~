@@ -12,8 +12,13 @@ EQUALS	 : '='	;
 EQUIV	 : '↔'	;
 
 ------------------------------------------------------------------
-
+happy(X)                  unboundException
 happy(Fred)
 ∀x loves(x,Fred)
 ∀x∀y∀z∀w happy(x)
 ∃x loves(x, Fred)
+∀x∀y loves(x,y)
+
+∀x∃y loves(x,y)
+∃x∀y loves(x,y)
+∃x∃y loves(x,y)

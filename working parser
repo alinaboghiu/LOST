@@ -1,3 +1,43 @@
+
+grammar fol ;
+
+condition
+  : formula EOF ;
+
+formula
+  : TRUTH
+  | FALSITY
+  | term EQUALS term
+  | relation
+  | quantifier formula
+  | NOT formula
+  | formula AND formula
+  | formula OR formula 
+  | formula IMPLIES formula
+  | formula EQUIV formula 
+  | LPAREN formula RPAREN ;
+
+term
+  : VARIABLE
+  | NAME ;
+
+quantifier
+  : FORALL VARIABLE
+  | EXISTS VARIABLE ;
+
+relation
+    : NAME binaryarg
+    | NAME unaryarg
+    | NAME ;
+
+binaryarg
+    : LPAREN term ',' term RPAREN ;
+
+unaryarg
+    : LPAREN term RPAREN ;
+
+//---------------------------------------------------------------------------
+
 LPAREN   : '('	;
 RPAREN   : ')'	; 
 AND      : '∧'	;
@@ -11,17 +51,9 @@ FALSITY  : '⊥'	;
 EQUALS	 : '='	;
 EQUIV	 : '↔'	;
 
-------------------------------------------------------------------
-happy(X)                  unboundException
-happy(Fred)
-∀x loves(x,Fred)
-∀x∀y∀z∀w happy(x)
-∃x loves(x, Fred)
-∀x∀y loves(x,y)
-∀x∃y loves(x,y)
-∃x∀y loves(x,y)
-∃x∃y loves(x,y)
-¬happy(Fred)
+VARIABLE : [a-z] 's'? [0-9]* ;
+NAME	 : [A-Z] | [a-zA-Z] [a-zA-Z09'_']+ ;
+WS       : [ \t\r\n]+ -> skip ;
 
 // ∀x(R(Fred,x) →  ∀y(R(x,y) → P(y)))
 // ∃x∀y (A ∨ B) ∧ B ∧ ¬D ∧ E ∧ F ∨ G ∨ H
@@ -38,3 +70,6 @@ happy(Fred)
 // A → B → C → (D → E)
 // P → (Q ∨ ¬R) ∧ ¬S
 // ∀x P(x) → ∃y Q(x,y)
+
+
+
