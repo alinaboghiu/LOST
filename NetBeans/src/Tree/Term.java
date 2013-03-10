@@ -4,7 +4,7 @@ package Tree;
  * @author alina
  * 
  */
-public class Term {
+abstract class Term {
 
     String name;
 

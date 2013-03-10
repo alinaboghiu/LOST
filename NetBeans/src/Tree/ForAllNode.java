@@ -11,9 +11,9 @@ public class ForAllNode extends LogicTreeNode {
     Variable var;
 
     public ForAllNode(Variable var, LogicTreeNode next)
-            throws DuplicateQuantifierException {
+            throws DuplicateDefinitionException {
         if (var.forAllBound || var.existsBound){
-            throw new DuplicateQuantifierException();
+            throw new DuplicateDefinitionException();
         }
         var.forAllBound = true;
         this.var = var;
@@ -21,21 +21,21 @@ public class ForAllNode extends LogicTreeNode {
     }
 
     @Override
-    boolean evaluate(Structure s) throws UnboundException {
+    boolean evaluate(Structure s) throws ThisUnboundException {
         ArrayList<Assignment> assignments = new ArrayList<>();
         return evaluate(s, assignments);
     }
 
     @Override
     boolean evaluate(Structure s, Assignment a1, Assignment a2)
-            throws UnboundException {
+            throws ThisUnboundException {
         ArrayList<Assignment> assignments = new ArrayList<>();
         assignments.add(a1);
         return evaluate(s, assignments);
     }
 
     private boolean evaluate(Structure s, ArrayList<Assignment> assignments)
-            throws UnboundException {
+            throws ThisUnboundException {
         boolean outcome = true;
         
         // create assignments for this quantifier
@@ -48,7 +48,6 @@ public class ForAllNode extends LogicTreeNode {
         
         // iterate over assignments and pass two down in case 
         // a binary leaf node is encountered
-        // TODO: check subtree and pass the minimum number of assignments
         for (Assignment a1 : assignments){
             for (Assignment a2 : assignments){
                 try {
@@ -57,7 +56,7 @@ public class ForAllNode extends LogicTreeNode {
                     } else {
                         outcome &= this.next.evaluate(s, a1, a2);
                     }
-                } catch (UnboundException e){
+                } catch (ThisUnboundException e){
                     continue;                   
                 }
             }

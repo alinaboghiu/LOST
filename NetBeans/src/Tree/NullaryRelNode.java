@@ -9,6 +9,10 @@ import java.util.ArrayList;
 public class NullaryRelNode extends LogicTreeNode{    
 
     NullaryRel rel;
+
+    public NullaryRelNode(NullaryRel rel) {
+        this.rel = rel;
+    }
         
     @Override
     boolean evaluate(Structure s) {

@@ -11,14 +11,17 @@ package Tree;
 public class NullaryRel {
     
     String name;
-    boolean value = true;
+    boolean value = false;
     
-    public NullaryRel(String name, boolean value){
+    public NullaryRel(String name) {
         this.name = name;
-        this.value = value;
     }
     
-    public void changeValue(){
-        this.value = !value;
+    public void makeTrue() {
+        this.value = true;
+    }
+    
+    public void makeFalse() {
+        this.value = false;
     }
 }

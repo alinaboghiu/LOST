@@ -1,67 +1,66 @@
 package Tree;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * @author alina
  * 
  */
 public class EqualsNode extends LogicTreeNode{
 
-    Term left;
-    Term right;
+    Term leftTerm;
+    Term rightTerm;
 
     public EqualsNode(Term left, Term right) {
-        this.left = left;
-        this.right = right;
+        this.leftTerm = left;
+        this.rightTerm = right;
     }
 
 @Override
-    boolean evaluate(Structure s) throws UnboundException {
-        if (this.left instanceof Const && this.right instanceof Const) {
-            return left.name.equals(right.name);
+    boolean evaluate(Structure s) throws ThisUnboundException {
+        if (this.leftTerm instanceof Const && this.rightTerm instanceof Const) {
+            return leftTerm.equals(rightTerm);
         // check if unbound
-        } else if (left instanceof Variable && right instanceof Variable) {
-            Variable var1 = (Variable) left;
-            Variable var2 = (Variable) right;
+        } else if (leftTerm instanceof Variable && rightTerm instanceof Variable) {
+            Variable var1 = (Variable) leftTerm;
+            Variable var2 = (Variable) rightTerm;
             if (!(var1.existsBound || var1.forAllBound)) {
-                throw new UnboundException();
+                try {
+                    throw new UnboundException();
+                } catch (UnboundException ex) {
+                    Logger.getLogger(EqualsNode.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             if (!(var2.existsBound || var2.forAllBound)) {
-                throw new UnboundException();
-            }
-            // not the right assignment, ignore and continue
-            if (var1.existsBound && var2.existsBound) {
-                return false;
+                try {
+                    throw new UnboundException();
+                } catch (UnboundException ex) {
+                    Logger.getLogger(EqualsNode.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         //this was not the right assignment, ignore and proceed
-        return true;
+        throw new ThisUnboundException();
 
     }
 
     @Override
     boolean evaluate(Structure s, Assignment a1, Assignment a2)
-            throws UnboundException {
-        // check if unbound
-        if (left instanceof Variable && right instanceof Variable) {
-            Variable var1 = (Variable) left;
-            Variable var2 = (Variable) right;
-            if (!(var1.existsBound || var1.forAllBound)) {
-                throw new UnboundException();
-            }
-            if (!(var2.existsBound || var2.forAllBound)) {
-                throw new UnboundException();
-            }
-        }
+            throws ThisUnboundException {
 
         //if both terms are variables
-        if (left == a1.boundVar && right == a2.boundVar) {
+        if (leftTerm.equals(a1.boundVar) && rightTerm.equals(a2.boundVar)) {
             return a1.assignedTerm.equals(a2.assignedTerm);
+            
         //if left is a variable and right is a constant
-        } else if (left == a1.boundVar && right instanceof Const) {
-            return a1.assignedTerm.equals(right);
+        } else if (leftTerm.equals(a1.boundVar) && rightTerm instanceof Const) {
+            return a1.assignedTerm.equals(rightTerm);
+            
         //if left is a constant and right is a variable
-        } else if (left instanceof Const && right == a2.boundVar) {
-            return left.equals(a2.assignedTerm);
+        } else if (leftTerm instanceof Const && rightTerm.equals(a2.boundVar)) {
+            return leftTerm.equals(a2.assignedTerm);
+            
         //if both terms are constants
         } else {
             return evaluate(s);

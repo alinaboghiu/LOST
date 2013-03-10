@@ -1,24 +1,23 @@
 package Tree;
 
+import java.util.ArrayList;
 import org.antlr.v4.runtime.tree.ParseTree;
+
 
 /*
  * @author alina
  * 
  */
-class LogicTree {
+public class LogicTree {
 
     LogicTreeNode head;
 
-    LogicTree(ParseTree t) {
-        System.out.println("blah" + t.getText());
-    }
-    
     LogicTree(LogicTreeNode head) {
         this.head = head;
     }
 
-    boolean evaluate(Structure s) throws UnboundException {
+    boolean evaluate(Structure s) throws ThisUnboundException {
         return head.evaluate(s);
     }
+
 }

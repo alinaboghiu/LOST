@@ -1,6 +1,8 @@
 package Tree;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * @author alina
@@ -11,46 +13,39 @@ public class UnaryRelNode extends LogicTreeNode {
     UnaryRel rel;
     Term arg;
 
-    public UnaryRelNode(UnaryRel rel, Term arg) throws UnboundException {
+    public UnaryRelNode(UnaryRel rel, Term arg) {
         this.rel = rel;
         this.arg = arg;
     }
 
     @Override
-    boolean evaluate(Structure s) throws UnboundException {
+    boolean evaluate(Structure s) throws ThisUnboundException {
         if (this.arg instanceof Const) {
             UnaryRel thisAssignment = new UnaryRel(rel.name, arg);
             return s.unaryRels.contains(thisAssignment);
-            // check if argument is bound
+        // check if argument is bound
         } else if (arg instanceof Variable) {
             Variable var = (Variable) arg;
             if (!(var.existsBound || var.forAllBound)) {
-                throw new UnboundException();
+                try {
+                    throw new UnboundException();
+                } catch (UnboundException ex) {
+                    Logger.getLogger(UnaryRelNode.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         // not the right assignment, ignore and continue
-        throw new UnboundException();
-    }
-
-    private boolean evaluate(Structure s, Assignment a)
-            throws UnboundException {
-        if (arg instanceof Variable) {
-            Variable var = (Variable) arg;
-            if (!(var.existsBound || var.forAllBound)) {
-                throw new UnboundException();
-            }
-        }
-        if (arg == a.boundVar) {
-            UnaryRel thisAssignment = new UnaryRel(rel.name, a.assignedTerm);
-            return s.unaryRels.contains(thisAssignment);
-        }
-        return evaluate(s);
+        throw new ThisUnboundException();
     }
 
     @Override
     boolean evaluate(Structure s, Assignment a1, Assignment a2)
-            throws UnboundException {
-        return evaluate(s, a2);
+            throws ThisUnboundException {
+        if (arg.equals(a2.boundVar)) {
+            UnaryRel thisAssignment = new UnaryRel(rel.name, a2.assignedTerm);
+            return s.unaryRels.contains(thisAssignment);
+        }
+        return evaluate(s);
     }
     
 }

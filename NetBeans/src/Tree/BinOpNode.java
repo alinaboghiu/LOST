@@ -17,13 +17,13 @@ public class BinOpNode extends LogicTreeNode {
     }
 
     @Override
-    boolean evaluate(Structure s) throws UnboundException {
+    boolean evaluate(Structure s) throws ThisUnboundException {
         return op.evaluate(left.evaluate(s), right.evaluate(s));
     }
 
     @Override
     boolean evaluate(Structure s, Assignment a1, Assignment a2)
-            throws UnboundException {
+            throws ThisUnboundException {
         return op.evaluate(left.evaluate(s, a1, a2), right.evaluate(s, a1, a2));
     }
 
