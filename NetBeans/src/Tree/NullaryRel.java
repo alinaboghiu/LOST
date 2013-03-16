@@ -24,4 +24,11 @@ public class NullaryRel {
     public void makeFalse() {
         this.value = false;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        NullaryRel n = (NullaryRel) obj;
+        return this.name.equals(n.name);
+    }
+    
 }

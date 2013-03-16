@@ -30,14 +30,14 @@ public class BinaryRelNode extends LogicTreeNode {
             Variable var2 = (Variable) arg2;
             if (!(var1.existsBound || var1.forAllBound)) {
                 try {
-                    throw new UnboundException();
+                    throw new UnboundException(var1.name);
                 } catch (UnboundException ex) {
                     Logger.getLogger(BinaryRelNode.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (!(var2.existsBound || var2.forAllBound)) {
                 try {
-                    throw new UnboundException();
+                    throw new UnboundException(var2.name);
                 } catch (UnboundException ex) {
                     Logger.getLogger(BinaryRelNode.class.getName()).log(Level.SEVERE, null, ex);
                 }

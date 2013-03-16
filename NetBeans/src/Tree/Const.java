@@ -10,9 +10,4 @@ public class Const extends Term {
         super(name);
     }
     
-    @Override
-    public boolean equals(Object o){
-        Const c = (Const) o; 
-        return c.name.equals(name);
-    }
 }

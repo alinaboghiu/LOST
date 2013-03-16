@@ -28,7 +28,7 @@ public class UnaryRelNode extends LogicTreeNode {
             Variable var = (Variable) arg;
             if (!(var.existsBound || var.forAllBound)) {
                 try {
-                    throw new UnboundException();
+                    throw new UnboundException(var.name);
                 } catch (UnboundException ex) {
                     Logger.getLogger(UnaryRelNode.class.getName()).log(Level.SEVERE, null, ex);
                 }

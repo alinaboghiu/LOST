@@ -4,7 +4,7 @@ package Tree;
  * @author alina
  * 
  */
-abstract class Term {
+class Term {
 
     String name;
 
@@ -12,4 +12,10 @@ abstract class Term {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object o){
+        Term v = (Term) o; 
+        return v.name.equals(name);
+    }
+    
 }

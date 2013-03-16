@@ -4,4 +4,4 @@ package Tree;
  * @author alina
  *
  */
-class ThisUnboundException extends Exception {}
+public class ThisUnboundException extends Exception {}

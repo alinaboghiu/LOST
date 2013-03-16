@@ -13,9 +13,4 @@ class Variable extends Term {
         super(name);
     }
     
-    @Override
-    public boolean equals(Object o){
-        Variable v = (Variable) o; 
-        return v.name.equals(name);
-    }
 }
