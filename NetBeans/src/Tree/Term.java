@@ -1,15 +1,23 @@
 package Tree;
 
+import GUI.Blob;
+
 /*
  * @author alina
  * 
  */
-class Term {
+public class Term {
 
-    String name;
-
-    public Term(String name) {
+    public String name;
+    public Blob blob;
+    
+    public Term(String name){
         this.name = name;
+    }
+    
+    public Term(String name, int limit){
+        this.name = name;
+        blob = new Blob(limit);
     }
 
     @Override

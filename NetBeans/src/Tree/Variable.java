@@ -10,6 +10,7 @@ class Variable extends Term {
     boolean existsBound = false;
 
     public Variable(String name) {
+//        this.name = name;
         super(name);
     }
     

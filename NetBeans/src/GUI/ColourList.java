@@ -28,27 +28,34 @@ public class ColourList extends JLabel implements ListCellRenderer {
         
         int i = index % 7;
         if (i == 0) {
-            setBackground(Color.RED);
+            setForeground(Color.RED);
         }
         else if (i == 1) {
-            setBackground(Color.ORANGE);
+            setForeground(Color.ORANGE);
         }
         else if (i == 2) {
-            setBackground(Color.YELLOW);
+            setForeground(Color.YELLOW);
         }
         else if (i == 3) {
-            setBackground(Color.GREEN);
+            setForeground(Color.GREEN);
         }
         else if (i == 4) {
-            setBackground(Color.BLUE);
+            setForeground(Color.BLUE);
         }
         else if (i == 5) {
-            setBackground(Color.MAGENTA);
+            setForeground(Color.MAGENTA);
         }
         else {
-            setBackground(Color.PINK);
+            setForeground(Color.PINK);
         }
-
+        
+        if (isSelected) {
+            this.setFocusable(isSelected);
+            setBackground(Color.LIGHT_GRAY);
+        } else {
+            setFocusable(false);
+        }
+     
         return this;
     }
 }

@@ -16,7 +16,7 @@ public class UndefinedRelationException extends Exception {
     public UndefinedRelationException(String relName) {
         notification = relName
                 + " is not defined as a relation in the structure. "
-                + "Use the signature to it add and try again";
+                + "Use the signature to add it and try again";
     }
 
     @Override

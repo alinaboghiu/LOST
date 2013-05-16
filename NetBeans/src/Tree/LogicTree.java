@@ -94,6 +94,10 @@ public class LogicTree {
                 Variable var = new Variable(varName);
                 sentenceScope.add(var);
 
+                //∃ x (x = Fred)
+                //∃x∃y (happy(x) ∧ happy(y)) - false
+                //∃x∃y (⊤ ∧ happy(y)) - true (right)
+                
                 switch (relType) {
                     case "∀":
                         ForAllNode f = new ForAllNode(var, null);

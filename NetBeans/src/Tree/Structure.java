@@ -17,12 +17,12 @@ public class Structure {
 
         Const fred = new Const("Fred");
         Const tina = new Const("Tina");
-//        Term t1 = new Term("t1");
+        Term t1 = new Term("t1");
 //        Term t2 = new Term("t2");
 //        Term t3 = new Term("t3");
 //
         UnaryRel happy1 = new UnaryRel("happy", tina);
-//        UnaryRel happy2 = new UnaryRel("happy", t2);
+        UnaryRel happy2 = new UnaryRel("happy", t1);
 //        UnaryRel happy3 = new UnaryRel("happy", t3);
         UnaryRel happy4 = new UnaryRel("happy", fred);
 //
@@ -46,14 +46,14 @@ public class Structure {
 //        BinaryRel loves15 = new BinaryRel("loves", t3, t3);
 //        BinaryRel loves16 = new BinaryRel("loves", t2, t3);
 //
-//        this.terms.add(t1);
+        this.terms.add(t1);
 //        this.terms.add(t2);
 //        this.terms.add(t3);
         this.terms.add(fred);
         this.terms.add(tina);
 //
-//        this.unaryRels.add(happy1);
-//        this.unaryRels.add(happy2);
+        this.unaryRels.add(happy1);
+        this.unaryRels.add(happy2);
 //        this.unaryRels.add(happy3);
         this.unaryRels.add(happy4);
 //
