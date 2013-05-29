@@ -1,6 +1,9 @@
 
 package Tree;
 
+import java.awt.Color;
+import java.util.Random;
+
 /*
  * @author alina
  * 
@@ -9,6 +12,7 @@ public class UnaryRel {
 
     public String name;
     public Term arg;
+    public final Color colour = new Color((int)(Math.random() * 0xFFFFFF));
 
     public UnaryRel(String name) {
         this.name = name;

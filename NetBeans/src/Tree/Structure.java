@@ -1,20 +1,21 @@
 package Tree;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /*
  * @author alina
  * 
  */
-public class Structure {
+public class Structure implements Serializable {
 
     public ArrayList<Term> terms = new ArrayList<>();
     public ArrayList<NullaryRel> nullaryRels = new ArrayList<>();
     public ArrayList<UnaryRel> unaryRels = new ArrayList<>();
     public ArrayList<BinaryRel> binaryRels = new ArrayList<>();
+    public String name = "Untitled";
 
     public Structure() {
-
         Const fred = new Const("Fred");
         Const tina = new Const("Tina");
         Term t1 = new Term("t1");
@@ -28,7 +29,7 @@ public class Structure {
 //
         BinaryRel loves1 = new BinaryRel("loves", fred, tina);
         BinaryRel loves2 = new BinaryRel("loves", tina, tina);
-//        BinaryRel loves3 = new BinaryRel("loves", t3, fred);
+        BinaryRel loves3 = new BinaryRel("loves", tina, fred);
 //        BinaryRel loves4 = new BinaryRel("loves", t2, fred);
 //
 //        BinaryRel loves5 = new BinaryRel("loves", t1, t1);
@@ -59,7 +60,7 @@ public class Structure {
 //
         this.binaryRels.add(loves1);
         this.binaryRels.add(loves2);
-//        this.binaryRels.add(loves3);
+        this.binaryRels.add(loves3);
 //        this.binaryRels.add(loves4);
 //        this.binaryRels.add(loves5);
 //        this.binaryRels.add(loves6);

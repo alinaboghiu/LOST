@@ -25,19 +25,19 @@ public class Signature {
             }
         }
         for (NullaryRel n:activeStruct.nullaryRels){
-            if (!nullaryNames.contains(n.name)){
+//            if (!nullaryNames.contains(n.name)){
                 nullaryNames.add(n.name);
-            }
+//            }
         }
         for (UnaryRel u:activeStruct.unaryRels){
-            if (!unaryNames.contains(u.name)){
-                unaryNames.add(u.name);
-            }
+//            if (!unaryNames.contains(u.name)){
+                unaryNames.add(u.name + " (" + u.arg.name + ")");
+//            }
         }
         for (BinaryRel b:activeStruct.binaryRels){
-            if (!binaryNames.contains(b.name)){
-                binaryNames.add(b.name);
-            }
+//            if (!binaryNames.contains(b.name)){
+                binaryNames.add(b.name  + " (" + b.arg1.name + ", " + b.arg2.name + ")");
+//            }
         }
     }
     

@@ -1,15 +1,22 @@
 package Tree;
 
+import java.awt.Color;
+import java.io.Serializable;
+import java.util.Random;
+
 /*
  * @author alina
  * 
  */
-public class BinaryRel {
+public class BinaryRel implements Serializable {
 
-    String name;
-    Term arg1;
-    Term arg2;
+    public String name;
+    public Term arg1;
+    public Term arg2;
+    public final Color colour = new Color((int)(Math.random() * 0xFFFFFF));
 
+    public BinaryRel(){}
+    
     public BinaryRel(String name) {
         this.name = name;
     }

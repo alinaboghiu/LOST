@@ -4,14 +4,18 @@
  */
 package Tree;
 
+import java.io.Serializable;
+
 /**
  *
  * @author alina
  */
-public class NullaryRel {
+public class NullaryRel  implements Serializable {
     
     String name;
     boolean value = false;
+    
+    public NullaryRel(){}
     
     public NullaryRel(String name) {
         this.name = name;
