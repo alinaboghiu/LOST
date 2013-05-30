@@ -100,10 +100,12 @@ public class Arrow extends JLabel {
         if (line == null) {
             g2d.translate((int) t.x + to.getWidth() - 7, (int) t.y + to.getHeight() * 0.7 / 3);
         } else {
+//            double x = f.x-Math.sqrt(400-f.y^2+2*f.y*t.y-t.y^2);
+//            double y = (t.y-f.y)/(t.x-f.x)*(x-t.x)+t.y;
+//            g2d.translate(x,y);
             g2d.translate((int) ((t.x + f.x) / 2 + t.x) / 2, (int) ((t.y + f.y) / 2 + t.y) / 2);
         }
         g2d.rotate(Math.atan2(f.y - t.y, f.x - t.x));
-        g2d.setColor(Color.red);
         g2d.fill(arrowHead);
     }
 

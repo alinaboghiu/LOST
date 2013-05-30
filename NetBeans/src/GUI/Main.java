@@ -10,6 +10,7 @@ import Tree.BinaryRel;
 import Tree.Const;
 import Tree.DuplicateDefinitionException;
 import Tree.LogicTree;
+import Tree.NullaryRel;
 import Tree.Signature;
 import Tree.Structure;
 import Tree.Term;
@@ -17,6 +18,7 @@ import Tree.UnaryRel;
 import Tree.UnboundException;
 import Tree.UndefinedRelationException;
 import java.awt.Color;
+import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -56,15 +58,13 @@ public class Main extends javax.swing.JFrame {
     static DefaultListModel sentenceListModel = new DefaultListModel();
     static DefaultListModel constListModel = new DefaultListModel();
     static DefaultListModel nullaryListModel = new DefaultListModel();
+    static DefaultListModel nullaryRelsDisplayModel = new DefaultListModel();
     static DefaultListModel unaryListModel = new DefaultListModel();
     static DefaultListModel binaryListModel = new DefaultListModel();
     static Structure activeStruct = new Structure();
     static Signature activeSig = new Signature(activeStruct);
     static ArrayList<LogicTree> activeSentences = new ArrayList<>();
 
-    /**
-     * Creates new form Main
-     */
     public Main() {
         initComponents();
         updateSignaturePanel();
@@ -79,16 +79,16 @@ public class Main extends javax.swing.JFrame {
         SignaturePanel = new javax.swing.JTabbedPane();
         Constants = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
+        constantList = new javax.swing.JList();
         Nullary = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList();
+        nullaryList = new javax.swing.JList();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList();
+        binaryList = new javax.swing.JList();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jList5 = new javax.swing.JList(unaryListModel);
+        unaryList = new javax.swing.JList(unaryListModel);
         structurePanel = new javax.swing.JPanel();
         SentencePanel = new javax.swing.JPanel();
         jTextField = new javax.swing.JTextField();
@@ -110,7 +110,7 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jPanel5 = new javax.swing.JPanel();
-        jButton14 = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
@@ -151,10 +151,10 @@ public class Main extends javax.swing.JFrame {
 
         jScrollPane2.setBorder(null);
 
-        jList2 = new javax.swing.JList(constListModel);
-        jList2.setBorder(null);
-        jList2.setOpaque(false);
-        jScrollPane2.setViewportView(jList2);
+        constantList = new javax.swing.JList(constListModel);
+        constantList.setBorder(null);
+        constantList.setOpaque(false);
+        jScrollPane2.setViewportView(constantList);
 
         javax.swing.GroupLayout ConstantsLayout = new javax.swing.GroupLayout(Constants);
         Constants.setLayout(ConstantsLayout);
@@ -169,7 +169,7 @@ public class Main extends javax.swing.JFrame {
             ConstantsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConstantsLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
 
@@ -179,10 +179,10 @@ public class Main extends javax.swing.JFrame {
 
         jScrollPane3.setBorder(null);
 
-        jList3 = new javax.swing.JList(nullaryListModel);
-        jList3.setBorder(null);
-        jList3.setOpaque(false);
-        jScrollPane3.setViewportView(jList3);
+        nullaryList = new javax.swing.JList(nullaryListModel);
+        nullaryList.setBorder(null);
+        nullaryList.setOpaque(false);
+        jScrollPane3.setViewportView(nullaryList);
 
         javax.swing.GroupLayout NullaryLayout = new javax.swing.GroupLayout(Nullary);
         Nullary.setLayout(NullaryLayout);
@@ -197,7 +197,7 @@ public class Main extends javax.swing.JFrame {
             NullaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NullaryLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
 
@@ -208,10 +208,10 @@ public class Main extends javax.swing.JFrame {
 
         jScrollPane4.setBorder(null);
 
-        jList4 = new javax.swing.JList(binaryListModel);
-        jList4.setBorder(null);
-        jList4.setOpaque(false);
-        jScrollPane4.setViewportView(jList4);
+        binaryList = new javax.swing.JList(binaryListModel);
+        binaryList.setBorder(null);
+        binaryList.setOpaque(false);
+        jScrollPane4.setViewportView(binaryList);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -226,7 +226,7 @@ public class Main extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
 
@@ -236,9 +236,9 @@ public class Main extends javax.swing.JFrame {
 
         jScrollPane5.setBorder(null);
 
-        jList5.setBorder(null);
-        jList5.setOpaque(false);
-        jScrollPane5.setViewportView(jList5);
+        unaryList.setBorder(null);
+        unaryList.setOpaque(false);
+        jScrollPane5.setViewportView(unaryList);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -253,7 +253,7 @@ public class Main extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
 
@@ -272,7 +272,7 @@ public class Main extends javax.swing.JFrame {
         );
         structurePanelLayout.setVerticalGroup(
             structurePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 479, Short.MAX_VALUE)
         );
 
         jTextField.setSelectionColor(new java.awt.Color(120, 98, 89));
@@ -470,7 +470,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(SentencePanelLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -490,10 +490,10 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton14.setText("Add");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        addButton.setText("Add");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                addButtonActionPerformed(evt);
             }
         });
 
@@ -509,7 +509,7 @@ public class Main extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -519,7 +519,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton14)
+                    .addComponent(addButton)
                     .addComponent(jButton12)))
         );
 
@@ -657,12 +657,12 @@ public class Main extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(SignaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+                .addComponent(SignaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addComponent(structurePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+                .addComponent(structurePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SentencePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -749,6 +749,7 @@ public class Main extends javax.swing.JFrame {
         if (resolveOld("structure")) {
             activeStruct = new Structure();
             structurePanel.removeAll();
+            structurePanel.repaint();
         }
     }//GEN-LAST:event_newStructureActionPerformed
 
@@ -758,7 +759,6 @@ public class Main extends javax.swing.JFrame {
 
     private void showEvaluatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showEvaluatorActionPerformed
         SentencePanel.setVisible(showEvaluator.getState());
-        
     }//GEN-LAST:event_showEvaluatorActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -766,14 +766,12 @@ public class Main extends javax.swing.JFrame {
         repaint();
     }//GEN-LAST:event_jButton12ActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        Term t = new Term("t" + (Main.activeStruct.terms.size() + 1), structurePanel.getWidth());
-        activeStruct.terms.add(t);
-        t.blob.setBounds(10, 10, 30, 30);
-        structurePanel.add(t.blob);
-        structurePanel.repaint();
-        refreshButtonActionPerformed(evt);
-    }//GEN-LAST:event_jButton14ActionPerformed
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+//        Term t = new Term("t" + (Main.activeStruct.terms.size() + 1));
+//        activeStruct.terms.add(t);
+//        updateSignaturePanel();
+//        refreshButtonActionPerformed(evt);
+    }//GEN-LAST:event_addButtonActionPerformed
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         for (int i = 0; i < sentenceListModel.size(); i++) {
@@ -829,6 +827,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel Nullary;
     private javax.swing.JPanel SentencePanel;
     private javax.swing.JTabbedPane SignaturePanel;
+    private javax.swing.JButton addButton;
+    private javax.swing.JList binaryList;
+    private javax.swing.JList constantList;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JMenuItem generateStructure;
     private javax.swing.JButton jButton1;
@@ -836,7 +837,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -848,10 +848,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem3;
     private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
-    private javax.swing.JList jList3;
-    private javax.swing.JList jList4;
-    private javax.swing.JList jList5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -878,12 +874,14 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextField jTextField;
     private javax.swing.JMenuItem newStructure;
+    private javax.swing.JList nullaryList;
     private javax.swing.JMenuItem openStructure;
     private javax.swing.JButton refreshButton;
     private javax.swing.JMenuItem saveStructure;
     private javax.swing.JMenuItem saveStructureAs;
     private javax.swing.JCheckBoxMenuItem showEvaluator;
     protected javax.swing.JPanel structurePanel;
+    private javax.swing.JList unaryList;
     // End of variables declaration//GEN-END:variables
 
     private void insertButtonText(String name) {
@@ -940,29 +938,30 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void updateStructurePanel() {
-        int i = 5;
         for (Term t : activeStruct.terms) {
-            t.blob = new Blob();
-            if (t instanceof Const) {
-                t.blob.setText(t.name);
-                t.blob.setBounds(0, 0, t.name.length() * 10, 40);
-            } else {
-                t.blob.setBounds(0, 0, 30, 30);
+            if (!t.displayed) {
+                int i = (structurePanel.getComponentCount()*100)%structurePanel.getWidth();
+                if (t instanceof Const) {
+                    t.blob.setText(t.name);
+                    t.blob.setBounds(i, i, t.name.length() * 10, 40);
+                } else {
+                    t.blob.setBounds(i, i, 30, 30);
+                }
+                structurePanel.add(t.blob);
+                t.displayed = true;
             }
-            t.blob.setLocation(10*i, 10*i);
-            structurePanel.add(t.blob);
-            i += 5;
+        }
+
+        for (NullaryRel r : activeStruct.nullaryRels) {
         }
 
         for (UnaryRel r : activeStruct.unaryRels) {
-            r.arg.blob.setBackground(Color.red);
+            r.arg.blob.setBackground(r.colour);
         }
 
         for (BinaryRel r : activeStruct.binaryRels) {
             structurePanel.add(new Arrow(r.arg1.blob, r.arg2.blob, r.name, r.colour));
         }
-
-
     }
 
     private void updateSignaturePanel() {
@@ -979,11 +978,12 @@ public class Main extends javax.swing.JFrame {
         for (String unaryName : activeSig.unaryNames) {
             if (!unaryListModel.contains(unaryName)) {
                 unaryListModel.addElement(unaryName);
-                jList5.setForeground(Color.red);
+                unaryList.setForeground(Structure.toColour(unaryName));
             }
         }
         for (String binaryName : activeSig.binaryNames) {
-                binaryListModel.addElement(binaryName);
+            binaryListModel.addElement(binaryName);
+            binaryList.setForeground(Structure.toColour(binaryName));
         }
     }
 
@@ -1005,6 +1005,7 @@ public class Main extends javax.swing.JFrame {
             ObjectInputStream restore = new ObjectInputStream(in);
             Object x = restore.readObject();
             activeStruct = (Structure) x;
+            updateStructurePanel();
 
         } catch (IOException e) {
             System.out.println(e.getClass());

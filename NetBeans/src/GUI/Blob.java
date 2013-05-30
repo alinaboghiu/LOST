@@ -5,22 +5,25 @@
 package GUI;
 
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.Serializable;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 
 public class Blob extends JLabel implements Serializable {
 
-    private volatile int screenX = 0;
-    private volatile int screenY = 0;
+    protected volatile int screenX = 0;
+    protected volatile int screenY = 0;
     protected volatile int myX = 0;
     protected volatile int myY = 0;
-    JPopupMenu menu = new JPopupMenu("Popup");
+//    JPopupMenu menu = new JPopupMenu("Popup");
 
     public Blob() {
 //        addMouseListener(new PopupTriggerListener());
@@ -28,8 +31,6 @@ public class Blob extends JLabel implements Serializable {
 //        item.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
-//                System.out.println(this.getClass());
-//                this.getParent();
 //            }
 //        });
 //        menu.add(item);
@@ -76,11 +77,13 @@ public class Blob extends JLabel implements Serializable {
                 int deltaY = (e.getYOnScreen() - screenY);
                 int newx = myX + deltaX;
                 int newy = myY + deltaY;
-                if (newx > getParent().getWidth() - e.getComponent().getWidth()) {
-                    newx = getParent().getWidth() - e.getComponent().getWidth();
+                int w = getParent().getWidth() - e.getComponent().getWidth() - 5;
+                if (newx > w) {
+                    newx = w;
                 }
-                if (newy > getParent().getHeight() - 40) {
-                    newy = getParent().getHeight() - 40;
+                int h = getParent().getHeight() - e.getComponent().getHeight() - 5;
+                if (newy > h) {
+                    newy = h;
                 }
                 if (newx < 5) {
                     newx = 5;
@@ -97,33 +100,32 @@ public class Blob extends JLabel implements Serializable {
         });
     }
 
-    class PopupTriggerListener extends MouseAdapter {
-
-        @Override
-        public void mousePressed(MouseEvent ev) {
-            if (ev.isPopupTrigger()) {
-                menu.show(ev.getComponent(), ev.getX(), ev.getY());
-            }
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent ev) {
-            if (ev.isPopupTrigger()) {
-                menu.show(ev.getComponent(), ev.getX(), ev.getY());
-            }
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent ev) {
-        }
-    }
-    
+//    class PopupTriggerListener extends MouseAdapter {
+//
+//        @Override
+//        public void mousePressed(MouseEvent ev) {
+//            if (ev.isPopupTrigger()) {
+//                menu.show(ev.getComponent(), ev.getX(), ev.getY());
+//            }
+//        }
+//
+//        @Override
+//        public void mouseReleased(MouseEvent ev) {
+//            if (ev.isPopupTrigger()) {
+//                menu.show(ev.getComponent(), ev.getX(), ev.getY());
+//            }
+//        }
+//
+//        @Override
+//        public void mouseClicked(MouseEvent ev) {
+//        }
+//    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         setHorizontalAlignment(SwingConstants.CENTER);
         g.setColor(getBackground());
-        g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 30, 30);
+        g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 30, 30);
         super.paintComponent(g);
     }
 }

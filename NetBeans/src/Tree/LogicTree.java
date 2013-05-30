@@ -129,7 +129,7 @@ public class LogicTree {
                             throw new UndefinedRelationException(relName);
                         } else {
                             String argName = thisInfo.getChild(1).getChild(1).getText();
-                            UnaryRel rel = new UnaryRel(relName, null);
+                            UnaryRel rel = new UnaryRel(relName);
                             if (struct.inConstScope(argName) != null) {
                                 rel.arg = struct.inConstScope(argName);
                             } else if (inSentenceScope(argName, sentenceScope) != null) {

@@ -20,24 +20,24 @@ public class Signature {
 
     public Signature(Structure activeStruct) {
         for (Term t:activeStruct.terms){
-            if (t instanceof Const && !constNames.contains(t.name)) {
+            if (t instanceof Const) {
                 constNames.add(t.name);
             }
         }
         for (NullaryRel n:activeStruct.nullaryRels){
-//            if (!nullaryNames.contains(n.name)){
+            if (!nullaryNames.contains(n.name)){
                 nullaryNames.add(n.name);
-//            }
+            }
         }
         for (UnaryRel u:activeStruct.unaryRels){
-//            if (!unaryNames.contains(u.name)){
-                unaryNames.add(u.name + " (" + u.arg.name + ")");
-//            }
+            if (!unaryNames.contains(u.name)){
+                unaryNames.add(u.name);
+            }
         }
         for (BinaryRel b:activeStruct.binaryRels){
-//            if (!binaryNames.contains(b.name)){
-                binaryNames.add(b.name  + " (" + b.arg1.name + ", " + b.arg2.name + ")");
-//            }
+            if (!binaryNames.contains(b.name)){
+                binaryNames.add(b.name);
+            }
         }
     }
     

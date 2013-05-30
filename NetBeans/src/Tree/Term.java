@@ -11,14 +11,11 @@ public class Term implements Serializable {
 
     public String name;
     public Blob blob;
+    public boolean displayed = false;
     
     public Term(){}
     
     public Term(String name){
-        this.name = name;
-    }
-    
-    public Term(String name, int limit){
         this.name = name;
         blob = new Blob();
     }

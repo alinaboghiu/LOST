@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public class NullaryRel  implements Serializable {
     
-    String name;
+    public String name;
     boolean value = false;
     
     public NullaryRel(){}
