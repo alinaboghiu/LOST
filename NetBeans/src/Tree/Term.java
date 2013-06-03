@@ -1,7 +1,9 @@
 package Tree;
 
+import GUI.Arrow;
 import GUI.Blob;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /*
  * @author alina
@@ -9,6 +11,7 @@ import java.io.Serializable;
  */
 public class Term implements Serializable {
 
+    public ArrayList<Arrow> arrows = new ArrayList<>();
     public String name;
     public Blob blob;
     public boolean displayed = false;

@@ -1,0 +1,210 @@
+\documentclass{report}
+\usepackage{graphicx}
+\begin{document}
+
+%-------------------------------------------------------------------------------
+%    TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\begin{titlepage}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\center
+\textsc{\LARGE Imperial College London}  \\[0.5cm]
+\textsc{\Large Department of Computing}  \\[0.5cm]
+\textsc{\large Third Year Individual Project} \\[1.5cm]
+\HRule \\[0.3cm]
+{\huge \bfseries LOST: \\[0.2cm] The Logic Semantics Tutor} \\[0.3cm]
+\HRule \\[1.5cm]
+
+% author and supervisors
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large \emph{Author:} \\
+ Alina  \textsc{Boghiu}
+\end{flushleft}
+\end{minipage}~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large \emph{Supervisor:} \\
+ Ian \textsc{Hodkinson}
+\end{flushright}
+\begin{flushright} \large \emph{Second marker:} \\
+ Fariba \textsc{Sadri}
+\end{flushright}
+\end{minipage}\\[4cm]
+{\large \today}\\[3cm]
+\vfill
+\end{titlepage}
+
+%-------------------------------------------------------------------------------
+%    ABSTRACT
+%-------------------------------------------------------------------------------
+
+\begin{abstract}
+The aim of this project was to develop a software tool that can teach the 
+semantics of first order predicate logic to students by helping them visualise 
+the process of sentence evaluation. Thus, the focus was on developing an 
+intuitive and engaging user interface to show and allow modification of 
+structures, signatures and sentences, as well as provide relevant exercises for 
+the student to practice with. The latter is arguably the most important feature 
+of this tool and an addition to the functionality of the previous LOST. The user
+can now ask to solve 3 automatically generated types of puzzles, within a 
+tutorial environment that measures their progress. Completing each lesson is an 
+actual achievement and provides real confirmation of understanding the semantics
+of first order logic. \\ \\
+For robustness, the tool is linked to a lesson database which can be accessed by
+students and lecturers alike. The former also have permissions to add, edit or
+remove lessons and see their student's progress. \\ \\
+I believe these are firm grounds for many possible extensions (such as a
+Hintikka game) and can be of real use, standalone or alongside the first year
+predicate logic course. This report will provide further detail of its 
+implementation and purpose.
+\end{abstract}
+
+%-------------------------------------------------------------------------------
+%    ACKNOWLEDGEMENTS
+%-------------------------------------------------------------------------------
+
+\subsection*{\centering Acknowledgements}
+I would like to express gratitude and appreciation to my supervisor, \emph{Ian 
+Hodkinson}, for his continuous support and motivation that have guided me 
+towards completing this project, as well as to my second marker, \emph{Fariba
+Sadri}, for her useful remarks and suggestions.\\ \\
+Altogether, the resources, staff and students of the Department of Computing 
+have made working on this project enjoyable every day.
+
+%-------------------------------------------------------------------------------
+    \tableofcontents
+%-------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------
+%   INTRODUCTION
+%-------------------------------------------------------------------------------
+
+\chapter{Introduction} % 3-4 pages, solid text
+ % what is the project about
+ % what did I set out to achieve, relevance, importance, difficulty
+ % key aspects, non-technical
+ % assume reader knows the basic logic operators and in general prop logic
+
+%-------------------------------------------------------------------------------
+%   BACKGROUND
+%-------------------------------------------------------------------------------
+
+\chapter{Background} % 10-20 pages
+\section{First order predicate logic semantics}
+In order to understand the product I am aiming for we should first take a look 
+at what first order predicate logic is and why its semantics can be tricky. As 
+an extension of propositional logic, it expresses statements such as \emph{
+Socrates is a man} in much more detail. While propositional logic would regard
+this sentence as atomic and simply assign it a truth value, predicate logic
+provides a way of describing its internal structure and of evaluating it inside
+a relevant context. It does this by introducing:
+
+	\begin{itemize}
+	\item \emph{Constants} 
+  - which name the objects (or terms) inside a context (e.g.\ Socrates)
+	\item \emph{Relations}
+  - which describe properties of the objects they take as arguments or, in the
+    case of nullary relations (which take no arguments), general properties of
+    the structure (e.g.\ \emph{man} is a unary relation that describes Socrates)
+	\end{itemize}
+
+\noindent These elements form the signature of a structure (i.e.\ the technical 
+term for the context we need in order to evaluate a logic formula and assign it
+a truth value). For a computer scientist it may be easier to understand that the
+structure contains instances of the signature's elements, as well as other
+objects, which one can iterate over with variables. Using these concepts, we can
+now rewrite the sentence as \emph{man(Socrates)}. Two questions arise: First,
+which is the object that Socrates describes. Second, what does it mean for
+something to be a man. If we take our structure to be an imaginary world of
+dwarfs and name one of them Socrates, our sentence would be false. However in
+the context of the real world where everyone is human and Socrates names the
+famous philosopher, the sentence is true. \\ \\
+Next, if we want to express \emph{All men are mortal} we must introduce the two
+quantifiers. This was not possible in first order propositional logic and
+understanding quantifiers and how the iterate over the objects in a structure is
+the main source of distress amongst students. The quantifiers are:
+
+	\begin{itemize}
+	\item \emph{$\exists$ (Exists)} 
+  - which checks that there is at least one object in the structure that
+    satisfies the sentence it refers to and makes it true
+	\item \emph{$\forall$ (For all)}
+  - which checks that all of the objects in the structure satisfy the sentence
+    it refers to and each make it true.
+	\end{itemize}
+
+\noindent Now the sentence can now be written as
+\emph{$\forall$(men(x) $\rightarrow$ mortal(x))}
+and we refer to x as a variable which in this case is bound by the for all
+quantifier. Another aspect that the user must understand is that sentences
+containing unbound variables are valid but cannot be evaluated to a truth
+value.\\ \\
+When considering my own aproach, I decided a good product would offer a way of
+visualising all of this and allow the user to play around with structures and
+sentences, as experimenting would make it easier to understand the inner works.
+
+\section{Existing solutions}
+  % LOST
+  % other software and ideas and their limitations
+  % My chosen approach: a tutorial
+
+%-------------------------------------------------------------------------------
+%   MAIN BODY
+%-------------------------------------------------------------------------------
+
+\chapter{Approach and Implementation details}
+
+\section{The Evaluator}
+The structure of my project's back end naturally lays upon the 3 main parts of
+logic semantics: structures, signatures and sentences. Together these form the
+Evaluator, a package which makes them interact correctly. With no front end, it
+can still take a sentence input through the entire journey to a boolean outcome.
+In fact this is the journey we will make to better understand its components.
+\section{The User Interface}
+\section{The Lesson Generator}
+\section{The Lesson Database}
+
+%-------------------------------------------------------------------------------
+%   EVALUATION
+%-------------------------------------------------------------------------------
+
+\chapter{Evaluation}
+\section{Quantitative evaluation}
+ % minimum viable product, robustness, bugs!, 
+\section{Qualitative evaluation}
+ % have I done it well, is it appealing, performant, pretty
+
+%-------------------------------------------------------------------------------
+%   CONCLUSIONS AND FUTURE WORK
+%-------------------------------------------------------------------------------
+
+\chapter{Conclusions and Future Work}
+\section{Learning outcomes}
+\section{Potential improvements}
+\section{Potential extensions}
+
+%-------------------------------------------------------------------------------
+%   BIBIOGRAPHY
+%-------------------------------------------------------------------------------
+
+\begin{thebibliography}{9}
+%\bibitem{lamport94}
+%  Leslie Lamport,
+%  \emph{\LaTeX: A Document Preparation System}.
+%  Addison Wesley, Massachusetts,
+%  2nd Edition,
+%  1994.
+\end{thebibliography}
+
+%-------------------------------------------------------------------------------
+%   APPENDIX
+%-------------------------------------------------------------------------------
+
+\appendix
+\chapter{Short demo}
+\chapter{Program Listings}
+
+%-------------------------------------------------------------------------------
+
+\end{document}
+

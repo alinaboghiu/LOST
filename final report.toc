@@ -1,0 +1,18 @@
+\contentsline {chapter}{\numberline {1}Introduction}{3}
+\contentsline {chapter}{\numberline {2}Background}{4}
+\contentsline {section}{\numberline {2.1}First order predicate logic semantics}{4}
+\contentsline {section}{\numberline {2.2}Existing solutions}{5}
+\contentsline {chapter}{\numberline {3}Approach and Implementation details}{6}
+\contentsline {section}{\numberline {3.1}The Evaluator}{6}
+\contentsline {section}{\numberline {3.2}The User Interface}{6}
+\contentsline {section}{\numberline {3.3}The Lesson Generator}{6}
+\contentsline {section}{\numberline {3.4}The Lesson Database}{6}
+\contentsline {chapter}{\numberline {4}Evaluation}{7}
+\contentsline {section}{\numberline {4.1}Quantitative evaluation}{7}
+\contentsline {section}{\numberline {4.2}Qualitative evaluation}{7}
+\contentsline {chapter}{\numberline {5}Conclusions and Future Work}{8}
+\contentsline {section}{\numberline {5.1}Learning outcomes}{8}
+\contentsline {section}{\numberline {5.2}Potential improvements}{8}
+\contentsline {section}{\numberline {5.3}Potential extensions}{8}
+\contentsline {chapter}{\numberline {A}Short demo}{10}
+\contentsline {chapter}{\numberline {B}Program Listings}{11}

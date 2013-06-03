@@ -5,6 +5,7 @@
 package GUI;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -23,25 +24,27 @@ public class Blob extends JLabel implements Serializable {
     protected volatile int screenY = 0;
     protected volatile int myX = 0;
     protected volatile int myY = 0;
-//    JPopupMenu menu = new JPopupMenu("Popup");
+    JPopupMenu menu = new JPopupMenu("Popup");
 
     public Blob() {
-//        addMouseListener(new PopupTriggerListener());
-//        JMenuItem item = new JMenuItem("Delete");
-//        item.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//            }
-//        });
-//        menu.add(item);
-//        item = new JMenuItem("Test2");
-//        item.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                System.out.println("Menu item Test2");
-//            }
-//        });
-//        menu.add(item);
+        addMouseListener(new PopupTriggerListener());
+        JMenuItem item = new JMenuItem("Delete");
+        item.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JMenuItem i = (JMenuItem)e.getSource();
+                Main.structurePanel.remove(Main.structurePanel.getComponentAt(i.getParent().getLocation()));
+            }
+        });
+        menu.add(item);
+        item = new JMenuItem("Test2");
+        item.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Menu item Test2");
+            }
+        });
+        menu.add(item);
 
         addMouseListener(new MouseListener() {
             @Override
@@ -100,26 +103,28 @@ public class Blob extends JLabel implements Serializable {
         });
     }
 
-//    class PopupTriggerListener extends MouseAdapter {
-//
-//        @Override
-//        public void mousePressed(MouseEvent ev) {
-//            if (ev.isPopupTrigger()) {
-//                menu.show(ev.getComponent(), ev.getX(), ev.getY());
-//            }
-//        }
-//
-//        @Override
-//        public void mouseReleased(MouseEvent ev) {
-//            if (ev.isPopupTrigger()) {
-//                menu.show(ev.getComponent(), ev.getX(), ev.getY());
-//            }
-//        }
-//
-//        @Override
-//        public void mouseClicked(MouseEvent ev) {
-//        }
-//    }
+    class PopupTriggerListener extends MouseAdapter {
+
+        @Override
+        public void mousePressed(MouseEvent ev) {
+            if (ev.isPopupTrigger()) {
+                menu.show(ev.getComponent(), ev.getX(), ev.getY());
+            }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent ev) {
+            if (ev.isPopupTrigger()) {
+                menu.show(ev.getComponent(), ev.getX(), ev.getY());
+                System.out.println(ev.getComponent());
+            }
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent ev) {
+        }
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

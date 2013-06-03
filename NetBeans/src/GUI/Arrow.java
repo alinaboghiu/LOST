@@ -50,7 +50,7 @@ public class Arrow extends JLabel {
         this.from = from;
         this.to = to;
         setBounds(5, 5, 5555, 5555);
-        addMouseListener(new PopupTriggerListener());
+//        addMouseListener(new PopupTriggerListener());
         menu.setOpaque(false);
         addRelation(name, colour);
     }
@@ -109,27 +109,27 @@ public class Arrow extends JLabel {
         g2d.fill(arrowHead);
     }
 
-    class PopupTriggerListener extends MouseAdapter {
-
-        @Override
-        public void mousePressed(MouseEvent ev) {
-            Point click = new Point(ev.getX(), ev.getY());
-            Boolean b = line != null && line.getBounds().contains(click);
-            Boolean c = arc != null && arc.getBounds().contains(click);
-            if (ev.isPopupTrigger() && (b || c) ) {
-                menu.show(ev.getComponent(), ev.getX(), ev.getY());
-            }
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent ev) {
-            if (ev.isPopupTrigger()) {
-                menu.show(ev.getComponent(), ev.getX(), ev.getY());
-            }
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent ev) {
-        }
-    }
+//    class PopupTriggerListener extends MouseAdapter {
+//
+//        @Override
+//        public void mousePressed(MouseEvent ev) {
+//            Point click = new Point(ev.getX(), ev.getY());
+//            Boolean b = line != null && line.getBounds().contains(click);
+//            Boolean c = arc != null && arc.getBounds().contains(click);
+//            if (ev.isPopupTrigger() && (b || c) ) {
+//                menu.show(ev.getComponent(), ev.getX(), ev.getY());
+//            }
+//        }
+//
+//        @Override
+//        public void mouseReleased(MouseEvent ev) {
+//            if (ev.isPopupTrigger()) {
+//                menu.show(ev.getComponent(), ev.getX(), ev.getY());
+//            }
+//        }
+//
+//        @Override
+//        public void mouseClicked(MouseEvent ev) {
+//        }
+//    }
 }
