@@ -1,35 +1,22 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
-import Parser.folLexer;
-import Parser.folParser;
 import Tree.DuplicateDefinitionException;
-import Tree.LogicTree;
 import Tree.Structure;
-import Tree.Term;
 import Tree.UnboundException;
 import Tree.UndefinedRelationException;
-import java.awt.Component;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.text.BadLocationException;
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.TokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 /**
  *
@@ -37,15 +24,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
  */
 public class Main extends javax.swing.JFrame {
 
-//    static DefaultListModel sentenceListModel = new DefaultListModel();
-//    static DefaultListModel constListModel = new DefaultListModel();
-//    static DefaultListModel nullaryListModel = new DefaultListModel();
-//    static DefaultListModel nullaryRelsDisplayModel = new DefaultListModel();
-//    static DefaultListModel unaryListModel = new DefaultListModel();
-//    static DefaultListModel binaryListModel = new DefaultListModel();
-//    static Structure activeStruct = new Structure();
-//    static Signature activeSig = new Signature(activeStruct);
-//    static ArrayList<LogicTree> activeSentences = new ArrayList<>();
     static Controller controller = new Controller();
 
     public Main() {
@@ -63,8 +41,11 @@ public class Main extends javax.swing.JFrame {
         Constants = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         constantList = new javax.swing.JList();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
+        delConstButton = new javax.swing.JButton();
+        addConstButton = new javax.swing.JButton();
+        renameConstButton = new javax.swing.JButton();
+        newConstantField = new javax.swing.JTextField();
+        renameConstantField = new javax.swing.JTextField();
         Nullary = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         nullaryList = new javax.swing.JList();
@@ -74,9 +55,12 @@ public class Main extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         unaryList = new javax.swing.JList();
+        jButton1 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
         structurePanel = new javax.swing.JPanel();
         SentencePanel = new javax.swing.JPanel();
-        jTextField = new javax.swing.JTextField();
+        newSentenceField = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -87,15 +71,14 @@ public class Main extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jButton13 = new javax.swing.JButton();
-        refreshButton = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        submitButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
+        sentenceQuiz = new javax.swing.JLabel();
+        structureQuiz = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         addButton = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
@@ -108,8 +91,8 @@ public class Main extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         showEvaluator = new javax.swing.JCheckBoxMenuItem();
-        jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
-        jCheckBoxMenuItem3 = new javax.swing.JCheckBoxMenuItem();
+        showSentenceQuiz = new javax.swing.JCheckBoxMenuItem();
+        showStructureQuiz = new javax.swing.JCheckBoxMenuItem();
         jMenu1 = new javax.swing.JMenu();
         newStructure = new javax.swing.JMenuItem();
         saveStructure = new javax.swing.JMenuItem();
@@ -120,16 +103,18 @@ public class Main extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(672, 400));
+        setMinimumSize(new java.awt.Dimension(660, 400));
+        setPreferredSize(new java.awt.Dimension(800, 568));
 
         SignaturePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         SignaturePanel.setFocusable(false);
-        SignaturePanel.setPreferredSize(new java.awt.Dimension(150, 150));
+        SignaturePanel.setPreferredSize(new java.awt.Dimension(280, 500));
         SignaturePanel.setRequestFocusEnabled(false);
 
         Constants.setBorder(null);
         Constants.setFocusable(false);
         Constants.setOpaque(false);
+        Constants.setPreferredSize(new java.awt.Dimension(250, 300));
         Constants.setRequestFocusEnabled(false);
         Constants.setVerifyInputWhenFocusTarget(false);
 
@@ -139,42 +124,83 @@ public class Main extends javax.swing.JFrame {
         constantList.setOpaque(false);
         jScrollPane2.setViewportView(constantList);
 
-        jButton14.setText("Delete");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        delConstButton.setText("Delete");
+        delConstButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                delConstButtonActionPerformed(evt);
             }
         });
 
-        jButton15.setText("jButton15");
+        addConstButton.setText("Add");
+        addConstButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addConstButtonActionPerformed(evt);
+            }
+        });
+
+        renameConstButton.setText("Rename");
+        renameConstButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                renameConstButtonActionPerformed(evt);
+            }
+        });
+
+        newConstantField.setToolTipText("choose a name");
+        newConstantField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newConstantFieldActionPerformed(evt);
+            }
+        });
+        newConstantField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                newConstantFieldKeyReleased(evt);
+            }
+        });
+
+        renameConstantField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                renameConstantFieldKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout ConstantsLayout = new javax.swing.GroupLayout(Constants);
         Constants.setLayout(ConstantsLayout);
         ConstantsLayout.setHorizontalGroup(
             ConstantsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ConstantsLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConstantsLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(ConstantsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ConstantsLayout.createSequentialGroup()
-                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(ConstantsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(renameConstantField)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ConstantsLayout.createSequentialGroup()
+                        .addComponent(renameConstButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton15)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(ConstantsLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                        .addGap(25, 25, 25))))
+                        .addComponent(addConstButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(delConstButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(newConstantField, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(25, 25, 25))
         );
         ConstantsLayout.setVerticalGroup(
             ConstantsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConstantsLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(renameConstantField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(newConstantField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ConstantsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton14)
-                    .addComponent(jButton15))
-                .addContainerGap())
+                    .addComponent(delConstButton)
+                    .addComponent(addConstButton)
+                    .addComponent(renameConstButton))
+                .addGap(20, 20, 20))
         );
+
+        newConstantField.setVisible(false);
+        renameConstantField.setVisible(false);
 
         SignaturePanel.addTab("Constants", Constants);
 
@@ -193,14 +219,14 @@ public class Main extends javax.swing.JFrame {
             NullaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NullaryLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
         NullaryLayout.setVerticalGroup(
             NullaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NullaryLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
 
@@ -222,14 +248,14 @@ public class Main extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
 
@@ -243,22 +269,51 @@ public class Main extends javax.swing.JFrame {
         unaryList.setOpaque(false);
         jScrollPane5.setViewportView(unaryList);
 
+        jButton1.setText("Add");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton11.setText("Remove");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
                 .addGap(25, 25, 25))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton11))
+                .addContainerGap())
         );
+
+        jTextField1.setVisible(false);
 
         SignaturePanel.addTab("Unary Relations", jPanel2);
 
@@ -271,22 +326,17 @@ public class Main extends javax.swing.JFrame {
         structurePanel.setLayout(structurePanelLayout);
         structurePanelLayout.setHorizontalGroup(
             structurePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 518, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         structurePanelLayout.setVerticalGroup(
             structurePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 479, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jTextField.setSelectionColor(new java.awt.Color(120, 98, 89));
-        jTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldActionPerformed(evt);
-            }
-        });
-        jTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        newSentenceField.setSelectionColor(new java.awt.Color(120, 98, 89));
+        newSentenceField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldKeyReleased(evt);
+                newSentenceFieldKeyReleased(evt);
             }
         });
 
@@ -354,10 +404,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Submit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        submitButton.setText("Submit");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                submitButtonActionPerformed(evt);
             }
         });
 
@@ -383,7 +433,7 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                             .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(submitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
 
@@ -409,50 +459,12 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jButton8)
                     .addComponent(jButton10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1))
+                .addComponent(submitButton))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton10, jButton2, jButton3, jButton4, jButton5, jButton6, jButton7, jButton8, jButton9});
 
         jButton2.getAccessibleContext().setAccessibleName("");
-
-        jButton13.setText("Clear");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
-            }
-        });
-
-        refreshButton.setText("Refresh");
-        refreshButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshButtonActionPerformed(evt);
-            }
-        });
-
-        jButton11.setText("jButton11");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton13, refreshButton});
-
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton11)
-                .addGap(0, 0, 0)
-                .addComponent(refreshButton)
-                .addGap(0, 0, 0)
-                .addComponent(jButton13))
-        );
 
         jScrollPane1.setBorder(null);
 
@@ -463,6 +475,14 @@ public class Main extends javax.swing.JFrame {
         jList1.setValueIsAdjusting(true);
         jScrollPane1.setViewportView(jList1);
 
+        sentenceQuiz.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sentenceQuiz.setText("jLabel1");
+        sentenceQuiz.setVisible(false);
+
+        structureQuiz.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        structureQuiz.setText("jLabel2");
+        structureQuiz.setVisible(false);
+
         javax.swing.GroupLayout SentencePanelLayout = new javax.swing.GroupLayout(SentencePanel);
         SentencePanel.setLayout(SentencePanelLayout);
         SentencePanelLayout.setHorizontalGroup(
@@ -470,31 +490,34 @@ public class Main extends javax.swing.JFrame {
             .addGroup(SentencePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(SentencePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField)
+                    .addComponent(sentenceQuiz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(SentencePanelLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(SentencePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(newSentenceField)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(structureQuiz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         SentencePanelLayout.setVerticalGroup(
             SentencePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SentencePanelLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(structureQuiz, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sentenceQuiz, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(SentencePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(SentencePanelLayout.createSequentialGroup()
-                        .addGroup(SentencePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField)))
-                .addContainerGap())
+                        .addComponent(newSentenceField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        addButton.setText("Add");
+        addButton.setText("Add new object");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
@@ -505,9 +528,7 @@ public class Main extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -515,6 +536,8 @@ public class Main extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(addButton))
         );
+
+        jProgressBar1.setBackground(new java.awt.Color(242, 240, 240));
 
         jMenu4.setText("Workbench");
 
@@ -569,13 +592,21 @@ public class Main extends javax.swing.JFrame {
         });
         jMenu5.add(showEvaluator);
 
-        jCheckBoxMenuItem2.setSelected(true);
-        jCheckBoxMenuItem2.setText("Sentence Quiz");
-        jMenu5.add(jCheckBoxMenuItem2);
+        showSentenceQuiz.setText("Sentence Quiz");
+        showSentenceQuiz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showSentenceQuizActionPerformed(evt);
+            }
+        });
+        jMenu5.add(showSentenceQuiz);
 
-        jCheckBoxMenuItem3.setSelected(true);
-        jCheckBoxMenuItem3.setText("Structure Quiz");
-        jMenu5.add(jCheckBoxMenuItem3);
+        showStructureQuiz.setText("Structure Quiz");
+        showStructureQuiz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showStructureQuizActionPerformed(evt);
+            }
+        });
+        jMenu5.add(showStructureQuiz);
 
         jMenu4.add(jMenu5);
 
@@ -640,22 +671,28 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(structurePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
-                    .addComponent(SentencePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SignaturePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(SentencePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(structurePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(SignaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(SignaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                .addComponent(SignaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addComponent(structurePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(structurePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SentencePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -671,9 +708,26 @@ public class Main extends javax.swing.JFrame {
         insertButtonText(jButton7.getText());
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        submitButtonAction();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+        try {
+            controller.submitButtonAction();
+        } catch (UndefinedRelationException ex) {
+            newSentenceField.setText("");
+            controller.updateSignaturePanel();
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        } catch (UnboundException ex) {
+            newSentenceField.setText("");
+            controller.updateSignaturePanel();
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        } catch (DuplicateDefinitionException ex) {
+            newSentenceField.setText("");
+            controller.updateSignaturePanel();
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getClass());
+            JOptionPane.showMessageDialog(this, "Invalid input! Please revise your sentence.");
+        }
+    }//GEN-LAST:event_submitButtonActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         insertButtonText(jButton3.getText());
@@ -703,15 +757,25 @@ public class Main extends javax.swing.JFrame {
         insertButtonText(jButton10.getText());
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldActionPerformed
-
-    private void jTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldKeyReleased
+    private void newSentenceFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_newSentenceFieldKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            submitButtonAction();
+            try {
+                controller.submitButtonAction();
+            } catch (UndefinedRelationException ex) {
+                newSentenceField.setText("");
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            } catch (UnboundException ex) {
+                newSentenceField.setText("");
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            } catch (DuplicateDefinitionException ex) {
+                newSentenceField.setText("");
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            } catch (Exception e) {
+                System.out.println(e.getClass());
+                JOptionPane.showMessageDialog(this, "Invalid input! Please revise your sentence.");
+            }
         }
-    }//GEN-LAST:event_jTextFieldKeyReleased
+    }//GEN-LAST:event_newSentenceFieldKeyReleased
 
     private void generateStructureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateStructureActionPerformed
         // TODO add your handling code here:
@@ -755,46 +819,124 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_showEvaluatorActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        Term t = new Term("t" + (controller.activeStruct.terms.size() + 1));
-        controller.activeStruct.terms.add(t);
-        t.blob.setBounds(10, 10, 30, 30);
-        structurePanel.add(t.blob);
-        structurePanel.repaint();
-//        updateSignaturePanel();
-        refreshButtonActionPerformed(evt);
+        controller.addBlob();
     }//GEN-LAST:event_addButtonActionPerformed
 
-    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        for (int i = 0; i < controller.sentenceListModel.size(); i++) {
-            LogicTree s = controller.activeSentences.get(i);
-            String news = (String) controller.sentenceListModel.getElementAt(i);
-            boolean outcome = s.evaluate(controller.activeStruct);
-            news = news.substring(0, news.length() - 5) + " " + outcome;
-            controller.sentenceListModel.setElementAt(news, i);
+    private void delConstButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delConstButtonActionPerformed
+        controller.removeBlob(constantList.getSelectedIndex());
+    }//GEN-LAST:event_delConstButtonActionPerformed
+
+    private void addConstButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addConstButtonActionPerformed
+        newConstantField.setVisible(true);
+    }//GEN-LAST:event_addConstButtonActionPerformed
+
+    private void showSentenceQuizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showSentenceQuizActionPerformed
+        sentenceQuiz.setVisible(showSentenceQuiz.getState());
+    }//GEN-LAST:event_showSentenceQuizActionPerformed
+
+    private void showStructureQuizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showStructureQuizActionPerformed
+        structureQuiz.setVisible(showStructureQuiz.getState());
+    }//GEN-LAST:event_showStructureQuizActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jTextField1.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            controller.addUnaryRel(jTextField1.getText());
+            jTextField1.setText("");
+            jTextField1.setVisible(false);
         }
-    }//GEN-LAST:event_refreshButtonActionPerformed
+    }//GEN-LAST:event_jTextField1KeyReleased
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        controller.sentenceListModel.removeAllElements();
-    }//GEN-LAST:event_jButton13ActionPerformed
-
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        int selectedIndex = constantList.getSelectedIndex();
-        String blobName = controller.constListModel.getElementAt(selectedIndex).toString();
-        controller.constListModel.removeElementAt(selectedIndex);
-        controller.activeStruct.terms.get(0).blob.invalidate();
-        controller.activeStruct.terms.get(0).blob.setVisible(false);
-        controller.activeStruct.terms.remove(0);
-        for (Component c : structurePanel.getComponents()){
-            if (c.getClass().getSimpleName().equals("Blob")){
-                Blob b = (Blob) c;
-                if (b.getText().equals(blobName)){
-//                    b.setVisible(false);
-//                    System.out.println(b.getClass().);
-                }
+    private void renameConstButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_renameConstButtonActionPerformed
+        try {
+            if (constantList.getSelectedIndex() > -1) {
+                renameConstantField.setVisible(true);
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
         }
-    }//GEN-LAST:event_jButton14ActionPerformed
+    }//GEN-LAST:event_renameConstButtonActionPerformed
+
+    private void newConstantFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newConstantFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newConstantFieldActionPerformed
+
+    private void newConstantFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_newConstantFieldKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            controller.addBlob(newConstantField.getText());
+            newConstantField.setText("");
+            newConstantField.setVisible(false);
+        }
+    }//GEN-LAST:event_newConstantFieldKeyReleased
+
+    private void renameConstantFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_renameConstantFieldKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            controller.renameBlob(constantList.getAnchorSelectionIndex(),renameConstantField.getText());
+            renameConstantField.setText("");
+            renameConstantField.setVisible(false);
+        }
+    }//GEN-LAST:event_renameConstantFieldKeyReleased
+
+    private void insertButtonText(String name) {
+        try {
+            int pos = newSentenceField.getCaretPosition();
+            String text1 = newSentenceField.getText(0, pos);
+            String text2 = newSentenceField.getText(pos, newSentenceField.getText().length() - pos);
+            newSentenceField.setText(text1 + name + text2);
+            newSentenceField.requestFocusInWindow();
+            newSentenceField.setCaretPosition(pos + 1);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private boolean resolveOld(String object) {
+        //TODO finish this
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Would you like to save the current " + object + "?");
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            saveStructureAs();
+            return true;
+        } else if (dialogResult == JOptionPane.CANCEL_OPTION) {
+            return false;
+        }
+        return true;
+    }
+
+    private void readInFile(String fileName) {
+        try {
+            FileInputStream in = new FileInputStream(fileName);
+            ObjectInputStream restore = new ObjectInputStream(in);
+            Object x = restore.readObject();
+            controller.activeStruct = (Structure) x;
+            structurePanel.removeAll();
+            controller.updateStructurePanel();
+            structurePanel.revalidate();
+            structurePanel.repaint();
+
+        } catch (IOException e) {
+            System.out.println(e.getClass());
+            JOptionPane.showMessageDialog(this, "Editor can't find the file called " + fileName);
+        } catch (ClassNotFoundException e) {
+        }
+    }
+
+    private void saveStructure(String fileName) {
+        try {
+            FileOutputStream saveFile = new FileOutputStream(fileName);
+            ObjectOutputStream save = new ObjectOutputStream(saveFile);
+            save.writeObject(controller.activeStruct);
+            save.close();
+        } catch (IOException e) {
+        }
+    }
+
+    private void saveStructureAs() {
+        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            saveStructure(fileChooser.getSelectedFile().getAbsolutePath());
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -837,16 +979,15 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel SentencePanel;
     private javax.swing.JTabbedPane SignaturePanel;
     private javax.swing.JButton addButton;
+    private javax.swing.JButton addConstButton;
     private javax.swing.JList binaryList;
     private javax.swing.JList constantList;
+    private javax.swing.JButton delConstButton;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JMenuItem generateStructure;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -855,9 +996,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem3;
-    private javax.swing.JList jList1;
+    protected static javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -872,175 +1011,33 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTextField jTextField;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField newConstantField;
+    protected static javax.swing.JTextField newSentenceField;
     private javax.swing.JMenuItem newStructure;
     private javax.swing.JList nullaryList;
     private javax.swing.JMenuItem openStructure;
-    private javax.swing.JButton refreshButton;
+    private javax.swing.JButton renameConstButton;
+    protected javax.swing.JTextField renameConstantField;
     private javax.swing.JMenuItem saveStructure;
     private javax.swing.JMenuItem saveStructureAs;
+    private javax.swing.JLabel sentenceQuiz;
     private javax.swing.JCheckBoxMenuItem showEvaluator;
+    private javax.swing.JCheckBoxMenuItem showSentenceQuiz;
+    private javax.swing.JCheckBoxMenuItem showStructureQuiz;
     protected static javax.swing.JPanel structurePanel;
+    private javax.swing.JLabel structureQuiz;
+    private javax.swing.JButton submitButton;
     private javax.swing.JList unaryList;
     // End of variables declaration//GEN-END:variables
-
-    private void insertButtonText(String name) {
-        try {
-            int pos = jTextField.getCaretPosition();
-            String text1 = jTextField.getText(0, pos);
-            String text2 = jTextField.getText(pos, jTextField.getText().length() - pos);
-            jTextField.setText(text1 + name + text2);
-            jTextField.requestFocusInWindow();
-            jTextField.setCaretPosition(pos + 1);
-        } catch (BadLocationException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void submitButtonAction() {
-        try {
-            // parse input
-            ANTLRInputStream input = new ANTLRInputStream(jTextField.getText());
-            Lexer lexer = new folLexer(input);
-            TokenStream tk = new CommonTokenStream(lexer);
-            folParser p = new folParser(tk);
-            ParseTree parseTree = p.condition().getChild(0);
-
-            // create sentence, evaluate and add to activeSentences list
-            LogicTree sentence = new LogicTree(parseTree, controller.activeStruct, controller.activeSig, new ArrayList());
-            boolean outcome = sentence.evaluate(controller.activeStruct);
-            controller.activeSentences.add(sentence);
-
-            // add to list and scroll down
-            controller.sentenceListModel.addElement(jTextField.getText() + " - " + outcome);
-            int lastIndex = jList1.getModel().getSize() - 1;
-            if (lastIndex >= 0) {
-                jList1.ensureIndexIsVisible(lastIndex);
-            }
-            jTextField.setText("");
-
-        } catch (UndefinedRelationException ex) {
-            jTextField.setText("");
-            controller.updateSignaturePanel();
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-        } catch (UnboundException ex) {
-            jTextField.setText("");
-            controller.updateSignaturePanel();
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-        } catch (DuplicateDefinitionException ex) {
-            jTextField.setText("");
-            controller.updateSignaturePanel();
-            JOptionPane.showMessageDialog(this, ex.getMessage());
-        } catch (Exception e) {
-            System.out.println(e.getClass());
-            JOptionPane.showMessageDialog(this, "Invalid input! Please revise your sentence.");
-        }
-
-    }
-
-//    private void updateStructurePanel() {
-//        for (Term t : activeStruct.terms) {
-//            if (!t.displayed) {
-//                int i = (structurePanel.getComponentCount()*100)%structurePanel.getWidth();
-//                if (t instanceof Const) {
-//                    t.blob.setText(t.name);
-//                    t.blob.setBounds(i, i, t.name.length() * 10, 40);
-//                } else {
-//                    t.blob.setBounds(i, i, 30, 30);
-//                }
-//                structurePanel.add(t.blob);
-//                t.displayed = true;
-//            }
-//        }
-//
-//        for (NullaryRel r : activeStruct.nullaryRels) {
-//        }
-//
-//        for (UnaryRel r : activeStruct.unaryRels) {
-//            r.arg.blob.setBackground(r.colour);
-//        }
-//
-//        for (BinaryRel r : activeStruct.binaryRels) {
-//            Arrow a = new Arrow(r.arg1.blob, r.arg2.blob, r.name, r.colour);
-//            r.arg1.arrows.add(a);
-//            r.arg2.arrows.add(a);
-//            structurePanel.add(a);
-//        }
-//    }
-//
-//    private void updateSignaturePanel() {
-//        for (String constName : activeSig.constNames) {
-//            if (!constListModel.contains(constName)) {
-//                constListModel.addElement(constName);
-//            }
-//        }
-//        for (String nullaryName : activeSig.nullaryNames) {
-//            if (!nullaryListModel.contains(nullaryName)) {
-//                nullaryListModel.addElement(nullaryName);
-//            }
-//        }
-//        for (String unaryName : activeSig.unaryNames) {
-//            if (!unaryListModel.contains(unaryName)) {
-//                unaryListModel.addElement(unaryName);
-//                unaryList.setForeground(Structure.toColour(unaryName));
-//            }
-//        }
-//        for (String binaryName : activeSig.binaryNames) {
-//            binaryListModel.addElement(binaryName);
-//            binaryList.setForeground(Structure.toColour(binaryName));
-//        }
-//    }
-
-    private boolean resolveOld(String object) {
-        //TODO finish this
-        int dialogResult = JOptionPane.showConfirmDialog(null, "Would you like to save the current " + object + "?");
-        if (dialogResult == JOptionPane.YES_OPTION) {
-            saveStructureAs();
-            return true;
-        } else if (dialogResult == JOptionPane.CANCEL_OPTION) {
-            return false;
-        }
-        return true;
-    }
-
-    private void readInFile(String fileName) {
-        try {
-            FileInputStream in = new FileInputStream(fileName);
-            ObjectInputStream restore = new ObjectInputStream(in);
-            Object x = restore.readObject();
-            controller.activeStruct = (Structure) x;
-            controller.updateStructurePanel();
-
-        } catch (IOException e) {
-            System.out.println(e.getClass());
-            JOptionPane.showMessageDialog(this, "Editor can't find the file called " + fileName);
-        } catch (ClassNotFoundException e) {
-        }
-    }
-
-    private void saveStructure(String fileName) {
-        try {
-            FileOutputStream saveFile = new FileOutputStream(fileName);
-            ObjectOutputStream save = new ObjectOutputStream(saveFile);
-            save.writeObject(controller.activeStruct);
-            save.close();
-        } catch (IOException e) {
-        }
-    }
-
-    private void saveStructureAs() {
-        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            saveStructure(fileChooser.getSelectedFile().getAbsolutePath());
-        }
-    }
-} 
+}

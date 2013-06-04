@@ -4,8 +4,8 @@
  */
 package GUI;
 
+import Tree.UnaryRel;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.Serializable;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -32,19 +33,28 @@ public class Blob extends JLabel implements Serializable {
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JMenuItem i = (JMenuItem)e.getSource();
-                Main.structurePanel.remove(Main.structurePanel.getComponentAt(i.getParent().getLocation()));
+                Main.controller.removeBlob(Blob.this);
             }
         });
         menu.add(item);
-        item = new JMenuItem("Test2");
+        
+        item = new JMenuItem("Rename");
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Menu item Test2");
             }
         });
         menu.add(item);
+//        for (UnaryRel r : Main.controller.activeStruct.unaryRels) {
+//            item = new JCheckBoxMenuItem("happy");
+//            item.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+////                Main.controller.activeStruct.unaryRels.remove("happy");
+//                }
+//            });
+//            menu.add(item);
+//        }
 
         addMouseListener(new MouseListener() {
             @Override
@@ -124,7 +134,7 @@ public class Blob extends JLabel implements Serializable {
         public void mouseClicked(MouseEvent ev) {
         }
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

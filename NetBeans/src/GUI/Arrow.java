@@ -79,7 +79,7 @@ public class Arrow extends JLabel {
         arc = new Arc2D.Double();
         int w = from.getWidth();
         int h = from.getHeight();
-        arc.setArcByCenter(f.x + w * 2 / 3, f.y + h * 2 / 3, h / 2, 360, 360, Arc2D.OPEN);
+        arc.setArcByCenter(f.x + w, f.y + h, h / 2, 360, 360, Arc2D.OPEN);
         g2d.draw(arc);
 
     }
@@ -98,11 +98,8 @@ public class Arrow extends JLabel {
         int[] ys = {0, 5, -5};
         arrowHead = new Polygon(xs, ys, 3);
         if (line == null) {
-            g2d.translate((int) t.x + to.getWidth() - 7, (int) t.y + to.getHeight() * 0.7 / 3);
+            g2d.translate((int) t.x + to.getWidth()-7, (int) t.y + to.getHeight() * 1.6 / 3);
         } else {
-//            double x = f.x-Math.sqrt(400-f.y^2+2*f.y*t.y-t.y^2);
-//            double y = (t.y-f.y)/(t.x-f.x)*(x-t.x)+t.y;
-//            g2d.translate(x,y);
             g2d.translate((int) ((t.x + f.x) / 2 + t.x) / 2, (int) ((t.y + f.y) / 2 + t.y) / 2);
         }
         g2d.rotate(Math.atan2(f.y - t.y, f.x - t.x));

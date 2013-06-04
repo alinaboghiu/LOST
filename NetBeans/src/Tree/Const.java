@@ -6,7 +6,7 @@ package Tree;
  */
 public class Const extends Term {
 
-    Const(String name) {
+    public Const(String name) {
         super(name);
     }
     

@@ -140,7 +140,7 @@ public class LogicTree {
                             return new UnaryRelNode(rel, rel.arg);
                         }
 
-                        //Create Binary Relation Node
+                    //Create Binary Relation Node
                     } else {
                         if (!sig.binaryNames.contains(relName)) {
                             sig.binaryNames.add(relName);
@@ -159,9 +159,9 @@ public class LogicTree {
                             }
 
                             if (struct.inConstScope(a2Name) != null) {
-                                rel.arg1 = struct.inConstScope(a2Name);
+                                rel.arg2 = struct.inConstScope(a2Name);
                             } else if (inSentenceScope(a2Name, sentenceScope) != null) {
-                                rel.arg1 = inSentenceScope(a2Name, sentenceScope);
+                                rel.arg2 = inSentenceScope(a2Name, sentenceScope);
                             } else {
                                 throw new UnboundException(a2Name);
                             }
