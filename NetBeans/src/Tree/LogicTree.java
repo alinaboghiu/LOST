@@ -58,12 +58,13 @@ public class LogicTree {
         if (info.size() > 1) {
             String t1Name = info.get(0).getChild(0).getText();
             String t2Name = info.get(2).getChild(0).getText();
+            System.out.println(t1Name);
             EqualsNode eq = new EqualsNode(null, null);
 
             if (struct.inConstScope(t1Name) != null) {
                 eq.leftTerm = struct.inConstScope(t1Name);
             } else if (inSentenceScope(t1Name, sentenceScope) != null) {
-                eq.leftTerm = struct.inConstScope(t1Name);
+                eq.leftTerm = inSentenceScope(t1Name, sentenceScope);
             } else {
                 throw new UnboundException(t1Name);
             }

@@ -37,31 +37,13 @@ public class Blob extends JLabel implements Serializable {
             }
         });
         menu.add(item);
-        
-        item = new JMenuItem("Rename");
-        item.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-        menu.add(item);
-//        for (UnaryRel r : Main.controller.activeStruct.unaryRels) {
-//            item = new JCheckBoxMenuItem("happy");
-//            item.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-////                Main.controller.activeStruct.unaryRels.remove("happy");
-//                }
-//            });
-//            menu.add(item);
-//        }
 
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 e.getComponent().requestFocusInWindow();
             }
-
+            
             @Override
             public void mousePressed(MouseEvent e) {
                 screenX = e.getXOnScreen();
