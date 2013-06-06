@@ -25,15 +25,15 @@ public class Structure implements Serializable {
 //
         NullaryRel cold = new NullaryRel("cold");
         
-        UnaryRel happy1 = new UnaryRel("happy", tina, toColour("happy"));
-        UnaryRel happy2 = new UnaryRel("happy", t1, toColour("happy"));
+        UnaryRel happy1 = new UnaryRel("happy", tina);
+        UnaryRel happy2 = new UnaryRel("happy", t1);
 //        UnaryRel happy3 = new UnaryRel("happy", t3, toColour(name));
-        UnaryRel happy4 = new UnaryRel("happy", fred, toColour("happy"));
+        UnaryRel happy4 = new UnaryRel("happy", fred);
 //
-        BinaryRel loves1 = new BinaryRel("loves", fred, tina);
-        BinaryRel loves2 = new BinaryRel("loves", tina, tina);
-        BinaryRel loves3 = new BinaryRel("loves", tina, fred);
-//        BinaryRel loves4 = new BinaryRel("loves", t2, fred);
+        BinaryRel loves1 = new BinaryRel("hates", fred, tina);
+        BinaryRel loves2 = new BinaryRel("hates", tina, tina);
+//        BinaryRel loves3 = new BinaryRel("loves", tina, fred);
+        BinaryRel loves4 = new BinaryRel("knows", tina, fred);
 //
 //        BinaryRel loves5 = new BinaryRel("loves", t1, t1);
 //        BinaryRel loves6 = new BinaryRel("loves", fred, t1);
@@ -66,8 +66,8 @@ public class Structure implements Serializable {
 //
         this.binaryRels.add(loves1);
         this.binaryRels.add(loves2);
-        this.binaryRels.add(loves3);
-//        this.binaryRels.add(loves4);
+//        this.binaryRels.add(loves3);
+        this.binaryRels.add(loves4);
 //        this.binaryRels.add(loves5);
 //        this.binaryRels.add(loves6);
 //        this.binaryRels.add(loves7);
@@ -145,42 +145,4 @@ public class Structure implements Serializable {
         return null;
     }
     
-    public static Color toColour(String name) {
-        char[] ca = name.toCharArray();
-        int i = 0;
-        for(char c : ca){
-            switch (c){
-                case 'a': i+=11;
-                case 'b': i+=22;
-                case 'c': i+=33;
-                case 'd': i+=44;
-                case 'e': i+=50;
-                case 'f': i+=66;
-                case 'g': i+=77;
-                case 'h': i+=88;
-                case 'i': i+=99;
-                case 'j': i+=110;
-                case 'k': i+=111;
-                case 'l': i+=122;
-                case 'm': i+=123;
-                case 'n': i+=140;
-                case 'o': i+=155;
-                case 'p': i+=166;
-                case 'q': i+=177;
-                case 'r': i+=188;
-                case 's': i+=199;
-                case 't': i+=220;
-                case 'u': i+=211;
-                case 'v': i+=222;
-                case 'w': i+=233;
-                case 'x': i+=244;
-                case 'y': i+=255;
-                case 'z': i+=260;
-                default : i+=277;
-            }
-        }
-        i += name.length()*1000000;
-        return new Color(i);
-    }
-
 }

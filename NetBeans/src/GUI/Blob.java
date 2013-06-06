@@ -5,6 +5,7 @@
 package GUI;
 
 import Tree.UnaryRel;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -21,13 +23,18 @@ import javax.swing.SwingConstants;
 
 public class Blob extends JLabel implements Serializable {
 
-    protected volatile int screenX = 0;
-    protected volatile int screenY = 0;
-    protected volatile int myX = 0;
-    protected volatile int myY = 0;
+    volatile int screenX = 0;
+    volatile int screenY = 0;
+    volatile int myX = 0;
+    volatile int myY = 0;
     JPopupMenu menu = new JPopupMenu("Popup");
+    ArrayList<Color> relColours = new ArrayList<>();
+    int selectedAsArg = 0;
 
     public Blob() {
+        super();
+        setHorizontalAlignment(CENTER);
+        setOpaque(true);
         addMouseListener(new PopupTriggerListener());
         JMenuItem item = new JMenuItem("Delete");
         item.addActionListener(new ActionListener() {
@@ -37,11 +44,12 @@ public class Blob extends JLabel implements Serializable {
             }
         });
         menu.add(item);
-
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                e.getComponent().requestFocusInWindow();
+                if (Main.chooseParamButton.getForeground().equals(Color.RED)){
+                    Main.controller.buildNewBinRel(Blob.this);
+                }
             }
             
             @Override
@@ -117,12 +125,12 @@ public class Blob extends JLabel implements Serializable {
         }
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        setHorizontalAlignment(SwingConstants.CENTER);
-        g.setColor(getBackground());
-        g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 30, 30);
-        super.paintComponent(g);
-    }
+//    @Override
+//    protected void paintComponent(Graphics g) {
+//        super.paintComponent(g);
+//        setHorizontalAlignment(SwingConstants.CENTER);
+//        g.setColor(getBackground());
+//        g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 30, 30);
+//        super.paintComponent(g);
+//    }
 }

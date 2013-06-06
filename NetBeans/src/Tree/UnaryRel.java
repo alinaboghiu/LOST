@@ -25,18 +25,19 @@ public class UnaryRel implements Serializable{
     public UnaryRel(String name, Term arg) {
         this.name = name;
         this.arg = arg;
+        this.colour = new Color(name.hashCode());
     }
     
-    public UnaryRel(String name, Color colour) {
-        this.name = name;
-        this.colour = colour;
-    }
-    
-    public UnaryRel(String name, Term arg, Color colour){
-        this.name = name;
-        this.arg = arg;
-        this.colour = colour;
-    }
+//    public UnaryRel(String name, Color colour) {
+//        this.name = name;
+//        this.colour = colour;
+//    }
+//    
+//    public UnaryRel(String name, Term arg, Color colour){
+//        this.name = name;
+//        this.arg = arg;
+//        this.colour = colour;
+//    }
     
     public void setArg(Term arg){
         this.arg = arg;

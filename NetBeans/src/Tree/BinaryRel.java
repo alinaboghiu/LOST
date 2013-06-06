@@ -13,18 +13,19 @@ public class BinaryRel implements Serializable {
     public String name;
     public Term arg1;
     public Term arg2;
-    public final Color colour = new Color((int)(Math.random() * 0xFFFFFF));
+    public Color colour;
 
     public BinaryRel(){}
     
-    public BinaryRel(String name) {
-        this.name = name;
-    }
+//    public BinaryRel(String name) {
+//        this.name = name;
+//    }
 
     public BinaryRel(String name, Term agr1, Term arg2) {
         this.name = name;
         this.arg1 = agr1;
         this.arg2 = arg2;
+        this.colour = new Color(name.hashCode());
     }
 
     @Override

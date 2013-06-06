@@ -52,11 +52,15 @@ public class Main extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         binaryList = new javax.swing.JList();
+        addBinRelButton = new javax.swing.JButton();
+        removeBinRelButton = new javax.swing.JButton();
+        newBinRelField = new javax.swing.JTextField();
+        chooseParamButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         unaryList = new javax.swing.JList();
         addUnaryRelButton = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        removeUnRelButton = new javax.swing.JButton();
         newUnaryRelField = new javax.swing.JTextField();
         structurePanel = new javax.swing.JPanel();
         SentencePanel = new javax.swing.JPanel();
@@ -185,7 +189,7 @@ public class Main extends javax.swing.JFrame {
             ConstantsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConstantsLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(renameConstantField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -225,7 +229,7 @@ public class Main extends javax.swing.JFrame {
             NullaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NullaryLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
 
@@ -241,21 +245,59 @@ public class Main extends javax.swing.JFrame {
         binaryList.setOpaque(false);
         jScrollPane4.setViewportView(binaryList);
 
+        addBinRelButton.setText("Add");
+        addBinRelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBinRelButtonActionPerformed(evt);
+            }
+        });
+
+        removeBinRelButton.setText("Remove");
+
+        newBinRelField.setVisible(false);
+        newBinRelField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                newBinRelFieldKeyReleased(evt);
+            }
+        });
+
+        chooseParamButton.setText("Choose Parameters");
+        chooseParamButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseParamButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(chooseParamButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(newBinRelField)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(addBinRelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(removeBinRelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(25, 25, 25))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(newBinRelField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addBinRelButton)
+                    .addComponent(removeBinRelButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chooseParamButton)
+                .addContainerGap())
         );
 
         SignaturePanel.addTab("Binary Relations", jPanel4);
@@ -275,7 +317,12 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jButton11.setText("Remove");
+        removeUnRelButton.setText("Remove");
+        removeUnRelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeUnRelButtonActionPerformed(evt);
+            }
+        });
 
         newUnaryRelField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -295,7 +342,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(addUnaryRelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(removeUnRelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(newUnaryRelField)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(25, 25, 25))
@@ -304,22 +351,27 @@ public class Main extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(newUnaryRelField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addUnaryRelButton)
-                    .addComponent(jButton11))
+                    .addComponent(removeUnRelButton))
                 .addContainerGap())
         );
 
         SignaturePanel.addTab("Unary Relations", jPanel2);
 
-        structurePanel.setBackground(new java.awt.Color(191, 66, 50));
+        structurePanel.setBackground(new java.awt.Color(121, 121, 121));
         structurePanel.setAutoscrolls(true);
         structurePanel.setMinimumSize(new java.awt.Dimension(100, 100));
         structurePanel.setPreferredSize(new java.awt.Dimension(400, 400));
+        structurePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                structurePanelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout structurePanelLayout = new javax.swing.GroupLayout(structurePanel);
         structurePanel.setLayout(structurePanelLayout);
@@ -684,14 +736,14 @@ public class Main extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(SignaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                .addComponent(SignaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(structurePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addComponent(structurePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SentencePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -851,7 +903,7 @@ public class Main extends javax.swing.JFrame {
 
     private void newUnaryRelFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_newUnaryRelFieldKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            controller.addUnaryRel(newUnaryRelField.getText());
+            controller.addUnRel(newUnaryRelField.getText());
             newUnaryRelField.setText("");
             newUnaryRelField.setVisible(false);
         }
@@ -885,6 +937,46 @@ public class Main extends javax.swing.JFrame {
             renameConstantField.setVisible(false);
         }
     }//GEN-LAST:event_renameConstantFieldKeyReleased
+
+    private void removeUnRelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeUnRelButtonActionPerformed
+        try {
+            int selectedIndex = unaryList.getSelectedIndex();
+            if (selectedIndex > -1) {
+                controller.removeUnaryRel(selectedIndex);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+    }//GEN-LAST:event_removeUnRelButtonActionPerformed
+
+    private void addBinRelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBinRelButtonActionPerformed
+        newBinRelField.setVisible(true);
+        SignaturePanel.repaint();
+    }//GEN-LAST:event_addBinRelButtonActionPerformed
+
+    private void newBinRelFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_newBinRelFieldKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            controller.addBinRel(newBinRelField.getText());
+            newBinRelField.setText("");
+            newBinRelField.setVisible(false);
+        }
+    }//GEN-LAST:event_newBinRelFieldKeyReleased
+
+    private void chooseParamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseParamButtonActionPerformed
+        try{
+            int selectedIndex =binaryList.getSelectedIndex();
+            if (selectedIndex > -1){
+                controller.setNameReadyForNewBinRel(selectedIndex);
+        JOptionPane.showMessageDialog(this, "Please click on two objects subsequently");
+        chooseParamButton.setForeground(Color.RED);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Please select a binary relation first");
+        }
+    }//GEN-LAST:event_chooseParamButtonActionPerformed
+
+    private void structurePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_structurePanelMouseClicked
+        chooseParamButton.setForeground(Color.black);
+    }//GEN-LAST:event_structurePanelMouseClicked
 
     private void insertButtonText(String name) {
         try {
@@ -985,16 +1077,17 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel Nullary;
     private javax.swing.JPanel SentencePanel;
     private javax.swing.JTabbedPane SignaturePanel;
+    private javax.swing.JButton addBinRelButton;
     private javax.swing.JButton addButton;
     private javax.swing.JButton addConstButton;
     private javax.swing.JButton addUnaryRelButton;
     private javax.swing.JList binaryList;
+    protected static javax.swing.JButton chooseParamButton;
     private javax.swing.JList constantList;
     private javax.swing.JButton delConstButton;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JMenuItem generateStructure;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1028,12 +1121,15 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTextField newBinRelField;
     private javax.swing.JTextField newConstantField;
     protected static javax.swing.JTextField newSentenceField;
     private javax.swing.JMenuItem newStructure;
     private javax.swing.JTextField newUnaryRelField;
     private javax.swing.JList nullaryList;
     private javax.swing.JMenuItem openStructure;
+    private javax.swing.JButton removeBinRelButton;
+    private javax.swing.JButton removeUnRelButton;
     private javax.swing.JButton renameConstButton;
     protected javax.swing.JTextField renameConstantField;
     private javax.swing.JMenuItem saveStructure;

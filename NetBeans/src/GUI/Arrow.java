@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.JMenuItem;
@@ -31,48 +32,49 @@ public class Arrow extends JLabel {
     Line2D.Double line;
     Arc2D.Double arc;
     Polygon arrowHead;
-    static JPopupMenu menu = new JPopupMenu();
+    Color relColour;
+//    static JPopupMenu menu = new JPopupMenu();
 
-    public static void addRelation(String name, Color colour) {
-        JMenuItem item = new JMenuItem(name);
-        item.setForeground(colour);
-        item.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-        menu.add(item);
-    }
+//    public static void addRelation(String name, Color colour) {
+//        JMenuItem item = new JMenuItem(name);
+//        item.setForeground(colour);
+//        item.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//            }
+//        });
+//        menu.add(item);
+//    }
 
     public Arrow(Blob from, Blob to, String name, Color colour) {
         super();
         setHorizontalAlignment(CENTER);
         this.from = from;
         this.to = to;
+        this.relColour = colour;
         setBounds(5, 5, 5555, 5555);
 //        addMouseListener(new PopupTriggerListener());
-        menu.setOpaque(false);
-        addRelation(name, colour);
+//        menu.setOpaque(false);
+//        addRelation(name, colour);
     }
 
     @Override
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         f = from.getLocation();
         t = to.getLocation();
-
 //        relations.setBounds((f.x+t.x)/2, (f.y+t.y)/2+20, 50, 50);
 //        relations.setBackground(getParent().getBackground());
 //        relations.getCellRenderer().getListCellRendererComponent(relations, ui, TOP, true, true);
 //        add(relations);
-        Graphics2D arrowGraphics = (Graphics2D) g.create();
         if (from.equals(to)) {
             drawArc((Graphics2D) g);
         } else {
             drawLine((Graphics2D) g);
         }
-        drawArrowHead(arrowGraphics);
+        Graphics2D arrowGraphics = (Graphics2D) g.create();
+        drawArrowHeads(arrowGraphics);
         repaint();
-        super.paintComponent(g);
     }
 
     private void drawArc(Graphics2D g2d) {
@@ -92,18 +94,21 @@ public class Arrow extends JLabel {
         g2d.draw(line);
     }
 
-    private void drawArrowHead(Graphics2D g2d) {
+    private void drawArrowHeads(Graphics2D g2d) {
 //         d = new Distance(t, f);
-        int[] xs = {0, 5, 5};
-        int[] ys = {0, 5, -5};
-        arrowHead = new Polygon(xs, ys, 3);
-        if (line == null) {
-            g2d.translate((int) t.x + to.getWidth()-7, (int) t.y + to.getHeight() * 1.6 / 3);
-        } else {
-            g2d.translate((int) ((t.x + f.x) / 2 + t.x) / 2, (int) ((t.y + f.y) / 2 + t.y) / 2);
-        }
-        g2d.rotate(Math.atan2(f.y - t.y, f.x - t.x));
-        g2d.fill(arrowHead);
+        int i = 0;
+            int[] xs = {0, 5, 5};
+            int[] ys = {0, 5, -5};
+            arrowHead = new Polygon(xs, ys, 3);
+            if (line == null) {
+                g2d.translate((int) i+t.x + to.getWidth()-7, (int) i+t.y + to.getHeight() * 1.6 / 3);
+            } else {
+                g2d.translate((int) i+((t.x + f.x) / 2 + t.x) / 2, (int) i+((t.y + f.y) / 2 + t.y) / 2);
+            }
+            g2d.rotate(Math.atan2(f.y - t.y, f.x - t.x));
+            g2d.setColor(relColour);
+            g2d.fill(arrowHead);
+            i+=6;
     }
 
 //    class PopupTriggerListener extends MouseAdapter {

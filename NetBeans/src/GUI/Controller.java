@@ -20,6 +20,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
@@ -32,7 +37,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
  * @author alina
  */
 public class Controller {
-
+    
     static DefaultListModel sentenceListModel = new DefaultListModel();
     static DefaultListModel constListModel = new DefaultListModel();
     static DefaultListModel nullaryListModel = new DefaultListModel();
@@ -44,30 +49,33 @@ public class Controller {
     static ArrayList<LogicTree> activeSentences = new ArrayList<>();
     ArrayList<Pair<BinaryRel, Arrow>> relationArrowLink = new ArrayList<>();
     ArrayList<Pair<Term, Blob>> termBlobLink = new ArrayList<>();
-
+    Term argReadyForNewBinRel = null;
+    String nameReadyForNewBinRel = null;
+    
     void updateStructurePanel() {
         for (Term t : activeStruct.terms) {
             Blob b = new Blob();
+            termBlobLink.add(new Pair<>(t, b));
             int i = (Main.structurePanel.getComponentCount() * 100) % Main.structurePanel.getWidth();
             if (t instanceof Const) {
                 b.setText(t.name);
                 b.setBounds(i, i, Math.max(t.name.length() * 10, 30), 40);
+                
             } else {
                 b.setBounds(i, i, 30, 30);
             }
             Main.structurePanel.add(b);
-            termBlobLink.add(new Pair<>(t, b));
         }
-
+        
         for (NullaryRel r : activeStruct.nullaryRels) {
         }
-
+        
         for (final UnaryRel r : activeStruct.unaryRels) {
             Blob b = findBlob(r.arg);
-            b.setBackground(r.colour);
+            b.setBorder(addThisColourToBorder(r.colour, b));
             addUnaryRelOptiontoBlob(b, r.name);
         }
-
+        
         for (BinaryRel r : activeStruct.binaryRels) {
             Blob b1 = findBlob(r.arg1);
             Blob b2 = findBlob(r.arg2);
@@ -76,7 +84,7 @@ public class Controller {
             Main.structurePanel.add(a);
         }
     }
-
+    
     void updateSignaturePanel() {
         for (String constName : activeSig.constNames) {
             if (!constListModel.contains(constName)) {
@@ -91,41 +99,60 @@ public class Controller {
         for (String unaryName : activeSig.unaryNames) {
             if (!unaryListModel.contains(unaryName)) {
                 unaryListModel.addElement(unaryName);
-//                unaryList.setForeground(Structure.toColour(unaryName));
             }
         }
         for (String binaryName : activeSig.binaryNames) {
             binaryListModel.addElement(binaryName);
-//            binaryList.setForeground(Structure.toColour(binaryName));
         }
-
+        
     }
-
+    
     void addUnaryRelOptiontoBlob(final Blob b, String relName) {
         final JCheckBoxMenuItem item = new JCheckBoxMenuItem(relName);
-        final Color c = Structure.toColour(relName);
-        item.setSelected(b.getBackground().equals(c));
+        final Color c = new Color(relName.hashCode());
+        item.setSelected(b.relColours.contains(c));
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UnaryRel newRel = new UnaryRel(item.getText(), findTerm(b), c);
+                UnaryRel newRel = new UnaryRel(item.getText(), findTerm(b));
                 if (!item.isSelected()) {
                     for (UnaryRel r : activeStruct.unaryRels) {
                         if (newRel.equals(r)) {
                             activeStruct.unaryRels.remove(r);
-                            b.setBackground(Color.LIGHT_GRAY);
+                            b.setBorder(removeThisColourFromBorder(c, b));
                             break;
                         }
                     }
                 } else {
                     activeStruct.unaryRels.add(newRel);
-                    b.setBackground(c);
+                    b.setBorder(addThisColourToBorder(c, b));
                 }
+                refreshSenteceList();
             }
         });
         b.menu.add(item);
     }
-
+    
+    private CompoundBorder removeThisColourFromBorder(Color c, Blob b) {
+        CompoundBorder finalBorder = null;
+        b.relColours.remove(c);
+        b.setBorder(finalBorder);
+        for (Color activeColour : b.relColours) {
+            b.setBorder(finalBorder);
+            Border newBorder = new LineBorder(activeColour, 5);
+            finalBorder = new CompoundBorder(b.getBorder(), newBorder);
+        }
+        b.setBounds(b.getBounds().x, b.getBounds().y, b.getBounds().width - 7, b.getBounds().height - 7);
+        return finalBorder;
+    }
+    
+    private CompoundBorder addThisColourToBorder(Color c, Blob b) {
+        Border newBorder = new LineBorder(c, 5);
+        b.relColours.add(c);
+        b.setBounds(b.getBounds().x, b.getBounds().y, b.getBounds().width + 7, b.getBounds().height + 7);
+        return new CompoundBorder(b.getBorder(), newBorder);
+    }
+    
     void submitButtonAction()
             throws DuplicateDefinitionException,
             UnboundException,
@@ -150,7 +177,7 @@ public class Controller {
         }
         Main.newSentenceField.setText("");
     }
-
+    
     void refreshSenteceList() {
         for (int i = 0; i < sentenceListModel.size(); i++) {
             LogicTree s = activeSentences.get(i);
@@ -159,12 +186,14 @@ public class Controller {
             news = news.substring(0, news.length() - 5) + " " + outcome;
             sentenceListModel.setElementAt(news, i);
         }
+        Main.structurePanel.revalidate();
+        Main.structurePanel.repaint();
     }
-
+    
     void clearSentenceList() {
         sentenceListModel.removeAllElements();
     }
-
+    
     protected void addBlob() {
         Term t = new Term("t" + (activeStruct.terms.size() + 1));
         Blob b = new Blob();
@@ -174,12 +203,12 @@ public class Controller {
         b.setBackground(Color.LIGHT_GRAY);
         Main.structurePanel.add(b);
         Main.structurePanel.repaint();
-        refreshSenteceList();
         for (String relName : activeSig.unaryNames) {
             addUnaryRelOptiontoBlob(b, relName);
         }
+        refreshSenteceList();
     }
-
+    
     void addBlob(String name) {
         Const t = new Const(name);
         Blob b = new Blob();
@@ -195,8 +224,9 @@ public class Controller {
         for (String relName : activeSig.unaryNames) {
             addUnaryRelOptiontoBlob(b, relName);
         }
+        refreshSenteceList();
     }
-
+    
     void removeBlob(int selectedIndex) {
         String blobName = constListModel.getElementAt(selectedIndex).toString();
         constListModel.removeElementAt(selectedIndex);
@@ -209,8 +239,9 @@ public class Controller {
             }
         }
     }
-
+    
     void removeBlob(Blob b) {
+        constListModel.removeElement(b.getText());
         Term t = findTerm(b);
         //find and remove any linked binary relations
         for (Pair ra : relationArrowLink) {
@@ -228,20 +259,31 @@ public class Controller {
             }
         }
         //remove the blob itself and the linked term
+        ArrayList<String> elementsToDelete = new ArrayList<>();
+        for (int index = 0; index < sentenceListModel.getSize(); index++) {
+            String s = sentenceListModel.getElementAt(index).toString();
+            if (s.contains(t.name)) {
+                elementsToDelete.add(s);
+            }
+        }
+        for (String e : elementsToDelete){
+            sentenceListModel.removeElement(e);
+        }
         activeStruct.terms.remove(t);
         Main.structurePanel.remove(b);
-        Main.structurePanel.revalidate();
-        Main.structurePanel.repaint();
+        b = null;
+        refreshSenteceList();
     }
-
-    void addUnaryRel(String text) {
+    
+    void addUnRel(String text) {
         unaryListModel.addElement(text);
-        for (Term t : activeStruct.terms){
+        activeSig.unaryNames.add(text);
+        for (Term t : activeStruct.terms) {
             Blob b = findBlob(t);
             addUnaryRelOptiontoBlob(b, text);
         }
     }
-
+    
     void renameBlob(int selectedIndex, String newName) {
         String oldName = constListModel.getElementAt(selectedIndex).toString();
         constListModel.removeElementAt(selectedIndex);
@@ -258,24 +300,116 @@ public class Controller {
             }
         }
     }
-
+    
     Term findTerm(Blob b) {
-        Term t = null;
         for (Pair p : termBlobLink) {
             if (p.b.equals(b)) {
-                t = (Term) p.a;
+                return (Term) p.a;
             }
         }
-        return t;
+        return null;
     }
-
+    
     Blob findBlob(Term t) {
-        Blob b = null;
         for (Pair p : termBlobLink) {
             if (p.a.equals(t)) {
-                b = (Blob) p.b;
+                return (Blob) p.b;
             }
         }
-        return b;
+        return null;
+    }
+    
+    void removeUnaryRel(int selectedIndex) {
+        //remove relation and decolour blobs
+        String unaryName = unaryListModel.getElementAt(selectedIndex).toString();
+        activeSig.unaryNames.remove(unaryName);
+        ArrayList<UnaryRel> relToRemove = new ArrayList<>();
+        for (UnaryRel r : activeStruct.unaryRels) {
+            if (r.name.equals(unaryName)) {
+                Blob b = findBlob(r.arg);
+                b.setBorder(removeThisColourFromBorder(r.colour, b));
+                relToRemove.add(r);
+            }
+        }
+        activeStruct.unaryRels.removeAll(relToRemove);
+
+        //remove relation from blob menu
+        for (Term t : activeStruct.terms) {
+            Blob b = findBlob(t);
+            for (Component c : b.menu.getComponents()) {
+                if (c.getClass().getSimpleName().equals("JCheckBoxMenuItem")) {
+                    JCheckBoxMenuItem item = (JCheckBoxMenuItem) c;
+                    if (item.getText().equals(unaryName)) {
+                        b.menu.remove(item);
+                        break;
+                    }
+                }
+                
+            }
+        }
+        unaryListModel.remove(selectedIndex);
+        refreshSenteceList();
+    }
+    
+    BinaryRel findRelation(Arrow a) {
+        for (Pair p : relationArrowLink) {
+            if (p.b.equals(a)) {
+                return (BinaryRel) p.a;
+            }
+        }
+        return null;
+    }
+    
+    void addBinRel(String text) {
+        binaryListModel.addElement(text);
+    }
+    
+    void addBinRel(BinaryRel newBinRel) {
+        Blob b1 = findBlob(newBinRel.arg1);
+        Blob b2 = findBlob(newBinRel.arg2);
+        Arrow a = new Arrow(b1, b2, newBinRel.name, newBinRel.colour);
+        relationArrowLink.add(new Pair<>(newBinRel, a));
+        Main.structurePanel.add(a);
+        activeStruct.binaryRels.add(newBinRel);
+    }
+    
+    void addBinRel(int selectedIndex, String text) {
+//        String[] argNames = text.split(" ");
+//        String[] aux = argNames[0].split(",");
+//        argNames[0] = aux[0];
+//        //TODO fix getting names separated by just a comma
+//        Term arg1 = null;
+//        Term arg2 = null;
+//        for (Term t : activeStruct.terms){
+//            if (t.name.equals(argNames[0])){
+//                arg1 = t;
+//            } else if (t.name.equals(argNames[1])){
+//                arg2 = t;
+//            }
+//        }
+//        if (arg1 == null){
+//            arg1 = new Term(argNames[0]);
+//            addB
+//        }
+//        if (arg2 == null){
+//            arg2 = new Term(argNames[1]);
+//        }
+    }
+    
+    void buildNewBinRel(Blob b) {
+        if (argReadyForNewBinRel != null) {
+            Term arg2 = findTerm(b);
+            BinaryRel newBinRel = new BinaryRel(nameReadyForNewBinRel, argReadyForNewBinRel, arg2);
+            addBinRel(newBinRel);
+            Main.chooseParamButton.setForeground(new Color(76, 76, 76));
+            argReadyForNewBinRel = null;
+            nameReadyForNewBinRel = null;
+        } else {
+            argReadyForNewBinRel = findTerm(b);
+        }
+    }
+    
+    void setNameReadyForNewBinRel(int selectedIndex) {
+        this.nameReadyForNewBinRel = binaryListModel.getElementAt(selectedIndex).toString();
     }
 }
