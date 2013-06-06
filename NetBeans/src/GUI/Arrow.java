@@ -45,7 +45,6 @@ public class Arrow extends JLabel {
 //        });
 //        menu.add(item);
 //    }
-
     public Arrow(Blob from, Blob to, String name, Color colour) {
         super();
         setHorizontalAlignment(CENTER);
@@ -96,21 +95,18 @@ public class Arrow extends JLabel {
 
     private void drawArrowHeads(Graphics2D g2d) {
 //         d = new Distance(t, f);
-        int i = 0;
-            int[] xs = {0, 5, 5};
-            int[] ys = {0, 5, -5};
-            arrowHead = new Polygon(xs, ys, 3);
-            if (line == null) {
-                g2d.translate((int) i+t.x + to.getWidth()-7, (int) i+t.y + to.getHeight() * 1.6 / 3);
-            } else {
-                g2d.translate((int) i+((t.x + f.x) / 2 + t.x) / 2, (int) i+((t.y + f.y) / 2 + t.y) / 2);
-            }
-            g2d.rotate(Math.atan2(f.y - t.y, f.x - t.x));
-            g2d.setColor(relColour);
-            g2d.fill(arrowHead);
-            i+=6;
+        int[] xs = {0, 5, 5};
+        int[] ys = {0, 5, -5};
+        arrowHead = new Polygon(xs, ys, 3);
+        if (line == null) {
+            g2d.translate((int)t.x + to.getWidth() - 7, (int)t.y + to.getHeight() * 1.6 / 3);
+        } else {
+            g2d.translate((int)((t.x + f.x) / 2 + t.x) / 2, (int)((t.y + f.y) / 2 + t.y) / 2);
+        }
+        g2d.rotate(Math.atan2(f.y - t.y, f.x - t.x));
+        g2d.setColor(relColour);
+        g2d.fill(arrowHead);
     }
-
 //    class PopupTriggerListener extends MouseAdapter {
 //
 //        @Override

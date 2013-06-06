@@ -240,8 +240,8 @@ public class Main extends javax.swing.JFrame {
 
         jScrollPane4.setBorder(null);
 
-        //binaryList = new javax.swing.JList(binaryListModel);
         binaryList.setModel(controller.binaryListModel);
+        binaryList.setCellRenderer(new ColourList());
         binaryList.setOpaque(false);
         jScrollPane4.setViewportView(binaryList);
 
@@ -307,6 +307,7 @@ public class Main extends javax.swing.JFrame {
         jScrollPane5.setBorder(null);
 
         unaryList.setModel(controller.unaryListModel);
+        unaryList.setCellRenderer(new ColourList());
         unaryList.setOpaque(false);
         jScrollPane5.setViewportView(unaryList);
 

@@ -51,7 +51,7 @@ public class Controller {
     ArrayList<Pair<Term, Blob>> termBlobLink = new ArrayList<>();
     Term argReadyForNewBinRel = null;
     String nameReadyForNewBinRel = null;
-    
+
     void updateStructurePanel() {
         for (Term t : activeStruct.terms) {
             Blob b = new Blob();
@@ -73,7 +73,9 @@ public class Controller {
         for (final UnaryRel r : activeStruct.unaryRels) {
             Blob b = findBlob(r.arg);
             b.setBorder(addThisColourToBorder(r.colour, b));
-            addUnaryRelOptiontoBlob(b, r.name);
+            for (Term t : activeStruct.terms){
+                addUnaryRelOptiontoBlob(findBlob(t), r.name);
+            }
         }
         
         for (BinaryRel r : activeStruct.binaryRels) {
@@ -202,7 +204,6 @@ public class Controller {
         b.setBounds(10, 10, 30, 30);
         b.setBackground(Color.LIGHT_GRAY);
         Main.structurePanel.add(b);
-        Main.structurePanel.repaint();
         for (String relName : activeSig.unaryNames) {
             addUnaryRelOptiontoBlob(b, relName);
         }
@@ -218,7 +219,6 @@ public class Controller {
         b.setBounds(10, 10, t.name.length() * 10, 40);
         b.setBackground(Color.LIGHT_GRAY);
         Main.structurePanel.add(b);
-        Main.structurePanel.repaint();
         constListModel.addElement(name);
         refreshSenteceList();
         for (String relName : activeSig.unaryNames) {
@@ -275,14 +275,6 @@ public class Controller {
         refreshSenteceList();
     }
     
-    void addUnRel(String text) {
-        unaryListModel.addElement(text);
-        activeSig.unaryNames.add(text);
-        for (Term t : activeStruct.terms) {
-            Blob b = findBlob(t);
-            addUnaryRelOptiontoBlob(b, text);
-        }
-    }
     
     void renameBlob(int selectedIndex, String newName) {
         String oldName = constListModel.getElementAt(selectedIndex).toString();
@@ -301,22 +293,13 @@ public class Controller {
         }
     }
     
-    Term findTerm(Blob b) {
-        for (Pair p : termBlobLink) {
-            if (p.b.equals(b)) {
-                return (Term) p.a;
-            }
+    void addUnRel(String text) {
+        unaryListModel.addElement(text);
+        activeSig.unaryNames.add(text);
+        for (Term t : activeStruct.terms) {
+            Blob b = findBlob(t);
+            addUnaryRelOptiontoBlob(b, text);
         }
-        return null;
-    }
-    
-    Blob findBlob(Term t) {
-        for (Pair p : termBlobLink) {
-            if (p.a.equals(t)) {
-                return (Blob) p.b;
-            }
-        }
-        return null;
     }
     
     void removeUnaryRel(int selectedIndex) {
@@ -351,15 +334,6 @@ public class Controller {
         refreshSenteceList();
     }
     
-    BinaryRel findRelation(Arrow a) {
-        for (Pair p : relationArrowLink) {
-            if (p.b.equals(a)) {
-                return (BinaryRel) p.a;
-            }
-        }
-        return null;
-    }
-    
     void addBinRel(String text) {
         binaryListModel.addElement(text);
     }
@@ -371,29 +345,6 @@ public class Controller {
         relationArrowLink.add(new Pair<>(newBinRel, a));
         Main.structurePanel.add(a);
         activeStruct.binaryRels.add(newBinRel);
-    }
-    
-    void addBinRel(int selectedIndex, String text) {
-//        String[] argNames = text.split(" ");
-//        String[] aux = argNames[0].split(",");
-//        argNames[0] = aux[0];
-//        //TODO fix getting names separated by just a comma
-//        Term arg1 = null;
-//        Term arg2 = null;
-//        for (Term t : activeStruct.terms){
-//            if (t.name.equals(argNames[0])){
-//                arg1 = t;
-//            } else if (t.name.equals(argNames[1])){
-//                arg2 = t;
-//            }
-//        }
-//        if (arg1 == null){
-//            arg1 = new Term(argNames[0]);
-//            addB
-//        }
-//        if (arg2 == null){
-//            arg2 = new Term(argNames[1]);
-//        }
     }
     
     void buildNewBinRel(Blob b) {
@@ -411,5 +362,32 @@ public class Controller {
     
     void setNameReadyForNewBinRel(int selectedIndex) {
         this.nameReadyForNewBinRel = binaryListModel.getElementAt(selectedIndex).toString();
+    }
+    
+    BinaryRel findRelation(Arrow a) {
+        for (Pair p : relationArrowLink) {
+            if (p.b.equals(a)) {
+                return (BinaryRel) p.a;
+            }
+        }
+        return null;
+    }
+    
+    Term findTerm(Blob b) {
+        for (Pair p : termBlobLink) {
+            if (p.b.equals(b)) {
+                return (Term) p.a;
+            }
+        }
+        return null;
+    }
+    
+    Blob findBlob(Term t) {
+        for (Pair p : termBlobLink) {
+            if (p.a.equals(t)) {
+                return (Blob) p.b;
+            }
+        }
+        return null;
     }
 }
