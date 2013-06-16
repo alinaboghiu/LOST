@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Tree;
 
 /*
@@ -12,16 +7,16 @@ package Tree;
 public class UndefinedRelationException extends Exception {
 
     private final String notification;
-    
+
+    // Thrown by 
     public UndefinedRelationException(String relName) {
         notification = relName
                 + " is not defined as a relation in the structure. "
-                + "Use the signature to add it and try again";
+                + "Use the signature to add it";
     }
 
     @Override
-    public String getMessage(){
+    public String getMessage() {
         return this.notification;
     }
-    
 }

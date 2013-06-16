@@ -5,35 +5,34 @@ package Tree;
  * 
  */
 public enum BinOp {
-    
-    AND{
+
+    AND {
         @Override
         boolean evaluate(boolean left, boolean right) {
             return left && right;
         }
     },
     
-    OR{
+    OR {
         @Override
         boolean evaluate(boolean left, boolean right) {
             return left || right;
         }
     },
     
-    IMPLIES{
+    IMPLIES {
         @Override
         boolean evaluate(boolean left, boolean right) {
             return !left || right;
         }
     },
-        
-    EQUIVALENCE{
+    
+    EQUIVALENCE {
         @Override
         boolean evaluate(boolean left, boolean right) {
             return left == right;
         }
     };
 
-    abstract boolean evaluate(boolean evaluate, boolean evaluate0);
-
+    abstract boolean evaluate(boolean evaluate1, boolean evaluate2);
 }

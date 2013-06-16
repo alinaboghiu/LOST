@@ -11,22 +11,18 @@ import java.util.ArrayList;
  */
 public class Term implements Serializable {
 
-    public ArrayList<Arrow> arrows = new ArrayList<>();
     public String name;
-    public Blob blob;
     public boolean displayed = false;
-    
-    public Term(){}
-    
-    public Term(String name){
+
+    public Term() {}
+
+    public Term(String name) {
         this.name = name;
-        blob = new Blob();
     }
 
     @Override
-    public boolean equals(Object o){
-        Term v = (Term) o; 
+    public boolean equals(Object o) {
+        Term v = (Term) o;
         return v.name.equals(name);
     }
-    
 }

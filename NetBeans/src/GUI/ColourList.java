@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import Tree.UnaryRel;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.Random;
@@ -25,35 +26,46 @@ public class ColourList extends JLabel implements ListCellRenderer {
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 
         setText(value.toString());
-        try {
-            int colour = Main.controller.unaryListModel.getElementAt(index).toString().hashCode();
-//            int colour = Main
-            if (colour > -1) {
-                if (index == 0) {
-                    setForeground(new Color(colour));
-                } else if (index == 1) {
-                    setForeground(new Color(colour));
-                } else if (index == 2) {
-                    setForeground(new Color(colour));
-                } else if (index == 3) {
-                    setForeground(new Color(colour));
-                } else if (index == 4) {
-                    setForeground(new Color(colour));
-                } else if (index == 5) {
-                    setForeground(new Color(colour));
-                } else {
-                    setForeground(new Color(colour));
-                }
-            }
-        } catch (Exception e) {
+
+        if (index == index) {
+            setForeground(new Color(getText().hashCode()));
         }
 
-        if (isSelected) {
-            this.setFocusable(isSelected);
+//        try {
+//            String relName = Main.controller.unaryListModel.getElementAt(index).toString();
+//            if (relName != null) {
+//                Color colour = null;
+//                for (UnaryRel r : Main.controller.activeStruct.unaryRels) {
+//                    if (r.name.equals(relName)) {
+//                        colour = r.colour;
+//                    }
+//                }
+
+//                } else if (index == 1) {
+//                    setForeground(colour);
+//                } else if (index == 2) {
+//                    setForeground(colour);
+//                } else if (index == 3) {
+//                    setForeground(colour);
+//                } else if (index == 4) {
+//                    setForeground(colour);
+//                } else if (index == 5) {
+//                    setForeground(colour);
+//                } else {
+//                    setForeground(colour);
+//                }
+//    }
+//        } catch (Exception e) {
+//        }
+
+        if (cellHasFocus) {
+            this.setFocusable(cellHasFocus);
             setBackground(Color.LIGHT_GRAY);
         } else {
+            setBackground(null);
             setFocusable(false);
         }
+
         return this;
     }
 }

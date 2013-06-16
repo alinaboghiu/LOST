@@ -2,7 +2,6 @@ package Tree;
 
 import java.awt.Color;
 import java.io.Serializable;
-import java.util.Random;
 
 /*
  * @author alina
@@ -15,11 +14,8 @@ public class BinaryRel implements Serializable {
     public Term arg2;
     public Color colour;
 
-    public BinaryRel(){}
-    
-//    public BinaryRel(String name) {
-//        this.name = name;
-//    }
+    public BinaryRel() {
+    }
 
     public BinaryRel(String name, Term agr1, Term arg2) {
         this.name = name;
@@ -32,7 +28,7 @@ public class BinaryRel implements Serializable {
     public boolean equals(Object obj) {
         BinaryRel b = (BinaryRel) obj;
         return this.name.equals(b.name)
-                && this.arg1.equals(b.arg1)
-                && this.arg2.equals(b.arg2);
+            && this.arg1.equals(b.arg1)
+            && this.arg2.equals(b.arg2);
     }
 }

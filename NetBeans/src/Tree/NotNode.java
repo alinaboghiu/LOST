@@ -5,7 +5,7 @@ package Tree;
  * 
  */
 public class NotNode extends LogicTreeNode {
-    
+
     public NotNode(LogicTreeNode next) {
         this.next = next;
     }
@@ -20,9 +20,4 @@ public class NotNode extends LogicTreeNode {
             throws ThisUnboundException {
         return !next.evaluate(s, a1, a2);
     }
-
-    
-    
-
-    
 }

@@ -7,54 +7,71 @@ package GUI;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Menu;
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Line2D;
-import java.util.ArrayList;
+import java.io.Serializable;
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
-import javax.swing.JPopupMenu;
+import javax.swing.JList;
 import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 /**
  *
  * @author alina
  */
-public class Arrow extends JLabel {
+public class Arrow extends JLabel implements Serializable {
 
     Blob from, to;
     Point f, t;
     Line2D.Double line;
     Arc2D.Double arc;
     Polygon arrowHead;
-    Color relColour;
-//    static JPopupMenu menu = new JPopupMenu();
+//    Color relColour;
+    DefaultListModel menuModel = new DefaultListModel();
+    protected JList menu = new JList(menuModel);
 
-//    public static void addRelation(String name, Color colour) {
+    Arrow() {
+    }
+
+    public void addRelation(String name) {
+        if (!menuModel.contains(name)) {
+            int i = 0;
+            try {
+                while (menuModel.getElementAt(i).toString().length() > name.length()) {
+                    i++;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+            }
+            menuModel.add(i, name);
+        }
 //        JMenuItem item = new JMenuItem(name);
 //        item.setForeground(colour);
-//        item.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//            }
-//        });
-//        menu.add(item);
-//    }
-    public Arrow(Blob from, Blob to, String name, Color colour) {
+//        item.addAction 
+    }
+
+    public Arrow(Blob from, Blob to, String name) {
         super();
-        setHorizontalAlignment(CENTER);
         this.from = from;
         this.to = to;
-        this.relColour = colour;
+        menuModel.addElement(name);
+
         setBounds(5, 5, 5555, 5555);
+//        to.arrowsIn++;
+//        this.relColour = colour;
 //        addMouseListener(new PopupTriggerListener());
 //        menu.setOpaque(false);
-//        addRelation(name, colour);
     }
 
     @Override
@@ -62,17 +79,18 @@ public class Arrow extends JLabel {
         super.paintComponent(g);
         f = from.getLocation();
         t = to.getLocation();
-//        relations.setBounds((f.x+t.x)/2, (f.y+t.y)/2+20, 50, 50);
-//        relations.setBackground(getParent().getBackground());
 //        relations.getCellRenderer().getListCellRendererComponent(relations, ui, TOP, true, true);
-//        add(relations);
         if (from.equals(to)) {
             drawArc((Graphics2D) g);
+            menu.setBounds(t.x + (int) arc.height, t.y + (int) arc.height, menuModel.get(0).toString().length() * 11, menuModel.size() * 20);
         } else {
             drawLine((Graphics2D) g);
+            menu.setBounds(((f.x + t.x) / 2 + t.x) / 2, ((f.y + t.y) / 2 + t.y) / 2 + 20, menuModel.get(0).toString().length() * 11, menuModel.size() * 20);
         }
         Graphics2D arrowGraphics = (Graphics2D) g.create();
         drawArrowHeads(arrowGraphics);
+        menu.setBackground(getParent().getBackground());
+        add(menu);
         repaint();
     }
 
@@ -87,7 +105,7 @@ public class Arrow extends JLabel {
 
     public void drawLine(Graphics2D g2d) {
         line = new Line2D.Double();
-        f.translate(from.getWidth() / 2, from.getHeight() / 2);
+        f.translate(from.getWidth() / 6, from.getHeight() / 6);
         t.translate(to.getWidth() / 2, to.getHeight() / 2);
         line.setLine(f, t);
         g2d.draw(line);
@@ -99,12 +117,14 @@ public class Arrow extends JLabel {
         int[] ys = {0, 5, -5};
         arrowHead = new Polygon(xs, ys, 3);
         if (line == null) {
-            g2d.translate((int)t.x + to.getWidth() - 7, (int)t.y + to.getHeight() * 1.6 / 3);
+            g2d.translate((int) (t.x + to.getWidth() - 7),
+                    (int) (t.y + to.getHeight() * 1.6 / 3));
         } else {
-            g2d.translate((int)((t.x + f.x) / 2 + t.x) / 2, (int)((t.y + f.y) / 2 + t.y) / 2);
+            g2d.translate((int) ((t.x + f.x) / 2 + t.x) / 2,
+                    (int) ((t.y + f.y) / 2 + t.y) / 2);
         }
         g2d.rotate(Math.atan2(f.y - t.y, f.x - t.x));
-        g2d.setColor(relColour);
+//        g2d.setColor(relColour);
         g2d.fill(arrowHead);
     }
 //    class PopupTriggerListener extends MouseAdapter {

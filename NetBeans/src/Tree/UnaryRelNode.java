@@ -20,10 +20,10 @@ public class UnaryRelNode extends LogicTreeNode {
 
     @Override
     boolean evaluate(Structure s) throws ThisUnboundException {
-        if (this.arg instanceof Const) {
+        if (this.arg instanceof Constant) {
             UnaryRel thisAssignment = new UnaryRel(rel.name, arg);
             return s.unaryRels.contains(thisAssignment);
-        // check if argument is bound
+            // check if argument is bound
         } else if (arg instanceof Variable) {
             Variable var = (Variable) arg;
             if (!(var.existsBound || var.forAllBound)) {
@@ -47,5 +47,4 @@ public class UnaryRelNode extends LogicTreeNode {
         }
         return evaluate(s);
     }
-    
 }

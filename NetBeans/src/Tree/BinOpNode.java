@@ -26,5 +26,4 @@ public class BinOpNode extends LogicTreeNode {
             throws ThisUnboundException {
         return op.evaluate(left.evaluate(s, a1, a2), right.evaluate(s, a1, a2));
     }
-
 }

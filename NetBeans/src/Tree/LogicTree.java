@@ -16,8 +16,8 @@ public class LogicTree {
 
     public LogicTree(ParseTree t, Structure struct, Signature sig, ArrayList<Variable> sentenceScope)
             throws DuplicateDefinitionException,
-                   UnboundException,
-                   UndefinedRelationException {
+            UnboundException,
+            UndefinedRelationException {
 
         ParseTree iterator;
         ArrayList<ParseTree> thisNodeInfo = new ArrayList<>();
@@ -98,7 +98,7 @@ public class LogicTree {
                 //∃ x (x = Fred)
                 //∃x∃y (happy(x) ∧ happy(y)) - false
                 //∃x∃y (⊤ ∧ happy(y)) - true (right)
-                
+
                 switch (relType) {
                     case "∀":
                         ForAllNode f = new ForAllNode(var, null);
@@ -114,7 +114,7 @@ public class LogicTree {
                 // Create Nullary Relation Node
                 if (thisInfo.getChildCount() == 1) {
                     if (!sig.nullaryNames.contains(relName)) {
-                        sig.nullaryNames.add(relName);
+//                        sig.nullaryNames.add(relName);
                         throw new UndefinedRelationException(relName);
                     } else {
                         return new NullaryRelNode(struct.inNullaryScope(relName));
@@ -126,7 +126,7 @@ public class LogicTree {
                     //Create Unary Relation Node
                     if (relType.equals("UnaryargContext")) {
                         if (!sig.unaryNames.contains(relName)) {
-                            sig.unaryNames.add(relName);
+//                            sig.unaryNames.add(relName);
                             throw new UndefinedRelationException(relName);
                         } else {
                             String argName = thisInfo.getChild(1).getChild(1).getText();
@@ -141,10 +141,10 @@ public class LogicTree {
                             return new UnaryRelNode(rel, rel.arg);
                         }
 
-                    //Create Binary Relation Node
+                        //Create Binary Relation Node
                     } else {
                         if (!sig.binaryNames.contains(relName)) {
-                            sig.binaryNames.add(relName);
+//                            sig.binaryNames.add(relName);
                             throw new UndefinedRelationException(relName);
                         } else {
                             String a1Name = thisInfo.getChild(1).getChild(1).getText();

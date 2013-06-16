@@ -7,7 +7,7 @@ import java.util.logging.Logger;
  * @author alina
  * 
  */
-public class EqualsNode extends LogicTreeNode{
+public class EqualsNode extends LogicTreeNode {
 
     Term leftTerm;
     Term rightTerm;
@@ -17,11 +17,11 @@ public class EqualsNode extends LogicTreeNode{
         this.rightTerm = right;
     }
 
-@Override
+    @Override
     boolean evaluate(Structure s) throws ThisUnboundException {
-        if (this.leftTerm instanceof Const && this.rightTerm instanceof Const) {
+        if (this.leftTerm instanceof Constant && this.rightTerm instanceof Constant) {
             return leftTerm.equals(rightTerm);
-        // check if unbound
+            // check if unbound
         } else if (leftTerm instanceof Variable && rightTerm instanceof Variable) {
             Variable var1 = (Variable) leftTerm;
             Variable var2 = (Variable) rightTerm;
@@ -53,19 +53,18 @@ public class EqualsNode extends LogicTreeNode{
         //if both terms are variables
         if (leftTerm.equals(a1.boundVar) && rightTerm.equals(a2.boundVar)) {
             return a1.assignedTerm.equals(a2.assignedTerm);
-            
-        //if left is a variable and right is a constant
-        } else if (leftTerm.equals(a1.boundVar) && rightTerm instanceof Const) {
+
+            //if left is a variable and right is a constant
+        } else if (leftTerm.equals(a1.boundVar) && rightTerm instanceof Constant) {
             return a1.assignedTerm.equals(rightTerm);
-            
-        //if left is a constant and right is a variable
-        } else if (leftTerm instanceof Const && rightTerm.equals(a2.boundVar)) {
+
+            //if left is a constant and right is a variable
+        } else if (leftTerm instanceof Constant && rightTerm.equals(a2.boundVar)) {
             return leftTerm.equals(a2.assignedTerm);
-            
-        //if both terms are constants
+
+            //if both terms are constants
         } else {
             return evaluate(s);
         }
     }
-    
 }

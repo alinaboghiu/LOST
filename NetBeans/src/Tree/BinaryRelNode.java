@@ -21,7 +21,7 @@ public class BinaryRelNode extends LogicTreeNode {
 
     @Override
     boolean evaluate(Structure s) throws ThisUnboundException {
-        if (this.arg1 instanceof Const && this.arg2 instanceof Const) {
+        if (this.arg1 instanceof Constant && this.arg2 instanceof Constant) {
             BinaryRel thisAssignment = new BinaryRel(rel.name, arg1, arg2);
             return s.binaryRels.contains(thisAssignment);
             // check if unbound
@@ -54,21 +54,20 @@ public class BinaryRelNode extends LogicTreeNode {
         if (arg1.equals(a1.boundVar) && arg2.equals(a2.boundVar)) {
             BinaryRel newAssignment = new BinaryRel(rel.name, a1.assignedTerm, a2.assignedTerm);
             return s.binaryRels.contains(newAssignment);
-            
-        //if arg1 is a variable and arg2 is a constant
-        } else if (arg1.equals(a1.boundVar) && arg2 instanceof Const) {
+
+            //if arg1 is a variable and arg2 is a constant
+        } else if (arg1.equals(a1.boundVar) && arg2 instanceof Constant) {
             BinaryRel newAssignment = new BinaryRel(rel.name, a1.assignedTerm, arg2);
             return s.binaryRels.contains(newAssignment);
-            
-        //if arg1 is a constant and arg2 is a variable
-        } else if (arg1 instanceof Const && arg2.equals(a2.boundVar)) {
+
+            //if arg1 is a constant and arg2 is a variable
+        } else if (arg1 instanceof Constant && arg2.equals(a2.boundVar)) {
             BinaryRel newAssignment = new BinaryRel(rel.name, arg1, a2.assignedTerm);
             return s.binaryRels.contains(newAssignment);
-            
-        //if both arguements are constants
+
+            //if both arguements are constants
         } else {
             return evaluate(s);
         }
     }
-
 }

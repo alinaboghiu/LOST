@@ -4,8 +4,8 @@ package Tree;
  * @author alina
  *
  */
-public class FalsityNode extends LogicTreeNode{
-    
+public class FalsityNode extends LogicTreeNode {
+
     @Override
     boolean evaluate(Structure s) throws ThisUnboundException {
         return false;
@@ -16,5 +16,4 @@ public class FalsityNode extends LogicTreeNode{
             throws ThisUnboundException {
         return false;
     }
-    
 }

@@ -16,5 +16,4 @@ public class TruthNode extends LogicTreeNode {
             throws ThisUnboundException {
         return true;
     }
-
 }

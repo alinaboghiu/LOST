@@ -29,11 +29,13 @@ public class Blob extends JLabel implements Serializable {
     volatile int myY = 0;
     JPopupMenu menu = new JPopupMenu("Popup");
     ArrayList<Color> relColours = new ArrayList<>();
-    int selectedAsArg = 0;
+    int arrowsIn = 0;
+//    int selectedAsArg = 0;
 
     public Blob() {
         super();
         setHorizontalAlignment(CENTER);
+        setBackground(Color.LIGHT_GRAY);
         setOpaque(true);
         addMouseListener(new PopupTriggerListener());
         JMenuItem item = new JMenuItem("Delete");
@@ -47,11 +49,11 @@ public class Blob extends JLabel implements Serializable {
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (Main.chooseParamButton.getForeground().equals(Color.RED)){
+                if (Main.chooseParamButton.getForeground().equals(Color.RED)) {
                     Main.controller.buildNewBinRel(Blob.this);
                 }
             }
-            
+
             @Override
             public void mousePressed(MouseEvent e) {
                 screenX = e.getXOnScreen();
@@ -124,7 +126,6 @@ public class Blob extends JLabel implements Serializable {
         public void mouseClicked(MouseEvent ev) {
         }
     }
-
 //    @Override
 //    protected void paintComponent(Graphics g) {
 //        super.paintComponent(g);

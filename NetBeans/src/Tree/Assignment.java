@@ -8,5 +8,4 @@ class Assignment {
 
     Term assignedTerm;
     Variable boundVar;
-    
 }

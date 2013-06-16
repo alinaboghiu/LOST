@@ -6,22 +6,21 @@ import java.util.ArrayList;
  * @author alina
  * 
  */
-public class NullaryRelNode extends LogicTreeNode{    
+public class NullaryRelNode extends LogicTreeNode {
 
     NullaryRel rel;
 
     public NullaryRelNode(NullaryRel rel) {
         this.rel = rel;
     }
-        
+
     @Override
     boolean evaluate(Structure s) {
         return rel.value;
     }
 
     @Override
-    boolean evaluate(Structure s, Assignment a1, Assignment a2){
+    boolean evaluate(Structure s, Assignment a1, Assignment a2) {
         return rel.value;
     }
-    
 }
