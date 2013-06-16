@@ -4,28 +4,16 @@
  */
 package GUI;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Menu;
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Line2D;
 import java.io.Serializable;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 
 /**
  *
@@ -82,7 +70,7 @@ public class Arrow extends JLabel implements Serializable {
 //        relations.getCellRenderer().getListCellRendererComponent(relations, ui, TOP, true, true);
         if (from.equals(to)) {
             drawArc((Graphics2D) g);
-            menu.setBounds(t.x + (int) arc.height, t.y + (int) arc.height, menuModel.get(0).toString().length() * 11, menuModel.size() * 20);
+            menu.setBounds(t.x + (int) arc.height, t.y + (int) arc.height, menuModel.get(0).toString().length() * 11 + 5, menuModel.size() * 20);
         } else {
             drawLine((Graphics2D) g);
             menu.setBounds(((f.x + t.x) / 2 + t.x) / 2, ((f.y + t.y) / 2 + t.y) / 2 + 20, menuModel.get(0).toString().length() * 11, menuModel.size() * 20);

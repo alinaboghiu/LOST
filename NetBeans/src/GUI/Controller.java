@@ -172,8 +172,10 @@ public class Controller {
         ParseTree parseTree = p.condition().getChild(0);
 
         // create sentence, evaluate and add to activeSentences list
-        LogicTree sentence = new LogicTree(parseTree, activeStruct, activeSig, new ArrayList());
+        LogicTree sentence = new LogicTree(parseTree, activeStruct, activeSig);
+        LogicTree.sentenceScope = new ArrayList<>();
         boolean outcome = sentence.evaluate(activeStruct);
+        
         activeSentences.add(sentence);
 
         // add to list and scroll down
@@ -189,6 +191,7 @@ public class Controller {
         for (int i = 0; i < sentenceListModel.size(); i++) {
             LogicTree s = activeSentences.get(i);
             String news = (String) sentenceListModel.getElementAt(i);
+            LogicTree.sentenceScope = new ArrayList<>();
             boolean outcome = s.evaluate(activeStruct);
             news = news.substring(0, news.length() - 5) + " " + outcome;
             sentenceListModel.setElementAt(news, i);
