@@ -7,16 +7,11 @@ import java.util.ArrayList;
  * 
  */
 class Assignment {
-
-    ArrayList<Term> assignedTerms = new ArrayList<>();
+    Term assignedTerm;
     Variable boundVar;
 
-    public Assignment(Structure s, Variable var) {
+    public Assignment(Term t, Variable var) {
         this.boundVar = var;
-        for (Term t : s.terms){
-            assignedTerms.add(t);
-        }
+        this.assignedTerm = t;
     }
-    
-    
 }

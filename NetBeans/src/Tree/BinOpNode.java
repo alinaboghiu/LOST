@@ -1,5 +1,7 @@
 package Tree;
 
+import java.util.ArrayList;
+
 /*
  * @author alina
  * 
@@ -10,20 +12,20 @@ public class BinOpNode extends LogicTreeNode {
     LogicTreeNode left;
     LogicTreeNode right;
 
-    public BinOpNode(BinOp op, LogicTreeNode left, LogicTreeNode right) {
+    BinOpNode(BinOp op, LogicTreeNode left, LogicTreeNode right) {
         this.op = op;
         this.left = left;
         this.right = right;
     }
 
     @Override
-    boolean evaluate(Structure s) throws ThisUnboundException {
+    boolean evaluate(Structure s){
         return op.evaluate(left.evaluate(s), right.evaluate(s));
     }
 
     @Override
-    boolean evaluate(Structure s, Assignment a1, Assignment a2)
-            throws ThisUnboundException {
-        return op.evaluate(left.evaluate(s, a1, a2), right.evaluate(s, a1, a2));
+    boolean evaluate(Structure s, ArrayList<Assignment> assignemnts){
+        return op.evaluate(left.evaluate(s, assignemnts),
+                           right.evaluate(s, assignemnts));
     }
 }

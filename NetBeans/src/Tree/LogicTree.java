@@ -1,8 +1,6 @@
 package Tree;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 
@@ -13,8 +11,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class LogicTree {
 
     LogicTreeNode head;
+    public static ArrayList<Variable> sentenceScope = new ArrayList<>();
 
-    public LogicTree(ParseTree t, Structure struct, Signature sig, ArrayList<Variable> sentenceScope)
+    public LogicTree(ParseTree t, Structure struct, Signature sig)
             throws DuplicateDefinitionException,
             UnboundException,
             UndefinedRelationException {
@@ -32,21 +31,20 @@ public class LogicTree {
             }
         }
 
-        head = toLogicTreeNode(thisNodeInfo, struct, sig, sentenceScope);
+        head = toLogicTreeNode(thisNodeInfo, struct, sig);
 
         int size = nextNodeInfo.size();
         if (size == 1) {
-            head.next = new LogicTree(nextNodeInfo.get(0), struct, sig, sentenceScope).head;
+            head.next = new LogicTree(nextNodeInfo.get(0), struct, sig).head;
         } else if (size == 2) {
             BinOpNode b = (BinOpNode) head;
-            b.left = new LogicTree(nextNodeInfo.get(0), struct, sig, sentenceScope).head;
-            b.right = new LogicTree(nextNodeInfo.get(1), struct, sig, sentenceScope).head;
+            b.left = new LogicTree(nextNodeInfo.get(0), struct, sig).head;
+            b.right = new LogicTree(nextNodeInfo.get(1), struct, sig).head;
         }
-
     }
 
     private LogicTreeNode toLogicTreeNode(ArrayList<ParseTree> info,
-            Structure struct, Signature sig, ArrayList<Variable> sentenceScope) throws DuplicateDefinitionException,
+            Structure struct, Signature sig) throws DuplicateDefinitionException,
             UnboundException,
             UndefinedRelationException {
 
@@ -54,7 +52,7 @@ public class LogicTree {
             return new DummyNode();
         }
 
-        // Equals node case
+        // Create equals node
         if (info.size() > 1) {
             String t1Name = info.get(0).getChild(0).getText();
             String t2Name = info.get(2).getChild(0).getText();
@@ -63,16 +61,16 @@ public class LogicTree {
 
             if (struct.inConstScope(t1Name) != null) {
                 eq.leftTerm = struct.inConstScope(t1Name);
-            } else if (inSentenceScope(t1Name, sentenceScope) != null) {
-                eq.leftTerm = inSentenceScope(t1Name, sentenceScope);
+            } else if (inSentenceScope(t1Name) != null) {
+                eq.leftTerm = inSentenceScope(t1Name);
             } else {
                 throw new UnboundException(t1Name);
             }
 
             if (struct.inConstScope(t2Name) != null) {
                 eq.rightTerm = struct.inConstScope(t2Name);
-            } else if (inSentenceScope(t2Name, sentenceScope) != null) {
-                eq.rightTerm = inSentenceScope(t2Name, sentenceScope);
+            } else if (inSentenceScope(t2Name) != null) {
+                eq.rightTerm = inSentenceScope(t2Name);
             } else {
                 throw new UnboundException(t2Name);
             }
@@ -88,10 +86,10 @@ public class LogicTree {
             case "QuantifierContext":
                 relType = thisInfo.getChild(0).getText();
                 String varName = thisInfo.getChild(1).getText();
-                if (struct.inConstScope(varName) != null
-                        || inSentenceScope(varName, sentenceScope) != null) {
-                    throw new DuplicateDefinitionException();
-                }
+//                if (struct.inConstScope(varName) != null
+//                        || inSentenceScope(varName) != null) {
+//                    throw new DuplicateDefinitionException();
+//                }
                 Variable var = new Variable(varName);
                 sentenceScope.add(var);
 
@@ -130,15 +128,15 @@ public class LogicTree {
                             throw new UndefinedRelationException(relName);
                         } else {
                             String argName = thisInfo.getChild(1).getChild(1).getText();
-                            UnaryRel rel = new UnaryRel(relName);
+                            UnaryRel rel = new UnaryRel(relName, null);
                             if (struct.inConstScope(argName) != null) {
                                 rel.arg = struct.inConstScope(argName);
-                            } else if (inSentenceScope(argName, sentenceScope) != null) {
-                                rel.arg = inSentenceScope(argName, sentenceScope);
+                            } else if (inSentenceScope(argName) != null) {
+                                rel.arg = inSentenceScope(argName);
                             } else {
                                 throw new UnboundException(argName);
                             }
-                            return new UnaryRelNode(rel, rel.arg);
+                            return new UnaryRelNode(rel);
                         }
 
                         //Create Binary Relation Node
@@ -153,21 +151,21 @@ public class LogicTree {
 
                             if (struct.inConstScope(a1Name) != null) {
                                 rel.arg1 = struct.inConstScope(a1Name);
-                            } else if (inSentenceScope(a1Name, sentenceScope) != null) {
-                                rel.arg1 = inSentenceScope(a1Name, sentenceScope);
+                            } else if (inSentenceScope(a1Name) != null) {
+                                rel.arg1 = inSentenceScope(a1Name);
                             } else {
                                 throw new UnboundException(a1Name);
                             }
 
                             if (struct.inConstScope(a2Name) != null) {
                                 rel.arg2 = struct.inConstScope(a2Name);
-                            } else if (inSentenceScope(a2Name, sentenceScope) != null) {
-                                rel.arg2 = inSentenceScope(a2Name, sentenceScope);
+                            } else if (inSentenceScope(a2Name) != null) {
+                                rel.arg2 = inSentenceScope(a2Name);
                             } else {
                                 throw new UnboundException(a2Name);
                             }
 
-                            return new BinaryRelNode(rel, rel.arg1, rel.arg2);
+                            return new BinaryRelNode(rel);
                         }
                     }
                 }
@@ -188,25 +186,18 @@ public class LogicTree {
                         return new TruthNode();
                     case "⊥":
                         return new FalsityNode();
+                    default:
+                        // cannot reach here
+                        return null;
                 }
         }
-
-        //should not reach here
-        System.out.println(" Could not identify node ");
-        return null;
     }
 
     public boolean evaluate(Structure s) {
-        try {
-            return head.evaluate(s);
-        } catch (ThisUnboundException ex) {
-            // should not reach here
-            System.out.println("This exception should have been caught by now");
-            return false;
-        }
+        return head.evaluate(s);
     }
 
-    private Variable inSentenceScope(String varName, ArrayList<Variable> sentenceScope) {
+    private Variable inSentenceScope(String varName) {
         for (Variable v : sentenceScope) {
             if (v.name.equals(varName)) {
                 return v;

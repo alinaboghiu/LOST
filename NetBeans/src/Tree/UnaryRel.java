@@ -15,10 +15,6 @@ public class UnaryRel implements Serializable {
 
     public UnaryRel() {}
 
-    public UnaryRel(String name) {
-        this.name = name;
-    }
-
     public UnaryRel(String name, Term arg) {
         this.name = name;
         this.arg = arg;

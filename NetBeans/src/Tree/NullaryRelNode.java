@@ -10,7 +10,7 @@ public class NullaryRelNode extends LogicTreeNode {
 
     NullaryRel rel;
 
-    public NullaryRelNode(NullaryRel rel) {
+    NullaryRelNode(NullaryRel rel) {
         this.rel = rel;
     }
 
@@ -20,7 +20,9 @@ public class NullaryRelNode extends LogicTreeNode {
     }
 
     @Override
-    boolean evaluate(Structure s, Assignment a1, Assignment a2) {
+    boolean evaluate(Structure s, ArrayList<Assignment> assignemnts){
         return rel.value;
     }
+
+    
 }

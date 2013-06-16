@@ -9,7 +9,7 @@ public class UnboundException extends Exception {
     private final String message;
 
     public UnboundException(String termName) {
-        message = termName + " is not defined in the structure. "
+        message = termName + " UNBOUND. "
                 + "Add as constant or quantify and try again";
     }
 

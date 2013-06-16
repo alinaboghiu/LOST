@@ -1,5 +1,6 @@
 package Tree;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,53 +19,34 @@ public class EqualsNode extends LogicTreeNode {
     }
 
     @Override
-    boolean evaluate(Structure s) throws ThisUnboundException {
-        if (this.leftTerm instanceof Constant && this.rightTerm instanceof Constant) {
-            return leftTerm.equals(rightTerm);
-            // check if unbound
-        } else if (leftTerm instanceof Variable && rightTerm instanceof Variable) {
-            Variable var1 = (Variable) leftTerm;
-            Variable var2 = (Variable) rightTerm;
-            if (!(var1.existsBound || var1.forAllBound)) {
-                try {
-                    throw new UnboundException(var1.name);
-                } catch (UnboundException ex) {
-                    Logger.getLogger(EqualsNode.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (!(var2.existsBound || var2.forAllBound)) {
-                try {
-                    throw new UnboundException(var2.name);
-                } catch (UnboundException ex) {
-                    Logger.getLogger(EqualsNode.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        //this was not the right assignment, ignore and proceed
-        throw new ThisUnboundException();
-
+    boolean evaluate(Structure s){
+        return leftTerm.equals(rightTerm);
     }
 
     @Override
-    //TODO: assignment passing (see notes for Equals node: counting examples)
-    boolean evaluate(Structure s, Assignment a1, Assignment a2)
-            throws ThisUnboundException {
-
-        //if both terms are variables
-        if (leftTerm.equals(a1.boundVar) && rightTerm.equals(a2.boundVar)) {
-            return a1.assignedTerm.equals(a2.assignedTerm);
-
-            //if left is a variable and right is a constant
-        } else if (leftTerm.equals(a1.boundVar) && rightTerm instanceof Constant) {
-            return a1.assignedTerm.equals(rightTerm);
-
-            //if left is a constant and right is a variable
-        } else if (leftTerm instanceof Constant && rightTerm.equals(a2.boundVar)) {
-            return leftTerm.equals(a2.assignedTerm);
-
-            //if both terms are constants
-        } else {
-            return evaluate(s);
+    boolean evaluate(Structure s, ArrayList<Assignment> assignemnts) {
+        Term newLeftTerm = leftTerm;
+        Term newRightTerm = rightTerm;
+        
+        if (leftTerm instanceof Variable){
+            for (Assignment a : assignemnts) {
+                if (leftTerm.equals(a.boundVar)) {
+                    newLeftTerm = a.assignedTerm;
+                    break;
+                }
+            }
         }
+        
+        if (rightTerm instanceof Variable){
+            for (Assignment a : assignemnts) {
+                if (rightTerm.equals(a.boundVar)) {
+                    newRightTerm = a.assignedTerm;
+                    break;
+                }
+            }
+        }
+        
+        return newLeftTerm.equals(newRightTerm);
     }
+
 }

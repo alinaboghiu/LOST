@@ -14,8 +14,7 @@ public class BinaryRel implements Serializable {
     public Term arg2;
     public Color colour;
 
-    public BinaryRel() {
-    }
+    public BinaryRel() {}
 
     public BinaryRel(String name, Term agr1, Term arg2) {
         this.name = name;

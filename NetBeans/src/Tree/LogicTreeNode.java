@@ -1,5 +1,7 @@
 package Tree;
 
+import java.util.ArrayList;
+
 /*
  * @author alina
  * 
@@ -8,10 +10,9 @@ abstract class LogicTreeNode {
 
     LogicTreeNode next;
 
-    abstract boolean evaluate(Structure s)
-            throws ThisUnboundException;
-
-    //evaluates leaf nodes according to the assignments set by quantifiers
-    abstract boolean evaluate(Structure s, Assignment a1, Assignment a2)
-            throws ThisUnboundException;
+    abstract boolean evaluate(Structure s);
+    
+    abstract boolean evaluate(Structure s, 
+                               ArrayList<Assignment> assignemnts);
+    
 }

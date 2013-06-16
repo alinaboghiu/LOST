@@ -1,5 +1,7 @@
 package Tree;
 
+import java.util.ArrayList;
+
 /*
  * @author alina
  *
@@ -7,13 +9,13 @@ package Tree;
 public class TruthNode extends LogicTreeNode {
 
     @Override
-    boolean evaluate(Structure s) throws ThisUnboundException {
+    boolean evaluate(Structure s){
         return true;
     }
 
     @Override
-    boolean evaluate(Structure s, Assignment a1, Assignment a2)
-            throws ThisUnboundException {
+    boolean evaluate(Structure s, ArrayList<Assignment> assignemnts){
         return true;
     }
+
 }
