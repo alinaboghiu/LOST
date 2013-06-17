@@ -1,0 +1,16 @@
+2013-06-17 21:05:22.020 [main] INFO    com.objectaid.uml.model.manage.DiagramManager getFactories: com.objectaid.uml.diagramFactories[ucls]: com.objectaid.uml.cls.model.ClassDiagramFactory@6ff0b6b3
+2013-06-17 21:05:22.037 [main] INFO    com.objectaid.uml.model.manage.DiagramManager getFactories: com.objectaid.uml.diagramFactories[useq]: com.objectaid.uml.seq.model.SequenceDiagramFactory@4a862de1
+2013-06-17 21:05:22.124 [main] WARNING com.objectaid.uml.util.EclipseHelper loadClass: cannot find com.objectaid.uml.addon.doc.TextLink in [], no license for [com.objectaid.uml.addon]
+2013-06-17 21:05:22.125 [main] WARNING com.objectaid.uml.util.EclipseHelper loadClass: cannot find com.objectaid.uml.addon.doc.TextLinkEditPart in [], no license for [com.objectaid.uml.addon]
+2013-06-17 21:05:22.126 [main] WARNING com.objectaid.uml.util.EclipseHelper loadClass: cannot find com.objectaid.uml.addon.doc.PTextLink in [], no license for [com.objectaid.uml.addon]
+2013-06-17 21:05:22.127 [main] WARNING com.objectaid.uml.util.EclipseHelper loadClass: cannot find com.objectaid.uml.model.diagram.ConnectionEnd in [], no license for [com.objectaid.uml.addon]
+2013-06-17 21:05:22.128 [main] WARNING com.objectaid.uml.util.EclipseHelper loadClass: cannot find com.objectaid.uml.model.persistence.PersistedConnectionEnd in [], no license for [com.objectaid.uml.addon]
+2013-06-17 21:05:22.129 [main] WARNING com.objectaid.uml.util.EclipseHelper loadClass: cannot find com.objectaid.uml.addon.doc.TextNodeDefinition in [com.objectaid.uml.cls], no license for [com.objectaid.uml.addon]
+2013-06-17 21:05:22.296 [main] INFO    com.objectaid.uml.util.extend.ExecutableExtensionManager loadExtensions: found com.objectaid.uml.renderFormats=com.objectaid.uml.render.RasterRenderFormat
+2013-06-17 21:05:22.301 [main] INFO    com.objectaid.uml.util.extend.ExecutableExtensionManager loadExtensions: found com.objectaid.uml.renderFormats=com.objectaid.uml.render.RasterRenderFormat
+2013-06-17 21:05:22.302 [main] INFO    com.objectaid.uml.util.extend.ExecutableExtensionManager loadExtensions: found com.objectaid.uml.renderFormats=com.objectaid.uml.render.IndexedRasterRenderFormat
+2013-06-17 21:05:22.304 [main] WARNING com.objectaid.uml.util.EclipseHelper loadClass: cannot find com.objectaid.uml.addon.render.SVGRenderFormat in [], no license for [com.objectaid.uml.addon]
+2013-06-17 21:05:22.304 [main] INFO    com.objectaid.uml.util.extend.ExecutableExtensionManager loadExtensions: found com.objectaid.uml.renderFormats=com.objectaid.uml.addon.render.SVGRenderFormat but cannot load class
+2013-06-17 21:05:22.305 [main] WARNING com.objectaid.uml.util.EclipseHelper loadClass: cannot find com.objectaid.uml.addon.render.PDFRenderFormat in [], no license for [com.objectaid.uml.addon]
+2013-06-17 21:05:22.306 [main] INFO    com.objectaid.uml.util.extend.ExecutableExtensionManager loadExtensions: found com.objectaid.uml.renderFormats=com.objectaid.uml.addon.render.PDFRenderFormat but cannot load class
+2013-06-17 21:05:22.453 [main] WARNING com.objectaid.uml.util.EclipseHelper loadClass: cannot find com.objectaid.uml.addon.doc.TextDiagramEditPolicy in [], no license for [com.objectaid.uml.addon]

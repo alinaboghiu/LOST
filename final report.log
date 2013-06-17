@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.5.16)  16 JUN 2013 15:15
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.5.16)  17 JUN 2013 21:09
 entering extended mode
  %&-line parsing enabled.
 **"final report.tex"
@@ -90,17 +90,12 @@ LaTeX Font Info:    External font `cmex10' loaded for size
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 42--60
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 42--60
+Underfull \hbox (badness 10000) in paragraph at lines 42--57
 
  []
 
 [1]
-Underfull \hbox (badness 10000) in paragraph at lines 67--73
+Underfull \hbox (badness 10000) in paragraph at lines 64--71
 
  []
 
@@ -113,17 +108,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 67--73
  [3]
 Chapter 1.
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--89
+Underfull \hbox (badness 10000) in paragraph at lines 86--105
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 91--94
+Underfull \hbox (badness 10000) in paragraph at lines 107--136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 91--94
+Underfull \hbox (badness 10000) in paragraph at lines 107--136
 
  []
 
@@ -131,124 +126,114 @@ Underfull \hbox (badness 10000) in paragraph at lines 91--94
 
 ] [5]
 Chapter 2.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 115.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 165.
 
 (/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 115.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 165.
 
-Underfull \hbox (badness 10000) in paragraph at lines 124--142
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 124--142
+Underfull \hbox (badness 10000) in paragraph at lines 175--195
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 124--142
+Underfull \hbox (badness 10000) in paragraph at lines 175--195
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 175--195
 
  []
 
 [6
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 150--165
+Underfull \hbox (badness 10000) in paragraph at lines 205--226
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 150--165
+Underfull \hbox (badness 10000) in paragraph at lines 205--226
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 170--174
+Underfull \hbox (badness 10000) in paragraph at lines 236--266
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 170--174
+Underfull \hbox (badness 10000) in paragraph at lines 236--266
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 170--174
+Underfull \hbox (badness 10000) in paragraph at lines 236--266
 
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 176--178
+Underfull \hbox (badness 10000) in paragraph at lines 268--283
 
  []
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 180--183
+Underfull \hbox (badness 10000) in paragraph at lines 285--316
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 180--183
+Underfull \hbox (badness 10000) in paragraph at lines 285--316
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--190
+Underfull \hbox (badness 10000) in paragraph at lines 318--362
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--190
+Underfull \hbox (badness 10000) in paragraph at lines 318--362
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--190
+Underfull \hbox (badness 10000) in paragraph at lines 318--362
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--190
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 185--190
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 185--190
+Underfull \hbox (badness 10000) in paragraph at lines 318--362
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 192--194
+Underfull \hbox (badness 10000) in paragraph at lines 364--375
 
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 199--201
+Underfull \hbox (badness 10000) in paragraph at lines 386--397
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 199--201
+Underfull \hbox (badness 10000) in paragraph at lines 386--397
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 199--201
+Underfull \hbox (badness 10000) in paragraph at lines 386--397
 
  []
 
 [11]
 Chapter 3.
 
-Underfull \hbox (badness 10000) in paragraph at lines 216--218
+Underfull \hbox (badness 10000) in paragraph at lines 417--428
 
  []
 
@@ -261,360 +246,215 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [12
 
 ] [13 <./mortal.png>]
-Overfull \hbox (42.24687pt too wide) in paragraph at lines 248--248
- []\OT1/cmtt/m/n/10 abstract boolean evaluate(Signature s, Assignment a1, Assig
-nment a2);[] 
+Overfull \hbox (68.49664pt too wide) in paragraph at lines 504--504
+ []\OT1/cmtt/m/n/10 abstract boolean evaluate(Signature s, ArrayList<Assignment
+> assignments);[] 
+ []
+
+[14]
+Overfull \hbox (26.49701pt too wide) in paragraph at lines 534--534
+ []\OT1/cmtt/m/n/10 boolean evaluate(Structure s, ArrayList<Assignment> assigne
+mnts) {[] 
  []
 
 
-Overfull \hbox (1.08395pt too wide) in paragraph at lines 253--255
+Overfull \hbox (36.99692pt too wide) in paragraph at lines 534--534
+ []                \OT1/cmtt/m/n/10 UnaryRel r = new UnaryRel(rel.name, a.assig
+nedTerm);[] 
+ []
+
+
+Overfull \hbox (1.08395pt too wide) in paragraph at lines 536--539
 \OT1/cmr/m/n/10 This node has a NullaryRel field and al-ways re-turn's that re-
 la-tion's boolean
  []
 
-[14]
-Underfull \hbox (badness 10000) in paragraph at lines 268--271
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 268--271
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 273--276
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 273--276
-
- []
-
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 278--280
+Underfull \hbox (badness 10000) in paragraph at lines 580--598
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 580--598
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 600--617
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 600--617
 
  []
 
 [16]
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no ¬ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ƒ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no € in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no Š in font cmtt10!
-Missing character: There is no ¤ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no Š in font cmtt10!
-Missing character: There is no ¥ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ” in font cmtt10!
- <antlr.png, id=70, 312.16624pt x 477.785pt>
+Underfull \hbox (badness 10000) in paragraph at lines 619--628
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 642--650
+
+ []
+
+[17] <tokens.png, id=74, 276.03125pt x 276.03125pt>
+File: tokens.png Graphic file (type png)
+ <use tokens.png> [18 <./tokens.png>] <antlr.png, id=79, 312.16624pt x 477.785p
+t>
 File: antlr.png Graphic file (type png)
  <use antlr.png>
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 340--342
-
- []
-
-[17] [18 <./antlr.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 360--361
+Underfull \hbox (badness 10000) in paragraph at lines 686--705
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 360--361
+Underfull \hbox (badness 10000) in paragraph at lines 686--705
 
  []
 
-[19] [20]
+[19 <./antlr.png>] <workbench.png, id=84, 696.6025pt x 633.36626pt>
+File: workbench.png Graphic file (type png)
+
+<use workbench.png> [20 <./workbench.png>]
+<arrows.png, id=89, 362.35374pt x 170.6375pt>
+File: arrows.png Graphic file (type png)
+ <use arrows.png> [21 <./arrows.png>] <socratesSentences.png, id=94, 777.90625p
+t x 551.05875pt>
+File: socratesSentences.png Graphic file (type png)
+
+<use socratesSentences.png>
+Overfull \hbox (43.95216pt too wide) in paragraph at lines 803--804
+[][] 
+ []
+
+[22] [23 <./socratesSentences.png>] [24]
+<duplicate.png, id=106, 559.08875pt x 241.90375pt>
+File: duplicate.png Graphic file (type png)
+ <use duplicate.png>
+<unbound.png, id=107, 598.235pt x 223.83624pt>
+File: unbound.png Graphic file (type png)
+ <use unbound.png>
+Overfull \hbox (13.94377pt too wide) in paragraph at lines 886--887
+ [][] 
+ []
+
+[25 <./duplicate.png (PNG copy)> <./unbound.png (PNG copy)>] [26]
 Chapter 4.
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no € in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no € in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ƒ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no € in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no ¬ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ƒ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no € in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no ¬ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ƒ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no € in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no ¬ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no ¬ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no ¬ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ” in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no Š in font cmtt10!
-Missing character: There is no ¤ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ƒ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no € in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no ¬ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no € in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no € in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ¨ in font cmtt10!
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no ¬ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no § in font cmtt10!
-Missing character: There is no Â in font cmtt10!
-Missing character: There is no ¬ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no € in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no † in font cmtt10!
-Missing character: There is no ’ in font cmtt10!
-Missing character: There is no â in font cmtt10!
-Missing character: There is no ˆ in font cmtt10!
-Missing character: There is no ƒ in font cmtt10!
-[21
+[27
 
-]
-Chapter 5.
-[22
+] <testing.png, id=117, 392.46625pt x 243.91125pt>
+File: testing.png Graphic file (type png)
+ <use testing.png>
+[28] [29 <./testing.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 1058--1076
 
-]
+ []
 
-LaTeX Warning: Empty `thebibliography' environment on input line 441.
 
-[23
+Underfull \hbox (badness 10000) in paragraph at lines 1058--1076
+
+ []
+
+[30]
+LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1084.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1084--1087
+[]\OT1/cmr/m/it/10 Java[]Platform, Stan-dard Edi-tion 7, API Spec-i-fi-ca-tion 
+\OT1/cmr/m/n/10 Or-a-cle,
+ []
+
+
+Overfull \hbox (17.97235pt too wide) in paragraph at lines 1089--1092
+[]\OT1/cmr/m/it/10 The Java[]Tutorials\OT1/cmr/m/n/10 , Or-a-cle, http://docs.o
+racle.com/javase/tutorial/index.html 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1099--1102
+[]\OT1/cmr/m/n/10 Naranker Du-lay, \OT1/cmr/m/it/10 Com-pil-ers 221 lec-ture sl
+ides
+ []
+
+
+Underfull \hbox (badness 7047) in paragraph at lines 1114--1117
+[]\OT1/cmr/m/it/10 Tarski's World Sup-port and Doc-u-men-ta-tion\OT1/cmr/m/n/10
+ , Open-Proof Soft-ware,
+ []
+
+[31
 
 ]
 Appendix A.
-[24
+<gui.png, id=133, 797.98125pt x 545.03625pt>
+File: gui.png Graphic file (type png)
+ <use gui.png>
+Overfull \hbox (213.58307pt too wide) in paragraph at lines 1127--1128
+ [][] 
+ []
 
-]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[32
+
+] <treeBase.png, id=137, 387.4475pt x 977.6525pt>
+File: treeBase.png Graphic file (type png)
+ <use treeBase.png>
+
+LaTeX Warning: Float too large for page by 36.5pt on input line 1136.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<treeNodes.png, id=138, 574.145pt x 1058.95625pt>
+File: treeNodes.png Graphic file (type png)
+ <use treeNodes.png>
+
+LaTeX Warning: Float too large for page by 23.94444pt on input line 1142.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<SnS.png, id=139, 455.7025pt x 258.9675pt>
+File: SnS.png Graphic file (type png)
+ <use SnS.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[33 <./gui.png>] [34 <./treeBase.png (PNG copy)>] [35 <./treeNodes.png (PNG cop
+y)>] [36 <./SnS.png (PNG copy)>]
 Appendix B.
-(./grammar.tex [25
+(./grammar.tex [37
 
-]) [26]
-Appendix C.
-[27
+]) [38] (./final report.aux)
 
-] (./final report.aux) ) 
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 961 strings out of 493848
- 12023 string characters out of 1152823
- 68860 words of memory out of 3000000
- 4277 multiletter control sequences out of 15000+50000
+ 1026 strings out of 493848
+ 12987 string characters out of 1152823
+ 68884 words of memory out of 3000000
+ 4332 multiletter control sequences out of 15000+50000
  8435 words of font info for 30 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 25i,7n,19p,1268b,249s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
-m/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pf
-b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/sh
-are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-te
-xlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/
-type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/publi
-c/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/
-cm/cmti12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.p
-fb>
-Output written on "final report.pdf" (29 pages, 209789 bytes).
+ 25i,7n,19p,207b,339s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texlive/font
+s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/publ
+ic/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/
+cm/cmr7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/shar
+e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-tex
+live/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on "final report.pdf" (40 pages, 564578 bytes).
 PDF statistics:
- 136 PDF objects out of 1000 (max. 8388607)
+ 194 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
