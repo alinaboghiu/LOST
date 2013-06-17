@@ -93,6 +93,11 @@ public class Controller {
     }
 
     void updateSignaturePanel() {
+        constListModel.removeAllElements();
+        nullaryListModel.removeAllElements();
+        unaryListModel.removeAllElements();
+        binaryListModel.removeAllElements();
+        
         for (String constName : activeSig.constNames) {
             if (!constListModel.contains(constName)) {
                 constListModel.addElement(constName);
@@ -175,6 +180,7 @@ public class Controller {
         LogicTree sentence = new LogicTree(parseTree, activeStruct, activeSig);
         LogicTree.sentenceScope = new ArrayList<>();
         boolean outcome = sentence.evaluate(activeStruct);
+        
         
         activeSentences.add(sentence);
 
@@ -280,9 +286,10 @@ public class Controller {
         for (String e : elementsToDelete) {
             sentenceListModel.removeElement(e);
         }
+        t.name = "";
         activeStruct.terms.remove(t);
+        b.setText("");
         Main.structurePanel.remove(b);
-        b = null;
         refreshSenteceList();
     }
 

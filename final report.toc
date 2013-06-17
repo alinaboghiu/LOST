@@ -28,4 +28,8 @@
 \contentsline {section}{\numberline {4.2}Qualitative evaluation}{29}
 \contentsline {section}{\numberline {4.3}Conclusions and Future Work}{30}
 \contentsline {chapter}{\numberline {A}Code UML Diagram}{32}
+<<<<<<< Updated upstream
 \contentsline {chapter}{\numberline {B}Parser grammar}{37}
+=======
+\contentsline {chapter}{\numberline {B}Parser grammar}{36}
+>>>>>>> Stashed changes

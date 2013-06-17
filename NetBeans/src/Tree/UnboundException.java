@@ -9,7 +9,7 @@ public class UnboundException extends Exception {
     private final String message;
 
     public UnboundException(String termName) {
-        message = termName + " UNBOUND. "
+        message = termName + " is not bound by a quantifier. "
                 + "Add as constant or quantify and try again";
     }
 

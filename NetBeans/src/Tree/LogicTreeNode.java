@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author alina
  * 
  */
-abstract class LogicTreeNode {
+abstract class LogicTreeNode{
 
     LogicTreeNode next;
 

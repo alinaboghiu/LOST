@@ -1,11 +1,14 @@
 package GUI;
 
 import Tree.DuplicateDefinitionException;
+import Tree.Signature;
 import Tree.Structure;
+import Tree.Term;
 import Tree.UnboundException;
 import Tree.UndefinedRelationException;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -39,7 +42,7 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         fileChooser = new javax.swing.JFileChooser();
-        SignaturePanel = new javax.swing.JTabbedPane();
+        signaturePanel = new javax.swing.JTabbedPane();
         Constants = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         constantList = new javax.swing.JList();
@@ -109,15 +112,18 @@ public class Main extends javax.swing.JFrame {
         openStructure = new javax.swing.JMenuItem();
         generateStructure = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(660, 400));
 
-        SignaturePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        SignaturePanel.setFocusable(false);
-        SignaturePanel.setPreferredSize(new java.awt.Dimension(280, 500));
-        SignaturePanel.setRequestFocusEnabled(false);
+        signaturePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        signaturePanel.setFocusable(false);
+        signaturePanel.setPreferredSize(new java.awt.Dimension(280, 500));
+        signaturePanel.setRequestFocusEnabled(false);
 
         Constants.setBorder(null);
         Constants.setFocusable(false);
@@ -195,7 +201,7 @@ public class Main extends javax.swing.JFrame {
             ConstantsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConstantsLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(renameConstantField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,7 +217,7 @@ public class Main extends javax.swing.JFrame {
         newConstantField.setVisible(false);
         renameConstantField.setVisible(false);
 
-        SignaturePanel.addTab("Constants", Constants);
+        signaturePanel.addTab("Constants", Constants);
 
         Nullary.setBorder(null);
 
@@ -261,7 +267,7 @@ public class Main extends javax.swing.JFrame {
             NullaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NullaryLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(newNullaryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
@@ -273,7 +279,7 @@ public class Main extends javax.swing.JFrame {
 
         newNullaryField.setVisible(false);
 
-        SignaturePanel.addTab("Nullary Relations", Nullary);
+        signaturePanel.addTab("Nullary Relations", Nullary);
 
         jPanel4.setBorder(null);
         jPanel4.setPreferredSize(new java.awt.Dimension(239, 400));
@@ -333,7 +339,7 @@ public class Main extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(newBinRelField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -345,7 +351,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        SignaturePanel.addTab("Binary Relations", jPanel4);
+        signaturePanel.addTab("Binary Relations", jPanel4);
 
         jPanel2.setBorder(null);
 
@@ -397,7 +403,7 @@ public class Main extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(newUnaryRelField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -407,7 +413,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        SignaturePanel.addTab("Unary Relations", jPanel2);
+        signaturePanel.addTab("Unary Relations", jPanel2);
 
         structurePanel.setBackground(new java.awt.Color(102, 100, 100));
         structurePanel.setAutoscrolls(true);
@@ -755,9 +761,26 @@ public class Main extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Signature");
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("show");
+        jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jCheckBoxMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Sentence");
+
+        jMenuItem2.setText("Refresh");
+        jMenu3.add(jMenuItem2);
+
+        jMenuItem4.setText("Delete All");
+        jMenu3.add(jMenuItem4);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -775,21 +798,21 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(structurePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(SignaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(signaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(SignaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                .addComponent(signaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(structurePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                .addComponent(structurePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SentencePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -809,15 +832,12 @@ public class Main extends javax.swing.JFrame {
         try {
             controller.submitButtonAction();
         } catch (UndefinedRelationException ex) {
-            newSentenceField.setText("");
             controller.updateSignaturePanel();
             JOptionPane.showMessageDialog(this, ex.getMessage());
         } catch (UnboundException ex) {
-            newSentenceField.setText("");
             controller.updateSignaturePanel();
             JOptionPane.showMessageDialog(this, ex.getMessage());
         } catch (DuplicateDefinitionException ex) {
-            newSentenceField.setText("");
             controller.updateSignaturePanel();
             JOptionPane.showMessageDialog(this, ex.getMessage());
         } catch (Exception e) {
@@ -859,13 +879,10 @@ public class Main extends javax.swing.JFrame {
             try {
                 controller.submitButtonAction();
             } catch (UndefinedRelationException ex) {
-                newSentenceField.setText("");
                 JOptionPane.showMessageDialog(this, ex.getMessage());
             } catch (UnboundException ex) {
-                newSentenceField.setText("");
                 JOptionPane.showMessageDialog(this, ex.getMessage());
             } catch (DuplicateDefinitionException ex) {
-                newSentenceField.setText("");
                 JOptionPane.showMessageDialog(this, ex.getMessage());
             } catch (Exception e) {
                 System.out.println(e.getClass());
@@ -875,7 +892,14 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_newSentenceFieldKeyReleased
 
     private void generateStructureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateStructureActionPerformed
-        // TODO add your handling code here:
+        for (Term t : controller.activeStruct.terms){
+            t.name = "";
+        }
+        controller.activeStruct = new Structure();
+        structurePanel.removeAll();
+        controller.activeSig = new Signature(controller.activeStruct);
+        controller.updateStructurePanel();
+        controller.updateSignaturePanel();
     }//GEN-LAST:event_generateStructureActionPerformed
 
     private void openStructureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openStructureActionPerformed
@@ -930,7 +954,7 @@ public class Main extends javax.swing.JFrame {
     private void addConstButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addConstButtonActionPerformed
         newConstantField.setVisible(true);
         newConstantField.requestFocusInWindow();
-        SignaturePanel.repaint();
+        signaturePanel.repaint();
     }//GEN-LAST:event_addConstButtonActionPerformed
 
     private void showSentenceQuizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showSentenceQuizActionPerformed
@@ -944,7 +968,7 @@ public class Main extends javax.swing.JFrame {
     private void addUnaryRelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUnaryRelButtonActionPerformed
         newUnaryRelField.setVisible(true);
         newUnaryRelField.requestFocusInWindow();
-        SignaturePanel.repaint();
+        signaturePanel.repaint();
     }//GEN-LAST:event_addUnaryRelButtonActionPerformed
 
     private void newUnaryRelFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_newUnaryRelFieldKeyReleased
@@ -952,7 +976,7 @@ public class Main extends javax.swing.JFrame {
             controller.addUnRel(newUnaryRelField.getText());
             newUnaryRelField.setText("");
             newUnaryRelField.setVisible(false);
-            SignaturePanel.repaint();
+            signaturePanel.repaint();
         }
     }//GEN-LAST:event_newUnaryRelFieldKeyReleased
 
@@ -998,7 +1022,7 @@ public class Main extends javax.swing.JFrame {
     private void addBinRelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBinRelButtonActionPerformed
         newBinRelField.setVisible(true);
         newBinRelField.requestFocusInWindow();
-        SignaturePanel.repaint();
+        signaturePanel.repaint();
     }//GEN-LAST:event_addBinRelButtonActionPerformed
 
     private void newBinRelFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_newBinRelFieldKeyReleased
@@ -1049,7 +1073,7 @@ public class Main extends javax.swing.JFrame {
     private void addNullaryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNullaryButtonActionPerformed
         newNullaryField.setVisible(true);
         newNullaryField.requestFocusInWindow();
-        SignaturePanel.repaint();
+        signaturePanel.repaint();
     }//GEN-LAST:event_addNullaryButtonActionPerformed
 
     private void newNullaryFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_newNullaryFieldKeyReleased
@@ -1070,6 +1094,11 @@ public class Main extends javax.swing.JFrame {
             System.out.println("Nothing selected to remove");
         }
     }//GEN-LAST:event_removeNullaryButtonActionPerformed
+
+    private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
+        signaturePanel.setVisible(jCheckBoxMenuItem1.getState());
+        addButton.setVisible(jCheckBoxMenuItem1.getState());
+    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 
     private void insertButtonText(String name) {
         try {
@@ -1169,7 +1198,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel Constants;
     private javax.swing.JPanel Nullary;
     private javax.swing.JPanel SentencePanel;
-    private javax.swing.JTabbedPane SignaturePanel;
     private javax.swing.JButton addBinRelButton;
     private javax.swing.JButton addButton;
     private javax.swing.JButton addConstButton;
@@ -1190,6 +1218,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     protected static javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -1200,7 +1229,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
@@ -1234,6 +1265,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem showEvaluator;
     private javax.swing.JCheckBoxMenuItem showSentenceQuiz;
     private javax.swing.JCheckBoxMenuItem showStructureQuiz;
+    private javax.swing.JTabbedPane signaturePanel;
     public static javax.swing.JPanel structurePanel;
     private javax.swing.JLabel structureQuiz;
     private javax.swing.JButton submitButton;

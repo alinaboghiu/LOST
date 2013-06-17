@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
  * @author alina
  * 
  */
-public class LogicTree {
+public class LogicTree{
 
     LogicTreeNode head;
     public static ArrayList<Variable> sentenceScope = new ArrayList<>();
@@ -86,10 +86,10 @@ public class LogicTree {
             case "QuantifierContext":
                 relType = thisInfo.getChild(0).getText();
                 String varName = thisInfo.getChild(1).getText();
-//                if (struct.inConstScope(varName) != null
-//                        || inSentenceScope(varName) != null) {
-//                    throw new DuplicateDefinitionException();
-//                }
+                if (struct.inConstScope(varName) != null
+                        || inSentenceScope(varName) != null) {
+                    throw new DuplicateDefinitionException(varName);
+                }
                 Variable var = new Variable(varName);
                 sentenceScope.add(var);
 
@@ -205,4 +205,5 @@ public class LogicTree {
         }
         return null;
     }
+
 }
