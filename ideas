@@ -1,0 +1,21 @@
+The butterfly effect is true.
+If the butterfly effect is true then anything can change the world.
+If something can change the world then it will change the world.
+This project will change the world.
+If this project Will change the world my supervisor will be happy
+If my supervisor is happy, i'm happy.
+If the butterfly effect is true, at least two people are happy.
+
+
+
+butterfly_effect
+butterfly_effect -> vx can_change(x,World)
+vx (can_change(x, World) -> will_change(x, World))
+will_change(LOST, World)
+will_change(LOST, World) -> happy(supervisor)
+happy(supervisor) -> happy(Alina)
+butterfly_effect -> ExEy happy(x) n happy(y) n ¬x=y
+
+
+
+This project will change the world.

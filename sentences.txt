@@ -1,0 +1,6 @@
+∀x(R(Fred,x) →  ∀y(R(x,y) → P(y)))
+A ∨ ¬B ∧ C
+⊤
+Brian = Rian
+∃x(happy(x) → ¬A)
+∃x∃y (happy(x) ∧ happy(y) ∧ ¬x=y)

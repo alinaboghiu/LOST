@@ -1,5 +1,6 @@
 package Tree;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -8,12 +9,15 @@ import org.antlr.v4.runtime.tree.ParseTree;
  * @author alina
  * 
  */
-public class LogicTree{
+public class LogicTree implements Serializable{
 
     LogicTreeNode head;
-    public static ArrayList<Variable> sentenceScope = new ArrayList<>();
 
-    public LogicTree(ParseTree t, Structure struct, Signature sig)
+    //    ArrayList<Variable> sentenceScope = new ArrayList<>();
+    public LogicTree() {
+    }
+
+    public LogicTree(ParseTree t, Structure struct, Signature sig, ArrayList<Variable> sentenceScope)
             throws DuplicateDefinitionException,
             UnboundException,
             UndefinedRelationException {
@@ -31,20 +35,21 @@ public class LogicTree{
             }
         }
 
-        head = toLogicTreeNode(thisNodeInfo, struct, sig);
+        head = toLogicTreeNode(thisNodeInfo, struct, sig, sentenceScope);
 
         int size = nextNodeInfo.size();
-        if (size == 1) {
-            head.next = new LogicTree(nextNodeInfo.get(0), struct, sig).head;
-        } else if (size == 2) {
+        if (size == 2) {
             BinOpNode b = (BinOpNode) head;
-            b.left = new LogicTree(nextNodeInfo.get(0), struct, sig).head;
-            b.right = new LogicTree(nextNodeInfo.get(1), struct, sig).head;
+            b.right = new LogicTree(nextNodeInfo.get(1), struct, sig, sentenceScope).head;
+            b.left = new LogicTree(nextNodeInfo.get(0), struct, sig, sentenceScope).head;
+        } else if (size == 1) {
+            head.next = new LogicTree(nextNodeInfo.get(0), struct, sig, sentenceScope).head;
         }
+
     }
 
     private LogicTreeNode toLogicTreeNode(ArrayList<ParseTree> info,
-            Structure struct, Signature sig) throws DuplicateDefinitionException,
+            Structure struct, Signature sig, ArrayList<Variable> sentenceScope) throws DuplicateDefinitionException,
             UnboundException,
             UndefinedRelationException {
 
@@ -56,21 +61,20 @@ public class LogicTree{
         if (info.size() > 1) {
             String t1Name = info.get(0).getChild(0).getText();
             String t2Name = info.get(2).getChild(0).getText();
-            System.out.println(t1Name);
             EqualsNode eq = new EqualsNode(null, null);
 
             if (struct.inConstScope(t1Name) != null) {
                 eq.leftTerm = struct.inConstScope(t1Name);
-            } else if (inSentenceScope(t1Name) != null) {
-                eq.leftTerm = inSentenceScope(t1Name);
+            } else if (inSentenceScope(t1Name, sentenceScope) != null) {
+                eq.leftTerm = inSentenceScope(t1Name, sentenceScope);
             } else {
                 throw new UnboundException(t1Name);
             }
 
             if (struct.inConstScope(t2Name) != null) {
                 eq.rightTerm = struct.inConstScope(t2Name);
-            } else if (inSentenceScope(t2Name) != null) {
-                eq.rightTerm = inSentenceScope(t2Name);
+            } else if (inSentenceScope(t2Name, sentenceScope) != null) {
+                eq.rightTerm = inSentenceScope(t2Name, sentenceScope);
             } else {
                 throw new UnboundException(t2Name);
             }
@@ -86,16 +90,11 @@ public class LogicTree{
             case "QuantifierContext":
                 relType = thisInfo.getChild(0).getText();
                 String varName = thisInfo.getChild(1).getText();
-                if (struct.inConstScope(varName) != null
-                        || inSentenceScope(varName) != null) {
+                if (inSentenceScope(varName, sentenceScope) != null) {
                     throw new DuplicateDefinitionException(varName);
                 }
                 Variable var = new Variable(varName);
                 sentenceScope.add(var);
-
-                //∃ x (x = Fred)
-                //∃x∃y (happy(x) ∧ happy(y)) - false
-                //∃x∃y (⊤ ∧ happy(y)) - true (right)
 
                 switch (relType) {
                     case "∀":
@@ -131,8 +130,8 @@ public class LogicTree{
                             UnaryRel rel = new UnaryRel(relName, null);
                             if (struct.inConstScope(argName) != null) {
                                 rel.arg = struct.inConstScope(argName);
-                            } else if (inSentenceScope(argName) != null) {
-                                rel.arg = inSentenceScope(argName);
+                            } else if (inSentenceScope(argName, sentenceScope) != null) {
+                                rel.arg = inSentenceScope(argName, sentenceScope);
                             } else {
                                 throw new UnboundException(argName);
                             }
@@ -151,16 +150,16 @@ public class LogicTree{
 
                             if (struct.inConstScope(a1Name) != null) {
                                 rel.arg1 = struct.inConstScope(a1Name);
-                            } else if (inSentenceScope(a1Name) != null) {
-                                rel.arg1 = inSentenceScope(a1Name);
+                            } else if (inSentenceScope(a1Name, sentenceScope) != null) {
+                                rel.arg1 = inSentenceScope(a1Name, sentenceScope);
                             } else {
                                 throw new UnboundException(a1Name);
                             }
 
                             if (struct.inConstScope(a2Name) != null) {
                                 rel.arg2 = struct.inConstScope(a2Name);
-                            } else if (inSentenceScope(a2Name) != null) {
-                                rel.arg2 = inSentenceScope(a2Name);
+                            } else if (inSentenceScope(a2Name, sentenceScope) != null) {
+                                rel.arg2 = inSentenceScope(a2Name, sentenceScope);
                             } else {
                                 throw new UnboundException(a2Name);
                             }
@@ -197,7 +196,7 @@ public class LogicTree{
         return head.evaluate(s);
     }
 
-    private Variable inSentenceScope(String varName) {
+    private Variable inSentenceScope(String varName, ArrayList<Variable> sentenceScope) {
         for (Variable v : sentenceScope) {
             if (v.name.equals(varName)) {
                 return v;
@@ -205,5 +204,4 @@ public class LogicTree{
         }
         return null;
     }
-
 }

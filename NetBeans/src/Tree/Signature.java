@@ -1,17 +1,21 @@
 package Tree;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /*
  * @author alina
  *
  */
-public class Signature {
+public class Signature implements Serializable{
 
     public ArrayList<String> constNames = new ArrayList<>();
     public ArrayList<String> nullaryNames = new ArrayList<>();
     public ArrayList<String> unaryNames = new ArrayList<>();
     public ArrayList<String> binaryNames = new ArrayList<>();
+
+    public Signature() {
+    }
 
     public Signature(Structure activeStruct) {
         for (Term t : activeStruct.terms) {

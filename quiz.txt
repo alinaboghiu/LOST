@@ -1,0 +1,20 @@
+Write a sentence that will evaluate 
+to TRUE in this structure. Use ∀.
+Now modify the structure to make the
+same sentence FALSE.
+Write a sentence that will evaluate 
+to FALSE in this structure. Use ↔.
+Now modify the structure to make the
+same sentence TRUE.
+Write a TRUE sentence that can be
+made FALSE by deleting one object.
+Write a sentence that will evaluate
+to TRUE in the structure. Use →.
+Write a TRUE sentence that cannot be
+made FALSE by deleting any one object.
+Write a FALSE sentence that can be made
+TRUE by deleting one unary relation.
+Write a sentence that will evaluate
+to FALSE in the structure. Use ∃.
+Write a sentence that is TRUE for
+at least two objects i the structure.

@@ -13,23 +13,28 @@ import Tree.Term;
 import Tree.UnaryRel;
 import Tree.UnboundException;
 import Tree.UndefinedRelationException;
+import Tree.Variable;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -42,21 +47,51 @@ import org.antlr.v4.runtime.tree.ParseTree;
  *
  * @author alina
  */
-public class Controller {
+public class Controller implements Serializable{
 
-    static DefaultListModel sentenceListModel = new DefaultListModel();
-    static DefaultListModel constListModel = new DefaultListModel();
-    static DefaultListModel nullaryListModel = new DefaultListModel();
-    static DefaultListModel nullaryRelsDisplayModel = new DefaultListModel();
-    static DefaultListModel unaryListModel = new DefaultListModel();
-    static DefaultListModel binaryListModel = new DefaultListModel();
-    static Structure activeStruct = new Structure();
-    static Signature activeSig = new Signature(activeStruct);
-    static ArrayList<LogicTree> activeSentences = new ArrayList<>();
+    DefaultListModel sentenceListModel = new DefaultListModel();
+    DefaultListModel constListModel = new DefaultListModel();
+    DefaultListModel nullaryListModel = new DefaultListModel();
+    DefaultListModel nullaryRelsDisplayModel = new DefaultListModel();
+    DefaultListModel unaryListModel = new DefaultListModel();
+    DefaultListModel binaryListModel = new DefaultListModel();
+    Structure activeStruct = new Structure();
+    Signature activeSig = new Signature(activeStruct);
+    ArrayList<LogicTree> activeSentences = new ArrayList<>();
     ArrayList<Pair<BinaryRel, Arrow>> relationArrowLink = new ArrayList<>();
     ArrayList<Pair<Term, Blob>> termBlobLink = new ArrayList<>();
     Term argReadyForNewBinRel = null;
     String nameReadyForNewBinRel = null;
+    boolean allowRemove = false;
+    private final String quizFile = "/home/alina/LOST/quiz.txt";
+    ArrayList<String> line1 = new ArrayList<>();
+    ArrayList<String> line2 = new ArrayList<>();
+
+    public Controller() {
+    }
+
+    void setupQuiz() {
+        try {
+            InputStream fis = new FileInputStream(quizFile);
+            String l1, l2;
+            BufferedReader br = new BufferedReader(new InputStreamReader(fis, Charset.forName("UTF-8")));
+            while ((l1 = br.readLine()) != null
+                    && (l2 = br.readLine()) != null) {
+                line1.add(l1);
+                line2.add(l2);
+            }
+            br.close();
+            br = null;
+            fis = null;
+        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
+        }
+        Main.quizField1.setText(line1.get(0));
+        Main.quizField2.setText(line2.get(0));
+        line1.remove(0);
+        line2.remove(0);
+
+    }
 
     void updateStructurePanel() {
         for (Term t : activeStruct.terms) {
@@ -97,7 +132,7 @@ public class Controller {
         nullaryListModel.removeAllElements();
         unaryListModel.removeAllElements();
         binaryListModel.removeAllElements();
-        
+
         for (String constName : activeSig.constNames) {
             if (!constListModel.contains(constName)) {
                 constListModel.addElement(constName);
@@ -154,14 +189,14 @@ public class Controller {
             Border newBorder = new LineBorder(activeColour, 5);
             finalBorder = new CompoundBorder(b.getBorder(), newBorder);
         }
-        b.setBounds(b.getBounds().x, b.getBounds().y, b.getBounds().width - 7, b.getBounds().height - 7);
+        b.setBounds(b.getBounds().x, b.getBounds().y, b.getBounds().width - 9, b.getBounds().height - 7);
         return finalBorder;
     }
 
     private CompoundBorder addThisColourToBorder(Color c, Blob b) {
         Border newBorder = new LineBorder(c, 5);
         b.relColours.add(c);
-        b.setBounds(b.getBounds().x, b.getBounds().y, b.getBounds().width + 7, b.getBounds().height + 7);
+        b.setBounds(b.getBounds().x, b.getBounds().y, b.getBounds().width + 9, b.getBounds().height + 7);
         return new CompoundBorder(b.getBorder(), newBorder);
     }
 
@@ -169,26 +204,29 @@ public class Controller {
             throws DuplicateDefinitionException,
             UnboundException,
             UndefinedRelationException {
+        createSentence(Main.newSentenceField.getText());
+    }
+
+    void createSentence(String rawInput)
+            throws DuplicateDefinitionException,
+            UnboundException,
+            UndefinedRelationException {
         // parse input
-        ANTLRInputStream input = new ANTLRInputStream(Main.newSentenceField.getText());
+        ANTLRInputStream input = new ANTLRInputStream(rawInput);
         Lexer lexer = new folLexer(input);
         TokenStream tk = new CommonTokenStream(lexer);
         folParser p = new folParser(tk);
         ParseTree parseTree = p.condition().getChild(0);
-
-        // create sentence, evaluate and add to activeSentences list
-        LogicTree sentence = new LogicTree(parseTree, activeStruct, activeSig);
-        LogicTree.sentenceScope = new ArrayList<>();
+        LogicTree sentence = new LogicTree(parseTree, activeStruct, activeSig, new ArrayList<Variable>());
         boolean outcome = sentence.evaluate(activeStruct);
-        
-        
-        activeSentences.add(sentence);
+//        LogicTree.sentenceScope = new ArrayList<>();
 
         // add to list and scroll down
+        activeSentences.add(sentence);
         sentenceListModel.addElement(Main.newSentenceField.getText() + " - " + outcome);
-        int lastIndex = Main.jList1.getModel().getSize() - 1;
+        int lastIndex = Main.sentenceList.getModel().getSize() - 1;
         if (lastIndex >= 0) {
-            Main.jList1.ensureIndexIsVisible(lastIndex);
+            Main.sentenceList.ensureIndexIsVisible(lastIndex);
         }
         Main.newSentenceField.setText("");
     }
@@ -196,10 +234,14 @@ public class Controller {
     void refreshSenteceList() {
         for (int i = 0; i < sentenceListModel.size(); i++) {
             LogicTree s = activeSentences.get(i);
-            String news = (String) sentenceListModel.getElementAt(i);
-            LogicTree.sentenceScope = new ArrayList<>();
+            String news = sentenceListModel.getElementAt(i).toString();
+//            LogicTree.sentenceScope = new ArrayList<>();
             boolean outcome = s.evaluate(activeStruct);
-            news = news.substring(0, news.length() - 5) + " " + outcome;
+            if (news.contains("true")) {
+                news = news.substring(0, news.length() - 4) + outcome;
+            } else {
+                news = news.substring(0, news.length() - 5) + outcome;
+            }
             sentenceListModel.setElementAt(news, i);
         }
         Main.structurePanel.revalidate();
@@ -245,6 +287,7 @@ public class Controller {
     void removeBlob(int selectedIndex) {
         String blobName = constListModel.getElementAt(selectedIndex).toString();
         constListModel.removeElementAt(selectedIndex);
+        activeSig.constNames.remove(blobName);
         for (Component c : Main.structurePanel.getComponents()) {
             if (c.getClass().getSimpleName().equals("Blob")) {
                 Blob b = (Blob) c;
@@ -258,39 +301,44 @@ public class Controller {
     }
 
     void removeBlob(Blob b) {
-        constListModel.removeElement(b.getText());
-        Term t = findTerm(b);
-        //find and remove any linked binary relations
-        for (Pair ra : relationArrowLink) {
-            BinaryRel r = (BinaryRel) ra.a;
-            if (r.arg1.equals(t) || r.arg2.equals(t)) {
-                activeStruct.binaryRels.remove(r);
-                Main.structurePanel.remove((Arrow) ra.b);
+        if (activeStruct.terms.size() > 1 || allowRemove) {
+            constListModel.removeElement(b.getText());
+            activeSig.constNames.remove(b.getText());
+            Term t = findTerm(b);
+            //find and remove any linked binary relations
+            for (Pair ra : relationArrowLink) {
+                BinaryRel r = (BinaryRel) ra.a;
+                if (r.arg1.equals(t) || r.arg2.equals(t)) {
+                    activeStruct.binaryRels.remove(r);
+                    Main.structurePanel.remove((Arrow) ra.b);
+                }
             }
-        }
-        //find and remove any linked unary relations
-        for (UnaryRel u : activeStruct.unaryRels) {
-            if (u.arg.equals(t)) {
-                activeStruct.unaryRels.remove(u);
-                break;
+            //find and remove any linked unary relations 
+            for (UnaryRel u : activeStruct.unaryRels) {
+                if (u.arg.equals(t)) {
+                    activeStruct.unaryRels.remove(u);
+                    break;
+                }
             }
-        }
-        //remove the blob itself and the linked term
-        ArrayList<String> elementsToDelete = new ArrayList<>();
-        for (int index = 0; index < sentenceListModel.getSize(); index++) {
-            String s = sentenceListModel.getElementAt(index).toString();
-            if (s.contains(t.name)) {
-                elementsToDelete.add(s);
+            //remove the blob itself and the linked term
+            ArrayList<String> elementsToDelete = new ArrayList<>();
+            for (int index = 0; index < sentenceListModel.getSize(); index++) {
+                String s = sentenceListModel.getElementAt(index).toString();
+                if (s.contains(t.name)) {
+                    elementsToDelete.add(s);
+                }
             }
+            for (String e : elementsToDelete) {
+                sentenceListModel.removeElement(e);
+            }
+            t.name = String.valueOf(t.hashCode());
+            activeStruct.terms.remove(t);
+            b.setText("");
+            Main.structurePanel.remove(b);
+            refreshSenteceList();
+        } else {
+            JOptionPane.showMessageDialog(Main.structurePanel, "Sorry, this is the only object in the structure! Structures must be non empty.");
         }
-        for (String e : elementsToDelete) {
-            sentenceListModel.removeElement(e);
-        }
-        t.name = "";
-        activeStruct.terms.remove(t);
-        b.setText("");
-        Main.structurePanel.remove(b);
-        refreshSenteceList();
     }
 
     void renameBlob(int selectedIndex, String newName) {
@@ -301,12 +349,21 @@ public class Controller {
             if (c.getClass().getSimpleName().equals("Blob")) {
                 Blob b = (Blob) c;
                 if (b.getText().equals(oldName)) {
-                    b.setBounds(b.getBounds().x, b.getBounds().y, newName.length() * 10, b.getBounds().height);
                     b.setText(newName);
+                    b.setBounds(b.getBounds().x, b.getBounds().y, (newName.length() - oldName.length()) * 8 + b.getWidth(), b.getBounds().height);
                     Term t = findTerm(b);
                     t.name = newName;
                 }
             }
+        }
+        int i = 0;
+        while (i < sentenceListModel.size()) {
+            if (sentenceListModel.getElementAt(i).toString().contains(oldName)) {
+                sentenceListModel.removeElementAt(i);
+                activeSentences.remove(i);
+                i--;
+            }
+            i++;
         }
     }
 
@@ -462,13 +519,10 @@ public class Controller {
         addNullaryRel(r);
     }
 
-    
-    
-
     private void addNullaryRel(final NullaryRel r) {
         final Blob newNullaryBlob = new Blob();
         newNullaryBlob.setHorizontalAlignment(SwingConstants.LEFT);
-        newNullaryBlob.setBounds(10, (Main.structurePanel.getHeight()-10) - 20*activeSig.nullaryNames.size(), r.name.length() * 10, 30);
+        newNullaryBlob.setBounds(10, (Main.structurePanel.getHeight() - 10) - 20 * activeSig.nullaryNames.size(), r.name.length() * 10, 30);
         newNullaryBlob.setBackground(Main.structurePanel.getBackground());
         newNullaryBlob.setText(r.name);
         newNullaryBlob.setToolTipText(String.valueOf(r.value));
@@ -485,6 +539,7 @@ public class Controller {
                     newNullaryBlob.setForeground(Color.black);
                     newNullaryBlob.setToolTipText(String.valueOf(r.value));
                 }
+                refreshSenteceList();
             }
         });
         newNullaryBlob.menu.removeAll();
@@ -492,30 +547,77 @@ public class Controller {
         refreshSenteceList();
     }
 
-    void deleteNullaryRel(int selectedIndex) {
+    void removeNullaryRel(int selectedIndex) {
         String name = nullaryListModel.getElementAt(selectedIndex).toString();
         nullaryListModel.removeElement(name);
         activeSig.nullaryNames.remove(name);
-        for (NullaryRel r : activeStruct.nullaryRels){
-            if(r.name.equals(name)){
+        for (NullaryRel r : activeStruct.nullaryRels) {
+            if (r.name.equals(name)) {
                 activeStruct.nullaryRels.remove(r);
                 break;
             }
         }
-        
-        for (Component c : Main.structurePanel.getComponents()){
-            if (c instanceof JLabel){
-                JLabel l = (JLabel) c;
-                if (l.getText().equals(name)){
-                    Main.structurePanel.remove(c);
+
+        for (Component c : Main.structurePanel.getComponents()) {
+            if (c.getClass().getSimpleName().equals("Blob")) {
+                Blob b = (Blob) c;
+                if (b.getText().equals(name)) {
+                    Main.structurePanel.remove(b);
                     break;
                 }
             }
         }
+        int i = 0;
+        while (i < sentenceListModel.size()) {
+            if (sentenceListModel.getElementAt(i).toString().contains(name)) {
+                sentenceListModel.removeElementAt(i);
+                activeSentences.remove(i);
+                i--;
+            }
+            i++;
+        }
         refreshSenteceList();
     }
-    
-    protected void deleteNullaryRel(NullaryRel r) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    void loadSentences(String fileName) {
+        try {
+            InputStream fis = new FileInputStream(fileName);
+            String line;
+            BufferedReader br = new BufferedReader(new InputStreamReader(fis, Charset.forName("UTF-8")));
+            while ((line = br.readLine()) != null) {
+                try {
+                    Main.newSentenceField.setText(line);
+                    createSentence(line);
+                } catch (DuplicateDefinitionException ex) {
+                    continue;
+                } catch (UnboundException ex) {
+                    continue;
+                } catch (UndefinedRelationException ex) {
+                    continue;
+                }
+            }
+            br.close();
+            br = null;
+            fis = null;
+        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
+        }
+
+    }
+
+    void newStructure() {
+    }
+
+    void nextQuizQuestion() {
+        if (!line1.isEmpty()) {
+            Main.quizField1.setText(line1.get(0));
+            Main.quizField2.setText(line2.get(0));
+            line1.remove(0);
+            line2.remove(0);
+            Main.jProgressBar1.setValue(Main.jProgressBar1.getValue() + 10);
+        } else {
+            Main.jProgressBar1.setValue(100);
+            JOptionPane.showMessageDialog(Main.structurePanel, "Well done, You have reached the end of the quiz!");
+        }
     }
 }

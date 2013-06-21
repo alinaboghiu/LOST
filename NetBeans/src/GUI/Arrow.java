@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.event.ActionListener;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Line2D;
 import java.io.Serializable;
@@ -30,8 +31,7 @@ public class Arrow extends JLabel implements Serializable {
     DefaultListModel menuModel = new DefaultListModel();
     protected JList menu = new JList(menuModel);
 
-    Arrow() {
-    }
+    Arrow() {}
 
     public void addRelation(String name) {
         if (!menuModel.contains(name)) {
@@ -44,9 +44,6 @@ public class Arrow extends JLabel implements Serializable {
             }
             menuModel.add(i, name);
         }
-//        JMenuItem item = new JMenuItem(name);
-//        item.setForeground(colour);
-//        item.addAction 
     }
 
     public Arrow(Blob from, Blob to, String name) {
@@ -56,10 +53,6 @@ public class Arrow extends JLabel implements Serializable {
         menuModel.addElement(name);
 
         setBounds(5, 5, 5555, 5555);
-//        to.arrowsIn++;
-//        this.relColour = colour;
-//        addMouseListener(new PopupTriggerListener());
-//        menu.setOpaque(false);
     }
 
     @Override
@@ -67,13 +60,12 @@ public class Arrow extends JLabel implements Serializable {
         super.paintComponent(g);
         f = from.getLocation();
         t = to.getLocation();
-//        relations.getCellRenderer().getListCellRendererComponent(relations, ui, TOP, true, true);
         if (from.equals(to)) {
             drawArc((Graphics2D) g);
-            menu.setBounds(t.x + (int) arc.height, t.y + (int) arc.height, menuModel.get(0).toString().length() * 11 + 5, menuModel.size() * 20);
+            menu.setBounds(t.x + (int) arc.height+2, t.y + (int) arc.height, menuModel.get(0).toString().length() * 11 + 7, menuModel.size() * 20);
         } else {
             drawLine((Graphics2D) g);
-            menu.setBounds(((f.x + t.x) / 2 + t.x) / 2, ((f.y + t.y) / 2 + t.y) / 2 + 20, menuModel.get(0).toString().length() * 11, menuModel.size() * 20);
+            menu.setBounds(((f.x + t.x) / 2 + t.x) / 2 +3, ((f.y + t.y) / 2 + t.y) / 2 +3, menuModel.get(0).toString().length() * 11 + 7, menuModel.size() * 20);
         }
         Graphics2D arrowGraphics = (Graphics2D) g.create();
         drawArrowHeads(arrowGraphics);
@@ -100,7 +92,6 @@ public class Arrow extends JLabel implements Serializable {
     }
 
     private void drawArrowHeads(Graphics2D g2d) {
-//         d = new Distance(t, f);
         int[] xs = {0, 5, 5};
         int[] ys = {0, 5, -5};
         arrowHead = new Polygon(xs, ys, 3);
@@ -112,30 +103,6 @@ public class Arrow extends JLabel implements Serializable {
                     (int) ((t.y + f.y) / 2 + t.y) / 2);
         }
         g2d.rotate(Math.atan2(f.y - t.y, f.x - t.x));
-//        g2d.setColor(relColour);
         g2d.fill(arrowHead);
     }
-//    class PopupTriggerListener extends MouseAdapter {
-//
-//        @Override
-//        public void mousePressed(MouseEvent ev) {
-//            Point click = new Point(ev.getX(), ev.getY());
-//            Boolean b = line != null && line.getBounds().contains(click);
-//            Boolean c = arc != null && arc.getBounds().contains(click);
-//            if (ev.isPopupTrigger() && (b || c) ) {
-//                menu.show(ev.getComponent(), ev.getX(), ev.getY());
-//            }
-//        }
-//
-//        @Override
-//        public void mouseReleased(MouseEvent ev) {
-//            if (ev.isPopupTrigger()) {
-//                menu.show(ev.getComponent(), ev.getX(), ev.getY());
-//            }
-//        }
-//
-//        @Override
-//        public void mouseClicked(MouseEvent ev) {
-//        }
-//    }
 }

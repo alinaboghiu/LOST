@@ -59,10 +59,16 @@ public class Structure implements Serializable {
         private static final List<UnaryNames> VALUES =
                 Collections.unmodifiableList(Arrays.asList(values()));
         private static final int SIZE = VALUES.size();
+        private static boolean[] chosen = new boolean[SIZE];
         private static final Random RANDOM = new Random();
 
         public static UnaryNames randomName() {
-            return VALUES.get(RANDOM.nextInt(SIZE));
+            int index = RANDOM.nextInt(SIZE);
+            while (chosen[index]) {
+                index = RANDOM.nextInt(SIZE);
+            }
+            chosen[index] = true;
+            return VALUES.get(index);
         }
     }
 
@@ -73,16 +79,22 @@ public class Structure implements Serializable {
         private static final List<BinaryNames> VALUES =
                 Collections.unmodifiableList(Arrays.asList(values()));
         private static final int SIZE = VALUES.size();
+        private static boolean[] chosen = new boolean[SIZE];
         private static final Random RANDOM = new Random();
 
         public static BinaryNames randomName() {
-            return VALUES.get(RANDOM.nextInt(SIZE));
+            int index = RANDOM.nextInt(SIZE);
+            while (chosen[index]) {
+                index = RANDOM.nextInt(SIZE);
+            }
+            chosen[index] = true;
+            return VALUES.get(index);
         }
     }
 
     private void generate() {
 
-        int noOfTerms = (int) Math.round(Math.random() * 10) + 1;
+        int noOfTerms = (int) Math.round(Math.random() * 10) % 6 + 1;
         int noOfNullaryRels = (int) Math.round(Math.random() * 10) % 5;
         int noOfUnaryRels = (int) Math.round(Math.random() * 10) % 6;
         int noOfBinaryRels = (int) Math.round(Math.random() * 10) % 5;
@@ -96,20 +108,23 @@ public class Structure implements Serializable {
                 }
                 terms.add(t);
             } else {
-                terms.add(new Term("t" + terms.size() + 1));
+                Term t = new Term();
+                t.name = String.valueOf(t.hashCode());
+                terms.add(t);
             }
         }
 
         for (int i = 0; i < noOfNullaryRels; i++) {
             NullaryRel r = new NullaryRel(NullaryNames.randomName().name());
-            while(nullaryRels.contains(r)){
+            while (nullaryRels.contains(r)) {
                 r = new NullaryRel(NullaryNames.randomName().name());
             }
             nullaryRels.add(r);
         }
 
         for (int i = 0; i < noOfUnaryRels; i++) {
-            unaryRels.add(new UnaryRel(UnaryNames.randomName().name(), terms.get(i % terms.size())));
+            UnaryRel r = new UnaryRel(UnaryNames.randomName().name(), terms.get(i % terms.size()));
+            unaryRels.add(r);
         }
 
         for (int i = 0; i < noOfBinaryRels; i++) {

@@ -6,30 +6,27 @@
 \contentsline {section}{\numberline {2.1}First order predicate logic semantics}{6}
 \contentsline {section}{\numberline {2.2}Existing solutions}{7}
 \contentsline {subsection}{\numberline {2.2.1}LOST 2007}{8}
-\contentsline {subsection}{\numberline {2.2.2}Tarski's World}{8}
-\contentsline {section}{\numberline {2.3}Ideas shaping the final approach}{9}
-\contentsline {section}{\numberline {2.4}Software choices}{9}
-\contentsline {section}{\numberline {2.5}Design Patterns}{10}
-\contentsline {chapter}{\numberline {3}Approach and Implementation details}{12}
-\contentsline {section}{\numberline {3.1}Evaluator}{12}
-\contentsline {subsection}{\numberline {3.1.1}Logic Tree}{13}
-\contentsline {subsection}{\numberline {3.1.2}Signature}{16}
-\contentsline {subsection}{\numberline {3.1.3}Structure}{16}
-\contentsline {section}{\numberline {3.2}Parser}{17}
-\contentsline {section}{\numberline {3.3}Adaptor}{18}
-\contentsline {section}{\numberline {3.4}User Interface}{20}
-\contentsline {subsection}{\numberline {3.4.1}The View}{20}
-\contentsline {subsection}{\numberline {3.4.2}The Controller}{23}
-\contentsline {section}{\numberline {3.5}Exception handling and user guidance}{24}
-\contentsline {subsection}{\numberline {3.5.1}Menu bar}{24}
-\contentsline {subsection}{\numberline {3.5.2}Error messages}{25}
-\contentsline {chapter}{\numberline {4}Evaluation}{27}
-\contentsline {section}{\numberline {4.1}Quantitative evaluation}{27}
-\contentsline {section}{\numberline {4.2}Qualitative evaluation}{29}
-\contentsline {section}{\numberline {4.3}Conclusions and Future Work}{30}
-\contentsline {chapter}{\numberline {A}Code UML Diagram}{32}
-<<<<<<< Updated upstream
-\contentsline {chapter}{\numberline {B}Parser grammar}{37}
-=======
-\contentsline {chapter}{\numberline {B}Parser grammar}{36}
->>>>>>> Stashed changes
+\contentsline {subsection}{\numberline {2.2.2}Tarski's World}{9}
+\contentsline {section}{\numberline {2.3}Ideas shaping the final approach}{10}
+\contentsline {section}{\numberline {2.4}Software choices}{10}
+\contentsline {section}{\numberline {2.5}Design Patterns}{11}
+\contentsline {chapter}{\numberline {3}Approach and Implementation details}{13}
+\contentsline {section}{\numberline {3.1}Evaluator}{13}
+\contentsline {subsection}{\numberline {3.1.1}Logic Tree}{14}
+\contentsline {subsection}{\numberline {3.1.2}Signature}{17}
+\contentsline {subsection}{\numberline {3.1.3}Structure}{18}
+\contentsline {section}{\numberline {3.2}Parser}{19}
+\contentsline {section}{\numberline {3.3}Adaptor}{20}
+\contentsline {section}{\numberline {3.4}User Interface}{22}
+\contentsline {subsection}{\numberline {3.4.1}The View}{22}
+\contentsline {subsection}{\numberline {3.4.2}The Tutorial}{26}
+\contentsline {section}{\numberline {3.5}The Controller}{27}
+\contentsline {section}{\numberline {3.6}Exception handling and user guidance}{29}
+\contentsline {subsection}{\numberline {3.6.1}Menu bar}{29}
+\contentsline {subsection}{\numberline {3.6.2}Error messages}{30}
+\contentsline {chapter}{\numberline {4}Evaluation}{33}
+\contentsline {section}{\numberline {4.1}Quantitative evaluation}{33}
+\contentsline {section}{\numberline {4.2}Qualitative evaluation}{36}
+\contentsline {section}{\numberline {4.3}Conclusions and Future Work}{37}
+\contentsline {chapter}{\numberline {A}Parser grammar}{39}
+\contentsline {chapter}{\numberline {B}Further Code UML Diagrams\cite {uml}}{41}
