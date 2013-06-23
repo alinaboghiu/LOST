@@ -1,28 +1,19 @@
-LPAREN   : '('	;
-RPAREN   : ')'	; 
-AND      : '∧'	;
-OR       : '∨'	;
-NOT      : '¬'	;
-IMPLIES  : '→'	;
-EXISTS	 : '∃'	;
-FORALL	 : '∀'	;
-TRUTH    : '⊤'	;
-FALSITY  : '⊥'	;
-EQUALS	 : '='	;
-EQUIV	 : '↔'	;
-
-------------------------------------------------------------------
-happy(X)                  unboundException
+happy(X)
 happy(Fred)
 ∀x loves(x,Fred)
 ∀x∀y∀z∀w happy(x)
 ∃x loves(x, Fred)
 ∀x∀y loves(x,y)
-∀x∃y loves(x,y)
+∀x∃y loves(x,y) ∧ ¬x=y
 ∃x∀y loves(x,y)
-∃x∃y loves(x,y)
+∀x(R(Fred,x) →  ∀y(R(x,y) → P(y)))
+Brian = Rian
+∃x(happy(x) → ¬A)
+∃x∃y∀z∃w (happy(x) ∧ happy(y) ∧ ¬z=w)
+∃x∃y loves(x,y) 
 ¬happy(Fred)
 
+--------parsing-----------------------------------------------------------------
 // ∀x(R(Fred,x) →  ∀y(R(x,y) → P(y)))
 // ∃x∀y (A ∨ B) ∧ B ∧ ¬D ∧ E ∧ F ∨ G ∨ H
 // ∃x∀y (A ∨ B) ∧ B ∨ ¬D ∧ E ∧ F ∨ G ∨ H

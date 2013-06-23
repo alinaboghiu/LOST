@@ -1,0 +1,4 @@
+A signature is a collection of constants, and relation symbols and 
+function symbols with specified arities.
+
+Use the panel on the right to find out more about each inner panel.

@@ -18,7 +18,23 @@ happy(Fred)
 ∀x∀y∀z∀w happy(x)
 ∃x loves(x, Fred)
 ∀x∀y loves(x,y)
-
 ∀x∃y loves(x,y)
 ∃x∀y loves(x,y)
 ∃x∃y loves(x,y)
+¬happy(Fred)
+
+// ∀x(R(Fred,x) →  ∀y(R(x,y) → P(y)))
+// ∃x∀y (A ∨ B) ∧ B ∧ ¬D ∧ E ∧ F ∨ G ∨ H
+// ∃x∀y (A ∨ B) ∧ B ∨ ¬D ∧ E ∧ F ∨ G ∨ H
+// ∃x∀y (A ∨ B) → B ∨ (¬D) ∧ E ∧ (F ∨ G) ∨ H
+// A ∨ ¬B ∧ C
+// B ∨ (¬D) ∧ E ∨ H ∧ E
+// Loves(fred,wilma) ↔ is_in_the_air(love)
+// ⊤
+// brian = rian
+// ∃x∀ys(happy(x) → ¬A)
+// ∀x(Red(Fred,x) ∧ E ∧ E ∧ E ∨ H → E →  ∀y(R(x,y) → P(y)))
+// A → B → C → D → E (Assumes A → B → C means (A → B) → C)
+// A → B → C → (D → E)
+// P → (Q ∨ ¬R) ∧ ¬S
+// ∀x P(x) → ∃y Q(x,y)

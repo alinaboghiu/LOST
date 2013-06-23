@@ -1,0 +1,5 @@
+Let L be a signature. An L-structure (or sometimes, loosely, a model) 
+M is a thing that:
+  • identifies a non-empty collection (set) of objects that M ‘knows
+    about’. It’s called the domain or universe of M, written dom(M).
+  • specifies what the symbols of L mean in terms of these objects.
