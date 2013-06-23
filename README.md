@@ -7,6 +7,6 @@ semantics.
 
 =============================================================
 
-To run from terminal cd into the LOST folder and run:
+To run from terminal cd into /LOST/NetBeans and run:
 
-  java -jar "/NetBeans/dist/LOST.jar"
+  java -jar "dist/LOST.jar"

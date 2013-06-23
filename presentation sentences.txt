@@ -1,0 +1,4 @@
+Monday ∧ sunny
+Monday ↔ ∀x sad(x)
+∃x∃y (student(x) ∧ student(y) ∧ uses(x,LOST) ∧ uses(y,LOST) ∧ ¬x=y)
+∀x (uses(x,LOST) → happy(x))

@@ -63,7 +63,6 @@ public class Controller implements Serializable{
     Term argReadyForNewBinRel = null;
     String nameReadyForNewBinRel = null;
     boolean allowRemove = false;
-    private final String quizFile = "/home/alina/LOST/quiz.txt";
     ArrayList<String> line1 = new ArrayList<>();
     ArrayList<String> line2 = new ArrayList<>();
 
@@ -72,6 +71,7 @@ public class Controller implements Serializable{
 
     void setupQuiz() {
         try {
+            String quizFile = System.getProperty("user.dir") + "/src/Help Files/quiz.txt";
             InputStream fis = new FileInputStream(quizFile);
             String l1, l2;
             BufferedReader br = new BufferedReader(new InputStreamReader(fis, Charset.forName("UTF-8")));
@@ -175,6 +175,7 @@ public class Controller implements Serializable{
                     b.setBorder(addThisColourToBorder(c, b));
                 }
                 refreshSenteceList();
+                Main.modified = true;
             }
         });
         b.menu.add(item);

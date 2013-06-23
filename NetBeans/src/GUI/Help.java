@@ -112,11 +112,11 @@ public class Help extends javax.swing.JDialog {
             switch (node) {
                 case "Signature":
                     System.out.println("insignature");
-                    Reader i1 = new FileReader(new File("/home/alina/LOST/signatureHelp.txt"));
+                    Reader i1 = new FileReader(new File(System.getProperty("user.dir") + "/src/Help Files/signatureHelp.txt"));
                     jTextArea1.read(i1, "help file");
                 case "Constants":
                     System.out.println("in constants");
-                    Reader i2 = new FileReader(new File("/home/alina/LOST/noHelp.txt"));
+                    Reader i2 = new FileReader(new File(System.getProperty("user.dir") + "/src/Help Files/noHelp.txt"));
                     jTextArea1.read(i2, "help file");
 //                default:
             }

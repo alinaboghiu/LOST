@@ -29,7 +29,7 @@ public class Main extends javax.swing.JFrame implements Serializable {
 
     static Controller controller = new Controller();
     private boolean toldBefore = false;
-    private boolean modified = false;
+    boolean modified = false;
 
     public Main() {
         initComponents();
